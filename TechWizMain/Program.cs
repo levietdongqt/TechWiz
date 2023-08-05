@@ -7,7 +7,13 @@ using TestEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Mail Service
+var services = builder.Services;
+var configuration = builder.Configuration;
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 var mailSettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailSettings);
 builder.Services.AddSingleton<IEmailSender, SendMailService>();
