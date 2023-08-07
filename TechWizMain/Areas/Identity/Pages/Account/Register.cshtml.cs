@@ -80,8 +80,12 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
+
+            [Required]
             [Display(Name = "Phone Number")]
-            public int PhoneNumber { get; set; }
+            public string PhoneNumber { get; set; }
 
             [Required]
             [Display(Name = "Date of Birth")]
@@ -130,6 +134,12 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.UserName = Input.UserName;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.DateOfBirth = Input.DateOfBirth;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
