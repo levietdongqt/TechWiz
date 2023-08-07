@@ -8,10 +8,30 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" onclick="return ageCalculator()">
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Input.FirstName" class="form-control" aria-required="true" />
+                <label asp-for="Input.FirstName"></label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.LastName" class="form-control" aria-required="true" />
+                <label asp-for="Input.LastName"></label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" />
+                <label asp-for="Input.PhoneNumber"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.DateOfBirth" class="form-control" aria-required="true" id="DoB"/>
+                <label asp-for="Input.DateOfBirth"></label>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger" id="DoBErr"></span>
+            </div>
             <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>
@@ -62,6 +82,31 @@
     </div>
 </div>
 
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function ageCalculator() {
+            var dobInput = document.getElementById("DoB").value;
+            var dob = new Date(dobInput);
+
+            //calculate month difference from current date in time
+            var month_diff = Date.now() - dob.getTime();
+
+            //convert the calculated difference in date format
+            var age_dt = new Date(month_diff);
+
+            //extract year from date
+            var year = age_dt.getUTCFullYear();
+
+            //now calculate the age of the user
+            var age = Math.abs(year - 1970);
+
+            if (age <= 18) {
+                return document.getElementById("DoBErr").innerHTML = "Age must not be below 18 years old";
+            } else if (age >= 80) {
+                return document.getElementById("DoBErr").innerHTML = "Age must not be greater than 80 years old";
+            }
+        }
+    </script>
 }
