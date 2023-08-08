@@ -10,12 +10,8 @@ namespace TechWizMain.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the UserManager class
 public class UserManager : IdentityUser
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-
-    public string UserName { get; set; }
-
-    public string PhoneNumber { get; set; }
-    public DateTime DateOfBirth { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string? LastName { get; set; }
+    public DateTime? DateOfBirth { get; set; }
 }
 
