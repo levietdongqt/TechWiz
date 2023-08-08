@@ -28,7 +28,7 @@
                 <span asp-validation-for="Input.UserName" class="text-danger" id="userErr"></span>
             </div>
             <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" id="phone"/>
+                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" id="phone" onblur="return validatePhone()"/>
                 <label asp-for="Input.PhoneNumber"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger" id="phoneErr"></span>
             </div>
@@ -93,7 +93,6 @@
     <script>
         function validateInput() {
             const userNameval = document.getElementById("userName").value;
-            const phoneVal = document.getElementById("phone").value;
             var dobInput = document.getElementById("DoB").value.trim();
             var dob = new Date(dobInput);
 
@@ -122,11 +121,14 @@
                 document.getElementById("DoBErr").innerHTML = "Age must not be greater than 80 years old";
                 valid = false;
             }
+            return valid;
+        }
 
-            if (!isValidNumber(phoneVal)){
+        function validatePhone() {
+            const phoneVal = document.getElementById("phone").value;
+            if (!isValidNumber(phoneVal)) {
                 document.getElementById("phoneErr").innerHTML = "Please enter valid phone number which is max 13 and min 10 digits include 0 at start";
             }
-            return valid;
         }
         
         function validateUsername(username) {

@@ -141,7 +141,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
                 user.DateOfBirth = Input.DateOfBirth;
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
