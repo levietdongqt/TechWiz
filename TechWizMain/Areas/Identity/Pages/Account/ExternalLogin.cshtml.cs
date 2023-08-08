@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TechWizMain.Areas.Identity.Data;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using Org.BouncyCastle.Crypto.Macs;
+using NuGet.Protocol;
 
 namespace TechWizMain.Areas.Identity.Pages.Account
 {
@@ -86,7 +88,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
-            public string UserName { get; set; }
+            public string FullName { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -135,11 +137,12 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                     Input = new InputModel
                     {
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email),
-                        UserName = info.Principal.FindFirstValue(ClaimTypes.Name)
+                        FullName = info.Principal.FindFirstValue(ClaimTypes.Name)
                         
                     };
                 }
                 var user = CreateUser();
+                user.FirstName = Input.FullName;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 await _userManager.CreateAsync(user);
@@ -157,7 +160,8 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    return Redirect("Identity/Account/Login");
+                    ErrorMessage = "This service has the same email as the other service that you have logged in before.\n Please login with the other service!";
+                    return Redirect("/Identity/Account/Login");
                 }
                 
             }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TechWizMain.Areas.Identity.Data;
+using System.Security.Claims;
 
 namespace TechWizMain.Areas.Identity.Pages.Account
 {
