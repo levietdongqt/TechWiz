@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Data;
 using TestEmail.Services;
@@ -11,8 +14,17 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
+    googleOptions.ClientId = googleAuthNSection["ClientId"];
+    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+}).AddFacebook(facebookOptions =>
+{
+    IConfigurationSection facebookAuthNSection = configuration.GetSection("Authentication:Facebook");
+    facebookOptions.AppId = facebookAuthNSection["AppId"];
+    facebookOptions.AppSecret = facebookAuthNSection["AppSecret"];
+    facebookOptions.CallbackPath = "/signin-facebook";
+    //facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+    //facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
 });
 var mailSettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailSettings);
