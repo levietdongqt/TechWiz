@@ -137,7 +137,6 @@ namespace TechWizMain.Areas.Identity.Pages.Account
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
-                user.UserName = Input.UserName;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.DateOfBirth = Input.DateOfBirth;
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Configuration;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Data;
@@ -26,6 +27,8 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     //facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
     //facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
 });
+
+//Mail Config
 var mailSettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailSettings);
 builder.Services.AddSingleton<IEmailSender, SendMailService>();
@@ -33,6 +36,8 @@ builder.Services.AddSingleton<IEmailSender, SendMailService>();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+
 builder.Services.AddDbContext<UserManagerContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -43,7 +48,19 @@ builder.Services.AddIdentity<UserManager, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
 }).AddDefaultTokenProviders().AddEntityFrameworkStores<UserManagerContext>().AddDefaultUI();
+builder.Services.Configure<IdentityOptions>(options => {
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
+    options.Lockout.MaxFailedAccessAttempts = 3; // Thất bại 5 lầ thì khóa
+    options.User.RequireUniqueEmail = true;  // Email là duy nhất
+
+    // Cấu hình đăng nhập.
+    options.SignIn.RequireConfirmedEmail = true; // Cấu hình xác thực địa chỉ email (email phải tồn tại)
+});
+
+
 builder.Services.AddControllersWithViews();
+
+
 
 var app = builder.Build();
 
