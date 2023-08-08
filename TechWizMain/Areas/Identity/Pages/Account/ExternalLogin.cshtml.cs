@@ -141,17 +141,23 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                         
                     };
                 }
-                var user = CreateUser();
-                user.FirstName = Input.FullName;
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                await _userManager.CreateAsync(user);
+                var lastUser = await _userManager.FindByEmailAsync(Input.Email);
+                if (lastUser == null)
+                {
+                    var user = CreateUser();
+                    user.FirstName = Input.FullName;
+                    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                    await _userManager.CreateAsync(user);
+                    await _userManager.AddLoginAsync(user, info);   //dòng này add vô UsersLogin
 
-                await _userManager.AddLoginAsync(user, info);
-
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                await _userManager.ConfirmEmailAsync(user, code);
-
+                    var code1 = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    await _userManager.ConfirmEmailAsync(user, code1);
+                }
+                else
+                {
+                    await _userManager.AddLoginAsync(lastUser, info);   //dòng này add vô UsersLogin
+                }
                 var result2 = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
                 if (result2.Succeeded)
                 {
@@ -166,65 +172,6 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 
             }
         }
-
-        //public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
-        //{
-        //    returnUrl = returnUrl ?? Url.Content("~/");
-        //    // Get the information about the user from the external login provider
-        //    var info = await _signInManager.GetExternalLoginInfoAsync();
-        //    if (info == null)
-        //    {
-        //        ErrorMessage = "Error loading external login information during confirmation.";
-        //        return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = CreateUser();
-
-        //        await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
-        //        await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-        //        var result = await _userManager.CreateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-        //            result = await _userManager.AddLoginAsync(user, info);
-        //            if (result.Succeeded)
-        //            {
-        //                _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-
-        //                var userId = await _userManager.GetUserIdAsync(user);
-        //                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        //                var callbackUrl = Url.Page(
-        //                    "/Account/ConfirmEmail",
-        //                    pageHandler: null,
-        //                    values: new { area = "Identity", userId = userId, code = code },
-        //                    protocol: Request.Scheme);
-
-        //                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-        //                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-        //                // If account confirmation is required, we need to show the link if we don't have a real email sender
-        //                if (_userManager.Options.SignIn.RequireConfirmedAccount)
-        //                {
-        //                    return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
-        //                }
-
-        //                await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-        //                return LocalRedirect(returnUrl);
-        //            }
-        //        }
-        //        foreach (var error in result.Errors)
-        //        {
-        //            ModelState.AddModelError(string.Empty, error.Description);
-        //        }
-        //    }
-
-        //    ProviderDisplayName = info.ProviderDisplayName;
-        //    ReturnUrl = returnUrl;
-        //    return Page();
-        //}
-
         private UserManager CreateUser()
         {
             try
@@ -248,4 +195,63 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             return (IUserEmailStore<UserManager>)_userStore;
         }
     }
+    //public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
+    //{
+    //    returnUrl = returnUrl ?? Url.Content("~/");
+    //    // Get the information about the user from the external login provider
+    //    var info = await _signInManager.GetExternalLoginInfoAsync();
+    //    if (info == null)
+    //    {
+    //        ErrorMessage = "Error loading external login information during confirmation.";
+    //        return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+    //    }
+
+    //    if (ModelState.IsValid)
+    //    {
+    //        var user = CreateUser();
+
+    //        await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+    //        await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+    //        var result = await _userManager.CreateAsync(user);
+    //        if (result.Succeeded)
+    //        {
+    //            result = await _userManager.AddLoginAsync(user, info);
+    //            if (result.Succeeded)
+    //            {
+    //                _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+
+    //                var userId = await _userManager.GetUserIdAsync(user);
+    //                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+    //                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+    //                var callbackUrl = Url.Page(
+    //                    "/Account/ConfirmEmail",
+    //                    pageHandler: null,
+    //                    values: new { area = "Identity", userId = userId, code = code },
+    //                    protocol: Request.Scheme);
+
+    //                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+    //                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+    //                // If account confirmation is required, we need to show the link if we don't have a real email sender
+    //                if (_userManager.Options.SignIn.RequireConfirmedAccount)
+    //                {
+    //                    return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+    //                }
+
+    //                await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+    //                return LocalRedirect(returnUrl);
+    //            }
+    //        }
+    //        foreach (var error in result.Errors)
+    //        {
+    //            ModelState.AddModelError(string.Empty, error.Description);
+    //        }
+    //    }
+
+    //    ProviderDisplayName = info.ProviderDisplayName;
+    //    ReturnUrl = returnUrl;
+    //    return Page();
+    //}
+
+
 }
