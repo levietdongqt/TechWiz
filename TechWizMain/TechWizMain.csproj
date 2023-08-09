@@ -25,4 +25,17 @@
 
 
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfont3e6e.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfont3e6e.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfont3e6e.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfont3e6e.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfont3e6e.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\fontawesome-webfontd41d.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\plaza-icon56cc.eot" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\plaza-icon56cc.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\plaza-icon56cc.ttf" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\fonts\plaza-icon56cc.woff" />
+  </ItemGroup>
+
 </Project>
