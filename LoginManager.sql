@@ -182,8 +182,7 @@ GO
 CREATE TABLE [dbo].[Users](
 	[Id] [nvarchar](450) NOT NULL,
 	[UserName] [nvarchar](256) NULL,
-	[FirstName] [nvarchar] (256) NULL,
-	[LastName] [nvarchar] (256) NULL,
+	[FullName] [nvarchar] (256) NULL,
 	[DateOfBirth] datetime null,
 	[NormalizedUserName] [nvarchar](256) NULL,
 	[Email] [nvarchar](256) NULL,
@@ -319,8 +318,74 @@ GO
 ALTER TABLE [dbo].[UserTokens] CHECK CONSTRAINT [FK_UserTokens_Users_UserId]
 GO
 
+
+--------------------------------------------------------------
+
+CREATE TABLE Category(
+	[Id] int identity primary key,
+	[Name] varchar(255) not null,
+)
+
+CREATE TABLE Discount(
+	[Id] int identity primary key,
+	[Name] varchar(255) not null,
+	[Percent] float not null,
+)
+
+CREATE TABLE Product(
+	[Id] int identity primary key,
+	[Name] nvarchar(255) not null,
+	[Description] nvarchar(255) not null,
+	[Price] decimal(10,2),
+	[BasePrice] decimal(10,2),
+	[ImageURL] nvarchar(255) not null,
+	[TypeProduct] varchar(255) check (TypeProduct in ('Plant','Accessories')),
+	[DiscountId] int foreign key references Discount(Id),
+)
+
+CREATE TABLE CategoryProduct(
+	[Id] int identity primary key,
+	[CategoryId] int foreign key references Category(Id),
+	[ProductId] int foreign key references Product(Id),
+)
+
+
+CREATE TABLE Review(
+	[Id] int identity primary key,
+	[Content] nvarchar(255),
+	[Rating] int check (Rating in (0,1,2,3,4,5)),
+	[ReviewDate] datetime not null,
+	[ProductId] int foreign key references Product(id),
+	[UserId] nvarchar(450) foreign key references Users(Id)
+)
+
+CREATE TABLE Feedback (
+  [Id] int PRIMARY KEY identity,
+  Content nvarchar(255) NOT NULL,
+  FeedbackDate datetime NOT NULL,
+  [UserId] nvarchar(450) foreign key references Users(Id) null
+);
+
+CREATE TABLE Bill (
+  Id int PRIMARY KEY identity,
+  OrderDate datetime NOT NULL,
+  Total decimal NOT NULL,
+  [Status] varchar check (Status in ('Cancel','Pending','Success')),
+  DeliveryPhone varchar(13) NOT NULL,
+  DeliveryAddress varchar(255) Not null,
+  [UserId] nvarchar(450) foreign key references Users(Id)
+);
+
+CREATE TABLE ProductBill (
+  [Id] int PRIMARY KEY identity,
+  [Quantity] int not null,
+  [SalePrice] decimal(10,2) not null,
+  [ProductId] int foreign key references Product(Id),
+  [BillId] int foreign key references Bill(Id)
+);
+
 insert into Roles(ID,Name,NormalizedName) values ('R01','admin','admin'),('R02','customer','CUSTOMER');
-insert into Users(ID,UserName,NormalizedUserName,FirstName,EmailConfirmed,PasswordHash,SecurityStamp,
+insert into Users(ID,UserName,NormalizedUserName,FullName,EmailConfirmed,PasswordHash,SecurityStamp,
 ConcurrencyStamp,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnabled,AccessFailedCount) 
 values ('a60e78a0-c268-43fc-921a-703e2f49b2dc','admin','ADMIN','Boss',1,
 'AQAAAAEAACcQAAAAEDa4YtfB1rQQoAwzXUQXk4hKBWACb0NJS1ccNPDTtOtzH4DjUG2ZUTlZS1pXGV22HA==',
@@ -335,6 +400,8 @@ insert into UserRoles
 values ('a60e78a0-c268-43fc-921a-703e2f49b2dc','R01'),('96ad3edd-6c77-4cc0-98e9-6112d50565c0','R01')
 go
 
+
+
 CREATE TRIGGER insertUserRoles
 ON Users
 AFTER INSERT
@@ -344,3 +411,7 @@ BEGIN
     SELECT i.id,'R02'
     FROM inserted i;
 END;
+
+
+
+

@@ -23,7 +23,7 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     IConfigurationSection facebookAuthNSection = configuration.GetSection("Authentication:Facebook");
     facebookOptions.AppId = facebookAuthNSection["AppId"];
     facebookOptions.AppSecret = facebookAuthNSection["AppSecret"];
-    facebookOptions.CallbackPath = "/signin-facebook";
+    //facebookOptions.CallbackPath = "/signin-facebook";
     //facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
     //facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
 });

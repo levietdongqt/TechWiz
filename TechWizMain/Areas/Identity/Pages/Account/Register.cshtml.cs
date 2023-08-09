@@ -172,6 +172,10 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
+                    if (error.Code.Equals("DuplicateUserName"))
+                    {
+                        Console.WriteLine("Vo ne");
+                    }
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
