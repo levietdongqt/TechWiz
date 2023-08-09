@@ -12,11 +12,11 @@
 /*---plaza icone css here---*/
 @font-face {
   font-family: 'plaza-icon';
-  src:  url('../fonts/plaza-icon56cc.eot?leeyft');
-  src:  url('../fonts/plaza-icon56cc.eot?leeyft#iefix') format('embedded-opentype'),
-    url('../fonts/plaza-icon56cc.ttf?leeyft') format('truetype'),
-    url('../fonts/plaza-icon56cc.woff?leeyft') format('woff'),
-    url('../fonts/plaza-icon56cc.svg?leeyft#plaza-icon') format('svg');
+  src:  url('./images/fonts/plaza-icon56cc.eot?leeyft');
+  src:  url('./images/fonts/plaza-icon56cc.eot?leeyft#iefix') format('embedded-opentype'),
+    url('./images/fonts/plaza-icon56cc.ttf?leeyft') format('truetype'),
+    url('./images/fonts/plaza-icon56cc.woff?leeyft') format('woff'),
+    url('./images/fonts/plaza-icon56cc.svg?leeyft#plaza-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
