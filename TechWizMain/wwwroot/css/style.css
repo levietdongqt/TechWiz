@@ -1551,6 +1551,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 /*mini cart css here*/
 .mini_cart_wrapper {
   position: relative;
+  padding-top: 7px;
 }
 .mini_cart_wrapper span.item_count {
   position: absolute;
@@ -1745,7 +1746,6 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   }
 }
 .categories_title::before {
-  content: "\e907";
   font-family: 'plaza-icon';
   color: #222222;
   display: inline-block;
