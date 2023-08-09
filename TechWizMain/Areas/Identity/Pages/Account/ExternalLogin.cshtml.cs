@@ -145,7 +145,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 if (lastUser == null)
                 {
                     var user = CreateUser();
-                    user.FirstName = Input.FullName;
+                    user.FullName = Input.FullName;
                     await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                     await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                     await _userManager.CreateAsync(user);

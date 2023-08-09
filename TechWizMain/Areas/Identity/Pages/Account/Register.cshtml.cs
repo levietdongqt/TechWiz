@@ -72,12 +72,8 @@ namespace TechWizMain.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
 
             [Required]
             [Display(Name = "User Name")]
@@ -135,8 +131,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
+                user.FullName = Input.FullName;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.DateOfBirth = Input.DateOfBirth;
 
