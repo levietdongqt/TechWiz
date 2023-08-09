@@ -182,8 +182,7 @@ GO
 CREATE TABLE [dbo].[Users](
 	[Id] [nvarchar](450) NOT NULL,
 	[UserName] [nvarchar](256) NULL,
-	[FirstName] [nvarchar] (256) NULL,
-	[LastName] [nvarchar] (256) NULL,
+	[FullName] [nvarchar](256) not null,
 	[DateOfBirth] datetime null,
 	[NormalizedUserName] [nvarchar](256) NULL,
 	[Email] [nvarchar](256) NULL,

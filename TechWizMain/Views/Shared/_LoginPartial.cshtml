@@ -7,7 +7,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
         var currentUser = UserManager.GetUserAsync(User).Result;
-        var fullName = currentUser.FirstName;
+        var fullName = currentUser.FullName;
         <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @fullName!</a>
     </li>
