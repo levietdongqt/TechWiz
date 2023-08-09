@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System.Configuration;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Data;
+using TechWizMain.Repository.UserRepository;
 using TestEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,7 +61,8 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 builder.Services.AddControllersWithViews();
 
-
+//Đăng kí service 
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
