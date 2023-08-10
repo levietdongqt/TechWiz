@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TechWizMain.Models.Feedback;
+@{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
@@ -54,20 +55,24 @@
                         <h3>Tell us your project</h3>
                         <form asp-action="Contact" id="contact-form" method="POST">
                             <p>
-                                <label> Your Name (required)</label>
-                                <input name="name" placeholder="Name *" type="text">
+                                <label asp-for="Id" hidden> Your Name (required)</label>
+                                <input asp-for="Id" hidden type="text">
                             </p>
                             <p>
-                                <label> Your Email (required)</label>
-                                <input name="email" placeholder="Email *" type="email">
+                                <label asp-for="Name"> Your Name (required)</label>
+                                <input asp-for="Name" placeholder="Name *" type="text">
                             </p>
                             <p>
-                                <label> Subject</label>
-                                <input name="subject" placeholder="Subject *" type="text">
+                                <label asp-for="Email"> Your Email (required)</label>
+                                <input asp-for="Email" name="email" placeholder="Email *" type="email">
+                            </p>
+                            <p>
+                                <label asp-for="Subject"> Subject</label>
+                                <input asp-for="Subject" placeholder="Subject *" type="text">
                             </p>
                             <div class="contact_textarea">
-                                <label> Your Message</label>
-                                <textarea placeholder="Message *" name="message" class="form-control2"></textarea>
+                                <label asp-for="Message"> Your Message</label>
+                                <textarea asp-for="Message" placeholder="Message *" name="message" class="form-control2"></textarea>
                             </div>
                             <button type="submit"> Send</button>
                         </form>

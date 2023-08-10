@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Diagnostics;
+using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Models;
 using TechWizMain.Services.FeedbackService;
 
@@ -11,10 +13,14 @@ namespace TechWizMain.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IFeedbackService _feedbackService;
-        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService)
+        private readonly SignInManager<UserManager> _signInManager;
+        private readonly UserManager<UserManager> _userManager;
+        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager)
         {
             _logger = logger;
             _feedbackService = feedbackService;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -29,7 +35,15 @@ namespace TechWizMain.Controllers
 
         public IActionResult Contact()
         {
-            return View();
+            if (_signInManager.IsSignedIn(User))
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+                Feedback feedback = new Feedback();
+                feedback.UserID = currentUser.Id;
+                feedback.Name = currentUser.UserName;
+                     return View(feedback);
+            }
+                return View();
         }
         [HttpPost]
         [AllowAnonymous]

@@ -13,11 +13,21 @@ namespace TechWizMain.Models
         [Key]
         public int Id { get; set; }
         [StringLength(255)]
-        public string Content { get; set; } = null!;
+        public string Subject { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime FeedbackDate { get; set; }
-        [StringLength(450)]
-        public string? UserId { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        public int UserID { get; set } = null; 
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Message { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("Feedbacks")]
