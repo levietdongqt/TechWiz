@@ -123,7 +123,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                     if (!result.Succeeded)
                     {
                         var user = await _userManager.FindByEmailAsync(Input.UserNameOrEmail);
-                        if (user != null)
+                        if (user != null && user.status == true)
                         {
                             result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                         }
@@ -131,6 +131,12 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                
                 if (result.Succeeded)
                 {
+                     var user = await _userManager.FindByNameAsync(Input.UserNameOrEmail);
+                        if (user !=null && user.status == false)
+                        {
+                            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                            return Page();
+                        }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
