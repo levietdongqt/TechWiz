@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
@@ -53,7 +52,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="contact_message form">
                         <h3>Tell us your project</h3>
-                        <form id="contact-form" method="POST">
+                        <form asp-action="Contact" id="contact-form" method="POST">
                             <p>
                                 <label> Your Name (required)</label>
                                 <input name="name" placeholder="Name *" type="text">
@@ -71,7 +70,6 @@
                                 <textarea placeholder="Message *" name="message" class="form-control2"></textarea>
                             </div>
                             <button type="submit"> Send</button>
-                            <p class="form-messege"></p>
                         </form>
 
                     </div>
