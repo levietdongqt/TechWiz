@@ -10,8 +10,7 @@
         .cascading-right {
             margin-right: -50px;
         }
-
-        }
+       
     </style>
 
 
@@ -127,6 +126,7 @@
                     </div>
 
 
+
                 </div>
             </div>
 
@@ -144,7 +144,7 @@
 <!-- Section: Design Block -->
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script>
         function validateInput() {
             const userNameval = document.getElementById("userName").value;
@@ -177,6 +177,12 @@
                 valid = false;
             }
             return valid;
+        }
+        function validateTerm(){
+            const TermVal = document.getElementById("Term").checked;
+            if (!TermVal){
+                document.getElementById("TermErr").innerHTMl = "You must agree to the Terms of Service.";  
+            }
         }
 
         function validatePhone() {
