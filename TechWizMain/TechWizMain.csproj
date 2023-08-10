@@ -39,4 +39,10 @@
     <_ContentIncludedByDefault Remove="wwwroot\images\fonts\plaza-icon56cc.woff" />
   </ItemGroup>
 
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\" />
+  </ItemGroup>
+
 </Project>

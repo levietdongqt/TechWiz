@@ -1,24 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechWizMain.Areas.Identity.Data;
+using TechWizMain.Areas.Identity.Data;  
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
 
 namespace TechWizMain.Controllers
 {
-    public class AdminController : Controller
+
+  [Route("Admin")]
+  public class AdminController : Controller
+  {
+
+    private readonly IAdminService _adminService;
+
+    public AdminController(IAdminService adminService)
     {
-        private readonly IAdminService _adminService;
-        public AdminController(IAdminService adminService) 
-        {
-            this._adminService = adminService;
-        }
-        
- 
-        public async Task<IActionResult> Index()
-        {
-            var list = await _adminService.GetAllAsync();
-            
-            return View(list);
-        }
+      _adminService = adminService;
     }
+
+    [Route("")]
+    public IActionResult Index()
+    {
+      return View();
+    }
+
+    [Route("Users")]
+    public async Task<IActionResult> GetUsers()
+    {
+      var users = await _adminService.GetAllAsync();
+      return View(users);
+    }
+
+  }
+
 }
