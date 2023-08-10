@@ -14,7 +14,9 @@ namespace TechWizMain.Controllers
 
     public AdminController(IAdminService adminService)
     {
+
       _adminService = adminService;
+
     }
 
     [Route("")]
@@ -26,8 +28,22 @@ namespace TechWizMain.Controllers
     [Route("Users")]
     public async Task<IActionResult> GetUsers()
     {
-      var users = await _adminService.GetAllAsync();
-      return View(users);
+      var usersActive = await _adminService.GetAllAsync(true);
+	  var usersBanned = await _adminService.GetAllAsync(false);
+	  ViewBag.Active = usersActive;
+      ViewBag.Banned = usersBanned;
+      return View(ViewBag.active);
+    }
+
+    [HttpPost]
+    [Route("Banned")]
+    public async Task<IActionResult> Banned(string Id)
+    {
+        if(Id != null) 
+        {
+           await _adminService.BannedUsers(Id);
+        }
+        return RedirectToAction("GetUsers");
     }
 
   }
