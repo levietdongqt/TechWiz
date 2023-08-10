@@ -101,10 +101,6 @@
                                     <a href="#">Home</a>
                                     <ul class="sub-menu">
                                         <li><a href="index.html">Home 1</a></li>
-                                        <li><a href="index-2.html">Home 2</a></li>
-                                        <li><a href="index-3.html">Home 3</a></li>
-                                        <li><a href="index-4.html">Home 4</a></li>
-                                        <li><a href="index-5.html">Home 5</a></li>
                                     </ul>
                                 </li>
                                 <li class="menu-item-has-children">
@@ -212,14 +208,7 @@
                                         </div>
                                         <div class="header_account_area">
                                             <div class="header_account-list top_links">
-                                                @*<a href="#" class="btn rounded-1 text-white bg-dark fs-6">Sign in</a>*@
                                                 <partial name="_LoginPartial" />
-                                                <ul class="dropdown_links">
-                                                    <li><a href="#">Checkout </a></li>
-                                                    <li><a href="#">My Account </a></li>
-                                                    <li><a href="#">Shopping Cart</a></li>
-                                                    <li><a href="#">Wishlist</a></li>
-                                                </ul>
                                             </div>
                                             <div class="header_account-list  mini_cart_wrapper">
                                                 <a href="javascript:void(0)" ><i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span
@@ -470,7 +459,7 @@
                                                         </ul>
                                                     </div>
                                                 </li>
-                                                <li><a href="contact.html"> Contact Us</a></li>
+                                                <li><a asp-action="Contact" asp-controller="Home" > Contact Us</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -486,9 +475,9 @@
                     </div>
                 </div>
     </header>
-
-        <main role="main" class="pb-3">
-            @RenderBody()
+ 
+        <main role="main" class="pb-3 container-fluid">
+                @RenderBody()
         </main>
 
     <footer class="footer_widgets">

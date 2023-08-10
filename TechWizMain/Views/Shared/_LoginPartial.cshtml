@@ -3,27 +3,41 @@
 @inject SignInManager<UserManager> SignInManager
 @inject UserManager<UserManager> UserManager
 
-<ul class="navbar-nav">
+<div>
 @if (SignInManager.IsSignedIn(User))
 {
-        var currentUser = UserManager.GetUserAsync(User).Result;
-        var fullName = currentUser.FullName;
-        <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @fullName!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    var currentUser = UserManager.GetUserAsync(User).Result;
+    var fullName = currentUser.FullName;
+    <div class="quick_button pt-1">  
+         <i class="fa-solid fa-user" style="color: #080b12;font-size: 27px;"></i>
+    </div>
+    <ul class="dropdown_links">
+        <li class="pb-3 pt-2 border-bottom mb-1">
+            <p class="text-dark fw-bold" style="max-width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 13px;cursor:pointer;">
+                Hi! @fullName
+            </p>
+        </li>
+        <li class="mb-0"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="nav-link underline fs-6" style="">My Account </a></li>
+        <li class="border-bottom mb-1"><a href="#" class="nav-link fs-6">Shopping Cart</a></li>
+        <li class="mb-3">
+            <form class=" pb-3" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    </ul>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    <div class="quick_button pt-1">
+        <i class="fa-solid fa-user" style="color: #080b12;font-size: 27px;"></i>
+    </div>
+    <ul class="dropdown_links ">
+        <li><a class="btn text-white bg-dark rounded-1" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <li class="mt-2">
+            <p style="width: 200px;font-size: 12px;display: inline-block;">
+                Don't have an account? <a asp-area="Identity" asp-page="/Account/Register" class="d-inline text-decoration-underline" style="font-size:14px">Register</a>
+            </p>
+        </li>
+    </ul>
 }
-</ul>
+</div>

@@ -15,42 +15,51 @@ namespace TechWizMain.Repository.BillRepository
 
         public bool Delete(Bill entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Delete(entity);
         }
 
-        public Task<bool> DeleteAll(List<Bill> list)
+        public async Task<bool> DeleteAll(List<Bill> list)
         {
-            throw new NotImplementedException();
+            return await _genericRepository.DeleteAll(list);
         }
 
         public Task<IEnumerable<Bill>?> GetAll()
         {
-            throw new NotImplementedException();
+            return _genericRepository.GetAll();
         }
 
-        public Task<Bill?> GetByID(int id)
+        public async Task<Bill?> GetByID(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _context.Bills.FindAsync(id);
+                return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return null;
+            }
         }
 
         public bool Insert(Bill entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Insert(entity);
         }
 
-        public Task<bool> InsertAll(List<Bill> list)
+        public async Task<bool> InsertAll(List<Bill> list)
         {
-            throw new NotImplementedException();
+            return await (_genericRepository.InsertAll(list));
         }
 
         public bool Update(Bill entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Update(entity);
         }
 
-        public Task<bool> UpdateAll(List<Bill> list)
+        public async Task<bool> UpdateAll(List<Bill> list)
         {
-            throw new NotImplementedException();
+            return await (_genericRepository.UpdateAll(list));
         }
     }
 }
