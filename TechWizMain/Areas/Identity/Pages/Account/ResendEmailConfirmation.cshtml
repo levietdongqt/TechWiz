@@ -1,14 +1,8 @@
 ﻿@page
-@using Microsoft.CodeAnalysis.Differencing;
-@model ForgotPasswordModel
+@model ResendEmailConfirmationModel
 @{
-    ViewData["Title"] = "Forgot your password?";
+    ViewData["Title"] = "Resend email confirmation";
 }
-<style>
-    .custom-padding {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
 
 
 <section class="text-center text-lg-start">
@@ -26,7 +20,6 @@
             <li><a href="index.html">home</a></li>
             <li>My account</li>
         </ul>
-
     </div>
     <!-- Jumbotron -->
     <div class="container py-4">
@@ -39,11 +32,11 @@
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">@ViewData["Title"]</h2>
 
-                        <form method="post" >
+                        <form method="post">
                             <h2>Enter your email.</h2>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                <input asp-for="Input.Email" class="form-control" aria-required="true" />
                                 <label asp-for="Input.Email" class="form-label"></label>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
@@ -51,11 +44,8 @@
 
                             <!-- Submit button -->
                             <button id="login-submit" type="submit" class="btn btn-primary btn-block mb-4">
-                                Reset Password
+                                Resend 
                             </button>
-
-
-
 
                         </form>
                     </div>
@@ -72,8 +62,6 @@
     </div>
     <!-- Jumbotron -->
 </section>
-
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
