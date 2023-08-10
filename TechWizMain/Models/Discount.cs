@@ -21,6 +21,9 @@ namespace TechWizMain.Models
         public string Name { get; set; } = null!;
         public double Percent { get; set; }
 
+        public DateTime DateBegin { get; set; }
+        public DateTime DateEnd { get; set; }
+
         [InverseProperty("Discount")]
         public virtual ICollection<Product> Products { get; set; }
     }
