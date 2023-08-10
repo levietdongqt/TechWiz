@@ -7,6 +7,12 @@ using Microsoft.Extensions.Options;
 using System.Configuration;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Data;
+using TechWizMain.Models;
+using TechWizMain.Repository;
+using TechWizMain.Repository.BillRepository;
+using TechWizMain.Repository.CategoryRepository;
+using TechWizMain.Repository.FeedbackRepository;
+using TechWizMain.Repository.ProductRepository;
 using TechWizMain.Repository.UserRepository;
 using TestEmail.Services;
 
@@ -38,6 +44,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<TechWizContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<UserManagerContext>(options =>
     options.UseSqlServer(connectionString));
@@ -62,8 +70,11 @@ builder.Services.Configure<IdentityOptions>(options => {
 builder.Services.AddControllersWithViews();
 
 //Đăng kí service 
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped(typeof(GenericRepository<>));
+builder.Services.AddTransient<IProductRepository,ProductRepository>();
+builder.Services.AddTransient<IBillRepository, BillRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
