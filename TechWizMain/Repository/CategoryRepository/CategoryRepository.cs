@@ -1,4 +1,5 @@
-﻿using TechWizMain.Models;
+﻿using System.Runtime.CompilerServices;
+using TechWizMain.Models;
 
 namespace TechWizMain.Repository.CategoryRepository
 {
@@ -28,29 +29,39 @@ namespace TechWizMain.Repository.CategoryRepository
             throw new NotImplementedException();
         }
 
-        public Task<Category?> GetByID(int id)
+        public async Task<Category?> GetByID(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);             
+                return category;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return null;
+            }
+            
+            
         }
 
         public bool Insert(Category entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Insert(entity);
         }
 
-        public Task<bool> InsertAll(List<Category> list)
+        public async Task<bool> InsertAll(List<Category> list)
         {
-            throw new NotImplementedException();
+            return await (_genericRepository.InsertAll(list));
         }
 
         public bool Update(Category entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Update(entity);
         }
 
-        public Task<bool> UpdateAll(List<Category> list)
+        public async Task<bool> UpdateAll(List<Category> list)
         {
-            throw new NotImplementedException();
+            return await _genericRepository.UpdateAll(list);
         }
     }
 }
