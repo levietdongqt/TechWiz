@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using TechWizMain.Services.ProductsService;
 
 namespace TechWizMain.Controllers.AdminModule
 {
+    [Authorize(Roles ="admin")]
+    [Route("admin")]
     public class ProductsController : Controller
     {
         private readonly TechWizContext _context;
@@ -24,13 +27,15 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // GET: Products
+        [Route("products")]
         public async Task<IActionResult> Index()
         {
-            var techWizContext = _context.Products.Include(p => p.Discount);
+            var techWizContext = _context.Products;
             return View(await techWizContext.ToListAsync());
         }
 
         // GET: Products/Details/5
+        [Route("Products/Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
@@ -49,10 +54,10 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
-        // GET: Products/Create
+        [Route("products/create")]
         public IActionResult Create()
         {
-            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Id", "Id");
+            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
             return View();
         }
 
@@ -60,7 +65,8 @@ namespace TechWizMain.Controllers.AdminModule
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create( Product product, IFormFile? formFile)
+        [Route("products/create")]
+        public async Task<IActionResult> Create( Product product, IFormFile? formFile   )
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +87,7 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // GET: Products/Edit/5
+        [Route("Products/Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Products == null)
@@ -100,6 +107,7 @@ namespace TechWizMain.Controllers.AdminModule
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Route("Products/Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,BasePrice,ImageUrl,TypeProduct,DiscountId,InventoryQuantity,status")] Product product)
@@ -133,6 +141,7 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
+        [Route("Products/Delete/{id}")]
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -140,7 +149,6 @@ namespace TechWizMain.Controllers.AdminModule
             {
                 return NotFound();
             }
-
             var product = await _context.Products
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
