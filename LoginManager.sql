@@ -332,6 +332,8 @@ CREATE TABLE Discount(
 	[Id] int identity primary key,
 	[Name] varchar(255) not null,
 	[Percent] float not null,
+	[DateBegin] datetime,
+	[DateEnd] datetime
 )
 
 CREATE TABLE Product(
@@ -343,6 +345,8 @@ CREATE TABLE Product(
 	[ImageURL] nvarchar(255) not null,
 	[TypeProduct] varchar(255) check (TypeProduct in ('Plant','Accessories')),
 	[DiscountId] int foreign key references Discount(Id),
+	[InventoryQuantity] int,
+	[Status] bit default 1
 )
 
 CREATE TABLE CategoryProduct(
