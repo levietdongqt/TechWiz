@@ -16,17 +16,17 @@ namespace TechWizMain.Repository.CategoryRepository
 
         public bool Delete(Category entity)
         {
-            throw new NotImplementedException();
+           return _genericRepository.Delete(entity);
         }
 
         public Task<bool> DeleteAll(List<Category> list)
         {
-            throw new NotImplementedException();
+            return _genericRepository.DeleteAll(list);
         }
 
         public Task<IEnumerable<Category>?> GetAll()
         {
-            throw new NotImplementedException();
+            return _genericRepository.GetAll();
         }
 
         public async Task<Category?> GetByID(int id)
