@@ -18,11 +18,6 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
@@ -33,18 +28,37 @@
                 <span asp-validation-for="BasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                <label asp-for="ImageUrl" class="control-label" ></label>
+                <input asp-for="ImageUrl" class="form-control" type="file" name="formFile" id="formFile" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TypeProduct" class="control-label"></label>
                 <input asp-for="TypeProduct" class="form-control" />
                 <span asp-validation-for="TypeProduct" class="text-danger"></span>
+                <!-- <input asp-for="TypeProduct" type="radio" id="radio1" name="radioGroup" value="Plant">
+                  <label for="radio1"> @TypeProduct.Plant </label>
+                  <input asp-for="TypeProduct" type="radio" id="radio1" name="radioGroup" value="Accessories">
+                    <label for="radio1"> @TypeProduct.Accessories </label> -->
             </div>
             <div class="form-group">
                 <label asp-for="DiscountId" class="control-label"></label>
-                <select asp-for="DiscountId" class ="form-control" asp-items="ViewBag.DiscountId"></select>
+                <select asp-for="DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="InventoryQuantity" class="control-label"></label>
+                <input asp-for="InventoryQuantity" class="form-control" />
+                <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="status" /> @Html.DisplayNameFor(model => model.status)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -58,5 +72,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

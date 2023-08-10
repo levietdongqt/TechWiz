@@ -3,8 +3,16 @@
 @if (!String.IsNullOrEmpty(Model))
 {
     var statusMessageClass = Model.StartsWith("Error") ? "danger" : "success";
+<<<<<<< HEAD
     <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         @Model
+=======
+    <div class="container text-center">
+        <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            @Model
+        </div>
+>>>>>>> 051e3c39b56ea5c82b4056f329af5cb2edd40c2a
     </div>
 }

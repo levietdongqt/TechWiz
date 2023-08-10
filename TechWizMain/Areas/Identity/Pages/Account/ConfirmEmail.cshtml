@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Confirm email";
 }
-
-<h1>@ViewData["Title"]</h1>
+<style>
+    .margin-top-bottom {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+</style>
+<h1 class="text-center margin-top-bottom">@ViewData["Title"]</h1>
 <partial name="_StatusMessage" model="Model.StatusMessage" />

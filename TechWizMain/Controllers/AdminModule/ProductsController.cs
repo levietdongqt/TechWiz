@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechWizMain.Models;
+using TechWizMain.Services.ProductsService;
 
-namespace TechWizMain.Controllers
+namespace TechWizMain.Controllers.AdminModule
 {
     public class ProductsController : Controller
     {
         private readonly TechWizContext _context;
-
-        public ProductsController(TechWizContext context)
+        private readonly IProductService _productService;
+        [TempData]
+        public string StatusMessage { get; set; }
+        public ProductsController(TechWizContext context, IProductService productService)
         {
             _context = context;
+            _productService = productService;
+
         }
 
         // GET: Products
@@ -55,16 +60,23 @@ namespace TechWizMain.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,BasePrice,ImageUrl,TypeProduct,DiscountId")] Product product)
+        public async Task<IActionResult> Create( Product product, IFormFile? formFile)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var result = _productService.AddProduct( product,formFile);
+                if (result)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["errMess"] = "Product is invalid";
+                    return View(product);
+                }
             }
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Id", "Id", product.DiscountId);
+            ViewData["errMess"] = "Product is invalid";
             return View(product);
         }
 
@@ -90,7 +102,7 @@ namespace TechWizMain.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,BasePrice,ImageUrl,TypeProduct,DiscountId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,BasePrice,ImageUrl,TypeProduct,DiscountId,InventoryQuantity,status")] Product product)
         {
             if (id != product.Id)
             {

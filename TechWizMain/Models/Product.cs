@@ -6,6 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TechWizMain.Models
 {
+    public enum TypeProduct
+    {
+        Plant,
+        Accessories
+    }
     [Table("Product")]
     public partial class Product
     {
@@ -35,7 +40,12 @@ namespace TechWizMain.Models
         public int? DiscountId { get; set; }
 
         public int InventoryQuantity { get; set; }
+<<<<<<< HEAD
         public bool? Status { get; set; } = true;
+=======
+
+        public bool status { get; set; } = true;
+>>>>>>> 051e3c39b56ea5c82b4056f329af5cb2edd40c2a
 
         [ForeignKey("DiscountId")]
         [InverseProperty("Products")]
