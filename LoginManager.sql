@@ -405,7 +405,129 @@ go
 insert into UserRoles 
 values ('a60e78a0-c268-43fc-921a-703e2f49b2dc','R01'),('96ad3edd-6c77-4cc0-98e9-6112d50565c0','R01')
 go
+SET IDENTITY_INSERT [dbo].[Category] ON 
 
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (1, N'Flowering')
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (2, N'Non-flowering')
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (3, N'Indoor')
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (4, N'Outdoor')
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (5, N'Succulents')
+INSERT [dbo].[Category] ([Id], [Name]) VALUES (6, N'Medicinal and so on')
+SET IDENTITY_INSERT [dbo].[Category] OFF
+GO
+SET IDENTITY_INSERT [dbo].[CategoryProduct] ON 
+
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (2, 1, 6)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (3, 2, 14)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (4, 3, 10)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (5, 4, 17)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (6, 5, 9)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (7, 6, 16)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (8, 2, 11)
+INSERT [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (9, 4, 15)
+SET IDENTITY_INSERT [dbo].[CategoryProduct] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Discount] ON 
+
+INSERT [dbo].[Discount] ([Id], [Name], [Percent]) VALUES (1, N'10% OFF', 0.1)
+INSERT [dbo].[Discount] ([Id], [Name], [Percent]) VALUES (2, N'20% OFF', 0.2)
+INSERT [dbo].[Discount] ([Id], [Name], [Percent]) VALUES (3, N'30 % OFF', 0.3)
+SET IDENTITY_INSERT [dbo].[Discount] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Product] ON 
+
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (6, N'Yoshino Cherry Tree', N'Pink Blooms and Tropical Growth Through Autumn
+Why Pink Silk Floss Trees?
+A uniform silhouette sprouts green limbs for a tropical-inspired, ultra-healthy look, making the Pink Silk Floss Tree second to none. But it truly wows with gorgeous, funnel-shaped and Hibiscus-like pink blooms that cover the canopy during the autumn months, from October to November.
+
+Imagine stunning, one-of-a-kind summer color that emerges in fall. The florals are followed up woody, pear-shaped seed pods containing silken floss. Living up to its name, this South America native’s floss was traditionally used for jackets, pillows and rope.
+
+Why Fast-Growing-Trees.com is Better
+The best part about the Pink Silk Floss Tree? For starters, though it’s initially a fast grower, its growth slows as it matures, so it’s more manageable for you. Whether it’s used along highways, residential areas or as a focal point shade tree in your backyard, the Pink Silk Floss is adaptable and versatile. But the top benefit is the fact that it’s planted, monitored and shipped with the utmost care, so it arrives ready to grow for you.
+
+We’ve done the hard work long before the Pink Silk Floss arrives to your door, meaning so hassle for you. It doesn’t get much simpler than a ready-made, great-looking plant! Get a Pink Silk Floss Tree of your own – see what all the hype’s about!', CAST(250.00 AS Decimal(10, 2)), CAST(149.00 AS Decimal(10, 2)), N'/images/yoshiocherry', N'Plant', 1, 20, CAST(N'2023-08-04T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (9, N'Hong Kong Orchid Tree', N'Five Months of Vibrant Winter Flowers
+Why Hong Kong Orchid Trees?
+
+Bring your winter landscape to life with the large, pinkish-purple blooms of the Hong Kong Orchid Tree. These six-inch fragrant blooms first appear in November, just in time for the holidays, and deliver five months of eye-catching color.
+
+The Hong Kong’s vivid blooms pop against barren winter landscapes. Plus, the Hong Kong Orchid Tree is versatile – if you live in a colder climate, you can plant it in a container for your patio or even bring it indoors when the temperatures drop. In the South, the Hong Kong’s thick, lush foliage grows in an umbrella-shaped canopy through the season, offering the perfect privacy screen or border along your driveway.
+
+Even better is the fact that the Hong Kong Orchid couldn’t be easier to grow. Hong Kong Orchid Trees will adapt to a variety of poor soils, ranging from sandy to heavy clay. And with a high level of drought tolerance and heat resistance, they flourish in dry, hot conditions. Nothing stops the Hong Kong Orchid from blooming for months.
+
+Why Fast-Growing-Trees.com is Better
+
+You won’t find a Hong Kong Orchid that’s this healthy and well-developed at your local nursery or garden center…if they’re even available.
+
+Each tree is a direct descendent from rootstock, sourced in a botanical garden in Hong Kong. And we’ve planted, grown and shipped this hard-to-find Orchid Tree with meticulous care. Now, your Hong Kong Orchid Tree is hassle-free and ready to produce color as soon as it arrives at your door.
+
+When you buy our larger-sized Hong Kong Orchids, you can even get amazing winter color as soon as the first year.
+
+Enliven your winter landscape with the vibrant blooms and effortless growth of the Hong Kong Orchid. Don’t wait – these unique trees sell out fast. Order your Hong Kong Orchid Tree today!', CAST(360.00 AS Decimal(10, 2)), CAST(250.00 AS Decimal(10, 2)), N'/images/hkorchird.jpg', N'Plant', 2, 23, CAST(N'2023-07-09T00:00:00.000' AS DateTime), 2)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (10, N'Royal Poinciana Tree', N'Welcomes Spring with Flame-Colored Blooms
+Why Royal Poinciana Trees?
+
+Marking the start of spring each year with thousands of bright red blooms, the Royal Poinciana Tree’s rich color is not commonly seen in other flowering varieties. In fact, it’s also called the ‘Flame Tree’ for its blazing color.
+
+While many others offer pink or white flowers at the start of the season, the Poinciana’s flame-colored hues stand out. In fact, Poinciana Trees are often the brightest trees in the neighborhood, attracting the attention of guests and neighbors alike.
+
+And the Poinciana’s lush, long slender leaves offer a tropical look against its crimson blooms. Plus, because Poincianas are semi-evergreen, they won''t lose their leaves in warmer climates. and will provide your yard with abundant green foliage all year.
+
+Even better? Because they can grow up to five feet a year, you get these exotic colors and shade quickly. So, not only do you get one-of-a-kind beauty, but you also get a tree that shields your home from the summer heat and provides extra insulation in the winter, saving you money and energy from season to season. And these vigorous growers have an extremely high drought tolerance and grow well in the dry, sandy areas where other flowering trees can''t take the heat.
+
+Why Fast-Growing-Trees.com is Better
+
+Transforming any landscape, even one with tough growing conditions, into a relaxing oasis, your Poinciana Tree is second to none. Especially when you order from Fast Growing Trees since we’ve planted, grown and nurtured your Poinciana, long before shipping.
+
+Now, your Royal Poinciana is shipped to your door with a healthier root system, better branching and a head start on growth. And with our larger sizes, you’ll see blazing color and shade as soon as the first season.
+
+Don''t miss your chance – Poincianas are selling out fast and we recommend getting yours today, before they''re gone. Order the vibrant red hues of your Royal Poinciana today!', CAST(183.00 AS Decimal(10, 2)), CAST(286.00 AS Decimal(10, 2)), N'/images/royalpoinciana.jpg', N'Plant', 2, 10, CAST(N'2023-04-06T00:00:00.000' AS DateTime), 3)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (11, N'Meyer Lemon Tree', N'The All-In-One Citrus Tree for Every Home and Patio
+Why Meyer Lemon Trees?
+
+Meyer Lemons are different from the small, tart and acidic lemons at your grocery store because the fruit is literally a cross between traditional sour lemons and sweet oranges – yes, you get both sweet and savory flavors from each squeeze of this world-beating fruit!
+
+As you know, the fruit available at your grocery store is not chosen for flavor but rather shelf life – that is why the lemons available to you are small with very thick skin. Meyer Lemons are not available in grocery stores because the fruit skin is so wonderfully thin that it would bruise while riding in a crate – however, the thin skin is perfect for home chefs that want tantalizingly fresh fruit right off the branch! The thin skin allows the citrus juices to develop fully, making it the perfect raw fruit for juices, desserts, and flavoring. Can I grow it? YES, YOU CAN! The Meyer Lemon Tree has remarkable cold and heat tolerance so anyone in the country can grow it – if your winters get cold, simply bring your Meyer Lemon Tree indoors for the winter. Our trees max out at around 8 feet so you don’t have to worry about them out-growing your space. And when you bring it indoors, you can enjoy the jasmine-citrus fragrance throughout those long winter months. If your sun exposure or growing conditions are less than ideal, then we recommend you start with one of our larger trees.
+
+Place your order NOW and have your own Meyer Lemon Tree delivered right to your door.
+
+Looking for that unique gift? Look no further! It’s the gift that truly keeps on giving – a memorable keepsake to commemorate holidays, housewarmings, birthdays, bereavements – this tree will produce fruit for decades and every time someone picks a lemon they will think of you!', CAST(145.00 AS Decimal(10, 2)), CAST(287.00 AS Decimal(10, 2)), N'/images/meyerlemon.jpg', N'Plant', 3, 46, CAST(N'2023-01-09T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (14, N'Sweetheart Blueberry Bush', N'Produces Two Large Crops Each Year!
+Why Sweetheart Blueberry Bushes?
+
+With the Sweetheart Blueberry Bush, you get huge harvests each year under most conditions. A large bounty of fist-sized blueberry clusters arrives in late May or June and the second one in August, yielding around 15 pounds of blueberries per year.
+
+The big, sweet berries are its main attraction. The Sweetheart Bush will produce medium to large sweet blueberries. The perfect hybrid of Southern and Northern Highbush varieties, the fruit is amazingly juicy and plump yet firm. If you like to bake blueberry muffins and make blueberry pancakes, these blueberries are ideal. The texture plus the rich flavor make them a favorite for cooking, but they''re also a delicious snack picked right off the bush.
+
+Why Fast-Growing-Trees.com is Better
+
+It''s easy: You get the promise of delicious, home-grown fruit delivered, without any hassle on your part. That''s because we''ve planted, grown and nurtured your Sweetheart Blueberry Bush from day one, long before it ships to your door, so you get a healthier root system and better long-term results in your homescape.
+
+You won''t find the same healthy fruit variety, with the promise of fast fruiting, at your local nursery or big box store.
+
+These bushes are selling fast. Order today for home-grown berries from your very own Sweetheart Blueberry Bush!', CAST(48.00 AS Decimal(10, 2)), CAST(33.00 AS Decimal(10, 2)), N'/images/blueberry.jpg', N'Plant', 2, 35, CAST(N'2023-06-07T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (15, N'Calamondin Tree', N'One of the Cold Hardiest Citrus Trees
+Why Calamondin Trees?
+
+There’s nothing like the Calamondin Tree: With fruit that’s a cross between a mandarin and a kumquat, this "mini-orange,” as it’s dubbed, is wonderfully delicious.
+
+Even better? It can be grown in a container or as a hedge. In colder climates, grow the Calamondin Tree in a container and move it indoors during winter months, or cover your outdoor bushes for chilly weather.
+
+Plus, the Calamondin delights with a heavenly scent and several flushes (harvests) of blossoms and fruit throughout the year. The yellow-orange fruit of the Calamondin Tree is about the size of a lime or a tangerine and has a thinner skin than most oranges, making it delectably delicate. It has a lightly tart taste that''s perfect for marmalades, juicing, cooking and baking.
+
+Why FastGrowingTrees.com is Better
+
+Best of all, year-round blooms give way to fruiting between June and November – and bounties after only one to two years. And younger bushes hold even more fruit.
+
+But because we’ve planted, grown and nurtured your Calamondin from day one, you also get a guarantee: Easy, effortless performance and harvests that are second to none. We’ve done the hard work at our nursery so you get great results from your Calamondin.
+
+With healthful, home-grown flavor and heightened looks, the Calamondin Tree is second to none. Order yours today!', CAST(340.00 AS Decimal(10, 2)), CAST(290.00 AS Decimal(10, 2)), N'/images/calamondin ', N'Plant', 1, 13, CAST(N'2023-07-04T00:00:00.000' AS DateTime), 2)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (16, N'Fittonia plant', N'Fittonia or nerve plants are fairly easy to care for they can tolerate a range of lighting conditions. The Fittonia plant leaves have deep veins that run across the leaves to form a pattern and so comes the name - nerve plant. They prefer humid environments, well-drained moist soil, but not too wet. water moderately and let the plants dry out between waterings. 
+These little beauties do well in terrariums, hanging baskets, dish gardens, or even as a ground cover in the right climate.', CAST(23.00 AS Decimal(10, 2)), CAST(20.00 AS Decimal(10, 2)), N'/images/fittonia.jpg', N'Plant', 2, 10, CAST(N'2023-04-03T00:00:00.000' AS DateTime), 3)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (17, N'Buckle Tree tie', N'Rubber buckle tree tie (separates the tree from the stake).They will stretch as the tree grows and are easily adjustable. They are supplied with a hoop collar spacer.  Our buckle ties are size 45cm in length.', CAST(12.00 AS Decimal(10, 2)), CAST(10.00 AS Decimal(10, 2)), N'/images/BuckleTreeTie.jpg', N'Accessories', 1, 133, CAST(N'2023-04-12T00:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Product] ([Id], [Name], [Description], [Price], [BasePrice], [ImageURL], [TypeProduct], [DiscountId], [InventoryQuantity], [CreatedAt], [Size]) VALUES (18, N'Bamboo Canes', N'Bamboo Canes available in size  90cm in length Protecting a new or young tree by staking it enables it too grow the strong root system it needs to secure itself in the ground. Can be used in a variety of purposes including; decorative Fencing; Plant supports; Tomatoes; Orchids; Vines; Fruits; Trees; Peas; Beans.', CAST(28.00 AS Decimal(10, 2)), CAST(25.00 AS Decimal(10, 2)), N'/images/BambooCanes.jpg', N'Accessories', 1, 20, CAST(N'2023-06-24T00:00:00.000' AS DateTime), 1)
+SET IDENTITY_INSERT [dbo].[Product] OFF
+GO
 
 
 CREATE TRIGGER insertUserRoles
@@ -417,7 +539,4 @@ BEGIN
     SELECT i.id,'R02'
     FROM inserted i;
 END;
-
-
-
 
