@@ -22,6 +22,7 @@ namespace TechWizMain.Models
         public double Percent { get; set; }
 
         public DateTime DateBegin { get; set; }
+
         public DateTime DateEnd { get; set; }
 
         [InverseProperty("Discount")]

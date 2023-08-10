@@ -49,6 +49,7 @@ namespace TechWizMain.Models
         [DisplayName("Selling")]
         public bool status { get; set; } = true;
 
+
         [ForeignKey("DiscountId")]
         [InverseProperty("Products")]
         public virtual Discount? Discount { get; set; }
