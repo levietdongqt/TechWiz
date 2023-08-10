@@ -26,19 +26,19 @@ namespace TechWizMain.Controllers.AdminModule
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var techWizContext = _context.Products.Include(p => p.Discount);
+            var techWizContext = _context.Discount.Include(p => p.Discount);
             return View(await techWizContext.ToListAsync());
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Discount
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -83,12 +83,12 @@ namespace TechWizMain.Controllers.AdminModule
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Discount.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -136,12 +136,12 @@ namespace TechWizMain.Controllers.AdminModule
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Discount
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -157,14 +157,14 @@ namespace TechWizMain.Controllers.AdminModule
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Products == null)
+            if (_context.Discount == null)
             {
                 return Problem("Entity set 'TechWizContext.Products'  is null.");
             }
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Discount.FindAsync(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                _context.Discount.Remove(product);
             }
             
             await _context.SaveChangesAsync();
@@ -173,7 +173,7 @@ namespace TechWizMain.Controllers.AdminModule
 
         private bool ProductExists(int id)
         {
-          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Discount?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
