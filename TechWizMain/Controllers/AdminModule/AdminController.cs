@@ -12,13 +12,19 @@ namespace TechWizMain.Controllers
         {
             this._adminService = adminService;
         }
-        
- 
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var list = await _adminService.GetAllAsync();
             
             return View(list);
+        }
+
+        [HttpPost]
+        public IActionResult OnPost(string UserName)
+        {
+            return Content("bac" + UserName);
         }
     }
 }
