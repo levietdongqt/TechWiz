@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -25,25 +26,27 @@ namespace TechWizMain.Models
         public int Id { get; set; }
         [StringLength(255)]
         public string Name { get; set; } = null!;
-        [StringLength(255)]
         public string Description { get; set; } = null!;
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal? BasePrice { get; set; }
+        public decimal BasePrice { get; set; }
         [Column("ImageURL")]
         [StringLength(255)]
-        public string ImageUrl { get; set; } = null!;
+        [DisplayName("Image")]
+        public string? ImageUrl { get; set; } = null!;
         [StringLength(255)]
         [Unicode(false)]
-        public string? TypeProduct { get; set; }
-        public int? DiscountId { get; set; }
+        [DisplayName("Type of product")]
+        public string TypeProduct { get; set; }
+        public int DiscountId { get; set; }
 
+        [DisplayName("Inventory of quantity")]
         public int InventoryQuantity { get; set; }
 
-        public bool? Status { get; set; } = true;
-
-
+        [DisplayName("Date Sale")]
+        public DateTime CreatedDate { get; set; }
+        [DisplayName("Selling")]
         public bool status { get; set; } = true;
 
 
