@@ -34,6 +34,10 @@ namespace TechWizMain.Models
         public string? TypeProduct { get; set; }
         public int? DiscountId { get; set; }
 
+        public int InventoryQuantity { get; set; }
+
+        public bool status { get; set; } = true;
+
         [ForeignKey("DiscountId")]
         [InverseProperty("Products")]
         public virtual Discount? Discount { get; set; }
