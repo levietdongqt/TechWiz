@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechWizMain.Models;
 
-namespace TechWizMain.Controllers
+namespace TechWizMain.Controllers.AdminModule
 {
+   // [Route("AdminModule")]
     public class ProductsController : Controller
     {
         private readonly TechWizContext _context;
