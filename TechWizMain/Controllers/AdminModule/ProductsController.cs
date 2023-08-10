@@ -141,6 +141,7 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
+        [Route("Products/Delete/{id}")]
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

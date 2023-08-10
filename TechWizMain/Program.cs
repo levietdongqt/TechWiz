@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Configuration;
+using Microsoft.Extensions.FileProviders;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Data;
 using TechWizMain.Models;
