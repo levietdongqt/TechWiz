@@ -6,6 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TechWizMain.Models
 {
+    public enum TypeProduct
+    {
+        Plant,
+        Accessories
+    }
     [Table("Product")]
     public partial class Product
     {

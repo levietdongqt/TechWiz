@@ -14,6 +14,7 @@ using TechWizMain.Repository.CategoryRepository;
 using TechWizMain.Repository.FeedbackRepository;
 using TechWizMain.Repository.ProductRepository;
 using TechWizMain.Repository.UserRepository;
+using TechWizMain.Services.ProductsService;
 using TestEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,7 +69,7 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddTransient<IProductService, ProductService>();
 //Đăng kí service 
 builder.Services.AddScoped(typeof(GenericRepository<>));
 builder.Services.AddTransient<IProductRepository,ProductRepository>();
