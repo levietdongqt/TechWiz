@@ -14,42 +14,51 @@ namespace TechWizMain.Repository.FeedbackRepository
         }
         public bool Delete(Feedback entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Delete(entity);
         }
 
-        public Task<bool> DeleteAll(List<Feedback> list)
+        public async Task<bool> DeleteAll(List<Feedback> list)
         {
-            throw new NotImplementedException();
+            return await _genericRepository.DeleteAll(list);
         }
 
         public Task<IEnumerable<Feedback>?> GetAll()
         {
-            throw new NotImplementedException();
+            return _genericRepository.GetAll();
         }
 
-        public Task<Feedback?> GetByID(string id)
+        public async Task<Feedback?> GetByID(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = await _context.Feedbacks.FindAsync(id);
+                return list;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return null;
+            }
         }
 
         public bool Insert(Feedback entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Insert(entity);
         }
 
-        public Task<bool> InsertAll(List<Feedback> list)
+        public async Task<bool> InsertAll(List<Feedback> list)
         {
-            throw new NotImplementedException();
+            return await(_genericRepository.InsertAll(list));
         }
 
         public bool Update(Feedback entity)
         {
-            throw new NotImplementedException();
+            return _genericRepository.Update(entity);
         }
 
-        public Task<bool> UpdateAll(List<Feedback> list)
+        public async Task<bool> UpdateAll(List<Feedback> list)
         {
-            throw new NotImplementedException();
+            return await _genericRepository.UpdateAll(list);
         }
     }
 }
