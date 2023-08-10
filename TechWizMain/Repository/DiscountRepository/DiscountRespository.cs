@@ -67,5 +67,10 @@ namespace TechWizMain.Repository.DiscountRepository
         {
             return _discountRepository.UpdateAll(list);
         }
+
+        public bool DiscountExists(int id)
+        {
+            return (_context.Discounts?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
 }

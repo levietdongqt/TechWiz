@@ -43,6 +43,7 @@
                                     <div class="form-outline">
                                         <input asp-for="Input.FullName" class="form-control" aria-required="true" />
                                         <label asp-for="Input.FullName"></label>
+                                        <br />
                                         <span asp-validation-for="Input.FullName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -50,6 +51,7 @@
                                     <div class="form-outline">
                                         <input asp-for="Input.UserName" class="form-control" aria-required="true" id="userName" />
                                         <label asp-for="Input.UserName"></label>
+                                        <br />
                                         <span asp-validation-for="Input.UserName" class="text-danger" id="userErr"></span>
                                     </div>
                                 </div>
@@ -58,12 +60,14 @@
                             <div class="form-outline mb-4">
                                 <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" id="phone" onblur="return validatePhone()" />
                                 <label asp-for="Input.PhoneNumber"></label>
+                                <br />
                                 <span asp-validation-for="Input.PhoneNumber" class="text-danger" id="phoneErr"></span>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <input asp-for="Input.DateOfBirth" class="form-control" aria-required="true" id="DoB" />
                                 <label asp-for="Input.DateOfBirth"></label>
+                                <br />
                                 <span asp-validation-for="Input.DateOfBirth" class="text-danger" id="DoBErr"></span>
                             </div>
 
@@ -72,6 +76,7 @@
                             <div class="form-outline mb-4">
                                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                                 <label asp-for="Input.Email"></label>
+                                <br />
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
 
@@ -79,12 +84,14 @@
                             <div class="form-outline mb-4">
                                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
                                 <label asp-for="Input.Password"></label>
+                                <br />
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
                                 <label asp-for="Input.ConfirmPassword"></label>
+                                <br />
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
 
