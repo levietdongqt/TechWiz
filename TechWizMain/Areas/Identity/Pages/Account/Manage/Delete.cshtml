@@ -1,0 +1,20 @@
+﻿@page
+@model TechWizMain.Areas.Identity.Pages.Account.Manage.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    ViewData["ActivePage"] = ManageNavPages.Delete;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <form id="email-form" method="post" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
+        <h1>Ban co muon xoa khong?</h1>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
