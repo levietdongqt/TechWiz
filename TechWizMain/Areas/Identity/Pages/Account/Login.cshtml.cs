@@ -138,6 +138,11 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                             return Page();
                         }
+                       var role = await _userManager.GetRolesAsync(user);
+                        if (role.Count>0 && role[0] == "admin")
+                        {
+                            return Redirect("/Admin/Index");
+                        }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
