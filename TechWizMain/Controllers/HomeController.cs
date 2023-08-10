@@ -19,6 +19,10 @@ namespace TechWizMain.Controllers
         {
             return View();
         }
+        public IActionResult ShopList()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

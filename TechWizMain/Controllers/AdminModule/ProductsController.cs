@@ -12,7 +12,7 @@ using TechWizMain.Services.ProductsService;
 namespace TechWizMain.Controllers.AdminModule
 {
     [Authorize(Roles ="admin")]
-    [Route("admin")]
+    [Route("Admin")]
     public class ProductsController : Controller
     {
         private readonly TechWizContext _context;
@@ -27,7 +27,7 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // GET: Products
-        [Route("products")]
+        [Route("Products")]
         public async Task<IActionResult> Index()
         {
             var techWizContext = _context.Products;
@@ -54,7 +54,7 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
-        [Route("products/create")]
+        [Route("Products/create")]
         public IActionResult Create()
         {
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
@@ -65,7 +65,7 @@ namespace TechWizMain.Controllers.AdminModule
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Route("products/create")]
+        [Route("Products/create")]
         public async Task<IActionResult> Create( Product product, IFormFile? formFile   )
         {
             if (ModelState.IsValid)

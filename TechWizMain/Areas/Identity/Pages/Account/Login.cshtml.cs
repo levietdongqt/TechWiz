@@ -141,7 +141,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                        var role = await _userManager.GetRolesAsync(user);
                         if (role.Count>0 && role[0] == "admin")
                         {
-                            return Redirect("/Admin/Index");
+                            return Redirect("/Admin");
                         }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);

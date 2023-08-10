@@ -1,12 +1,30 @@
-﻿
+﻿@model IEnumerable<TechWizMain.Areas.Identity.Data.UserManager>
 @{
     Layout = "_AdminLayout";
+	ViewData["Title"] = "Admin Control Panel";
+	int count = Model?.Count() ?? 0;
+	var preMonth = new List<int> { /* Số lượng người đăng ký trong các tháng trước */ };
+	double PerMonth = preMonth.Count > 0 ? 
+		((double)(count - preMonth.Last()) / preMonth.Last()) * 100 : 0;
+	double temp = 0.00;
 }
-		<div id="content" class="app-content">
-			<h1 class="page-header mb-3">
-				Hi, Sean. <small>here's what's happening with your store today.</small>
-			</h1>
-
+			@if (Model != null)
+            {
+                var x = Model.FirstOrDefault(i => i.UserName.StartsWith("admin"));
+                if (x != null)
+                {
+                    <h1 class="page-header mb-3">
+                        Hi, @x.UserName <small>here's what's happening with your store today.</small>
+                    </h1>
+                }
+            }
+			else
+			{
+				<h1 class="page-header mb-3">
+					Hi, Admin <small>here's what's happening with your store today.</small>
+				</h1>
+			}
+          
 			<div class="row">
 
 				<div class="col-xl-6 mb-3">
@@ -240,9 +258,17 @@
 									</div>
 									<div class="d-flex">
 										<div class="flex-grow-1">
-											<h3 class="mb-1">184,593</h3>
+											<h3 class="mb-1">@count</h3>
 											<div class="text-success fw-600 fs-13px">
-												<i class="fa fa-caret-up"></i> +3.59%
+												@if (preMonth.Count > 0)
+                                                            {
+                                                                <i class="fa fa-caret-up"></i> @PerMonth.ToString("F2 %")
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="fa fa-caret-right"></i>
+	                                                            @temp
+                                                            }
 											</div>
 										</div>
 										<div
@@ -637,7 +663,7 @@
 
 			</div>
 
-		</div>
+
 
 
 		<a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>

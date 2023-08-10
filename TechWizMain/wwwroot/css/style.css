@@ -1023,7 +1023,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .logo img {
-  max-width: 150px;
+  max-width: 240px;
 }
 @media only screen and (max-width: 767px) {
   .logo img {
@@ -4729,7 +4729,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   }
 }
 .footer_logo a img {
-  width: 150px;
+  max-width: 240px;
 }
 
 .contact_us > p {

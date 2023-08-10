@@ -18,9 +18,10 @@ namespace TechWizMain.Controllers
     }
 
     [Route("")]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-      return View();
+      var users = await _adminService.GetAllAsync();
+      return View(users);
     }
 
     [Route("Users")]

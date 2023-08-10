@@ -12,7 +12,7 @@ using TechWizMain.Services.DiscountService;
 namespace TechWizMain.Controllers.AdminModule
 {
     [Authorize(Roles ="admin")]
-    [Route("Admin/[controller]")]
+    [Route("Admins")]
     public class DiscountsController : Controller
     {
         private readonly TechWizContext _context;
@@ -125,7 +125,7 @@ namespace TechWizMain.Controllers.AdminModule
             }
             return View(discount);
         }
-
+        
         // GET: Discounts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

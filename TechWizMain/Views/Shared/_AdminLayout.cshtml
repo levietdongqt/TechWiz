@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using TechWizMain.Areas.Identity.Data
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -16,7 +18,6 @@
 	
 <div class="app" id="app">
 	<div id="header" class="app-header">
-    
     			<div class="mobile-toggler">
     				<button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
     					<span class="bar"></span>
@@ -106,14 +107,11 @@
     					</div>
     				</div>
     				<div class="menu-item dropdown">
-    					<a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
-    						<div class="menu-img online">
-    							<img src="assets/img/user/user.jpg" alt class="ms-100 mh-100 rounded-circle">
-    						</div>
-    						<div class="menu-text"><span class="__cf_email__"
-    								data-cfemail="412b2e292f322c2835290120323132353425282e6f222e2c">[email&#160;protected]</span>
-    						</div>
-    					</a>
+					    <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
+						    <div class="menu-text">
+							    <span class="__cf_email__" >Hello Admin!</span>
+						    </div>
+					    </a>
     					<div class="dropdown-menu dropdown-menu-end me-lg-3">
     						<a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i
     								class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
@@ -137,7 +135,7 @@
 			<div class="menu">
 				<div class="menu-header">Navigation</div>
 				<div class="menu-item active">
-					<a href="index-2.html" class="menu-link">
+					<a asp-action="Index" asp-controller="Admin" asp-area="" class="menu-link">
 						<span class="menu-icon"><i class="fa-solid fa-laptop" style="color: #020203;"></i></span>
 						<span class="menu-text">Dashboard</span>
 					</a>
@@ -152,19 +150,19 @@
 				</div>
 				<div class="menu-item">
 					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+						<span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
 						<span class="menu-text">Product management</span>
 					</a>
 				</div>
 				<div class="menu-item">
 					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+						<span class="menu-icon"><i class="fa fa-wallet"></i></span>
 						<span class="menu-text">Process Bill</span>
 					</a>
 				</div>
 				<div class="menu-item">
 					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+						<span class="menu-icon"><i class="fa fa-table"></i></span>
 						<span class="menu-text">revenue management</span>
 					</a>
 				</div>
@@ -172,6 +170,12 @@
 					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
 						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 						<span class="menu-text">Feed Backs</span>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa-solid fa-tag"></i></span>
+						<span class="menu-text">Discounts management</span>
 					</a>
 				</div>
 				<div class="p-3 px-4 mt-auto hide-on-minified">
