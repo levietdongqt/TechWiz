@@ -14,6 +14,7 @@ using TechWizMain.Repository.CategoryRepository;
 using TechWizMain.Repository.FeedbackRepository;
 using TechWizMain.Repository.ProductRepository;
 using TechWizMain.Repository.UserRepository;
+using TechWizMain.Services.AdminService;
 using TestEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,6 +76,9 @@ builder.Services.AddTransient<IProductRepository,ProductRepository>();
 builder.Services.AddTransient<IBillRepository, BillRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IAdminService, AdminService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
