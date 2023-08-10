@@ -64,6 +64,7 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
     options.Lockout.MaxFailedAccessAttempts = 3; // Thất bại 5 lầ thì khóa
     options.User.RequireUniqueEmail = true;  // Email là duy nhất
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     // Cấu hình đăng nhập.
     options.SignIn.RequireConfirmedEmail = true; // Cấu hình xác thực địa chỉ email (email phải tồn tại)
