@@ -35,9 +35,17 @@ namespace TechWizMain.Repository.UserRepository
 
         }
 
-        public Task<UserManager?> GetByID(int id)
+        public async Task<UserManager?> GetByID(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+				var user = await _userManager.FindByIdAsync(id);
+				return user;
+			}catch(Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<IEnumerable<UserManager>> GetUsersByRoles(string roleName)
