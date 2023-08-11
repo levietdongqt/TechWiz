@@ -100,7 +100,7 @@ namespace TechWizMain.Repository
         {
             try
             {
-                _entities.Update(entity);
+                _entities.Remove(entity);
                 _context.SaveChanges();
                 return true;
             }
