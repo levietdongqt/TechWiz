@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Models;
 using TechWizMain.Services.FeedbackService;
-using TechWizMain.Services.HomeService;
 using TechWizMain.Services.ProductsService;
 
 namespace TechWizMain.Controllers
@@ -18,25 +17,29 @@ namespace TechWizMain.Controllers
         private readonly IFeedbackService _feedbackService;
         private readonly SignInManager<UserManager> _signInManager;
         private readonly UserManager<UserManager> _userManager;
-        private readonly IHomeService _homeService;
+        private readonly IProductService _productService;
         private readonly TechWizContext _context;
-        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager, IHomeService homeService, TechWizContext context)
+        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,IProductService productService,TechWizContext context)
         {
             _logger = logger;
             _feedbackService = feedbackService;
             _signInManager = signInManager;
             _userManager = userManager;
-            _homeService = homeService;
+            _productService = productService;
             _context = context;
         }
         [HttpGet]
 
         public async Task<IActionResult> Index()
         {
-            ViewData["categoryList"] = await _homeService.GetAllCate();
             // Lấy danh sách sản phẩm mới nhất
             var newestProducts = await _context.Products
                 .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Plant"))
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(8)
+                .ToListAsync();
+            var newestProductsAccessories = await _context.Products
+                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
@@ -50,11 +53,22 @@ namespace TechWizMain.Controllers
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
+            ViewData["newestAccessories"] = newestProductsAccessories;
             return View();
         }
 
-        public IActionResult ShopList()
+        public IActionResult Details()
         {
+            return View();
+        }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ShopList()
+        {
+            var Product = await _context.Products.ToListAsync();
+            ViewData["Products"] = Product;
             return View();
         }
 
@@ -74,7 +88,7 @@ namespace TechWizMain.Controllers
                 feedback.Email = currentUser.Email;
                      return View(feedback);
             }
-                return View();
+            return View();
         }
         [HttpPost]
         [AllowAnonymous]
