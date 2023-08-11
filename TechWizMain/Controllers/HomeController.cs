@@ -6,6 +6,7 @@ using System.Diagnostics;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Models;
 using TechWizMain.Services.FeedbackService;
+using TechWizMain.Services.HomeService;
 
 namespace TechWizMain.Controllers
 {
@@ -15,16 +16,19 @@ namespace TechWizMain.Controllers
         private readonly IFeedbackService _feedbackService;
         private readonly SignInManager<UserManager> _signInManager;
         private readonly UserManager<UserManager> _userManager;
-        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager)
+        private readonly IHomeService _homeService;
+        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager, IHomeService homeService)
         {
             _logger = logger;
             _feedbackService = feedbackService;
             _signInManager = signInManager;
             _userManager = userManager;
+            _homeService = homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewData["categoryList"] = await _homeService.GetAllCate();
             return View();
         }
         public IActionResult ShopList()

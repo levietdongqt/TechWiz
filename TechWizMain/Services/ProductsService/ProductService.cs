@@ -13,7 +13,27 @@ namespace TechWizMain.Services.ProductsService
         {
             _productRepository = productRepository;
         }
+        bool UpdateProduct(Product product, IFormFile? formFile)
+        {
+            try
+            {
+                if (formFile != null)
+                {
+                    var filePath = Path.Combine("wwwroot/images/product", formFile.FileName);
+                    var fileStream = new FileStream(filePath, FileMode.Create);
+                    formFile.CopyToAsync(fileStream);
+                    product.ImageUrl = "/images/" + formFile.FileName;
+                    
+                }
+                _productRepository.Update(product);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
 
+        }
         public  bool AddProduct(Product product, IFormFile? formFile)
         {
             try
@@ -55,6 +75,11 @@ namespace TechWizMain.Services.ProductsService
                     })
                     .ToList();
             return enumValues;
+        }
+
+        bool IProductService.UpdateProduct(Product product, IFormFile? formFile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

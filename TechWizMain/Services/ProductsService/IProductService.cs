@@ -8,5 +8,6 @@ namespace TechWizMain.Services.ProductsService
         bool AddProduct(Product product, IFormFile? formFile);
         IEnumerable getTypeProduct();
         Task<IEnumerable<Product>> GetProductListByStatus(bool status);
+       bool UpdateProduct(Product product, IFormFile? formFile);
     }
 }
