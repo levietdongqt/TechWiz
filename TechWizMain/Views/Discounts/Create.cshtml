@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -24,13 +24,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateBegin" class="control-label"></label>
-                <input asp-for="DateBegin" class="form-control" />
-                <span asp-validation-for="DateBegin" class="text-danger"></span>
+                <input asp-for="DateBegin" class="form-control"  />
+                <span asp-validation-for="DateBegin" class="text-danger" id="errdb"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DateEnd" class="control-label"></label>
                 <input asp-for="DateEnd" class="form-control" />
-                <span asp-validation-for="DateEnd" class="text-danger"></span>
+                <span asp-validation-for="DateEnd" class="text-danger" id="errde"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -45,4 +45,51 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dateBeginInput = document.getElementById('DateBegin');
+            var dateEndInput = document.getElementById('DateEnd');
+            var form = document.querySelector('form');
+            var errorDb = document.getElementById('errdb');
+            var errorDe = document.getElementById('errde');
+
+            dateBeginInput.addEventListener('change', validateDates);
+            dateEndInput.addEventListener('change', validateDates);
+
+            form.addEventListener('submit', function (event) {
+                if (!validateDates()) {
+                    event.preventDefault();
+                }
+            });
+
+            function validateDates() {
+                var dateBegin = new Date(dateBeginInput.value);
+                var dateEnd = new Date(dateEndInput.value);
+                var currentDate = new Date();
+
+                // Kiểm tra DateBegin phải nhỏ hơn DateEnd
+                if (dateBegin >= dateEnd) {
+                    errorDe.textContent = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+                } else {
+                    errorDe.textContent = '';
+                }
+
+                // Kiểm tra DateBegin phải lớn hơn ngày hiện tại 1 ngày
+                var tomorrow = new Date(currentDate);
+                tomorrow.setDate(currentDate.getDate() + 1);
+                if (dateBegin < tomorrow) {
+                    errorDb.textContent = 'Ngày bắt đầu phải lớn hơn ngày hiện tại ít nhất 1 ngày.';
+                } else {
+                    errorDb.textContent = '';
+                }
+
+                return dateBegin < dateEnd && dateBegin >= tomorrow;
+            }
+        });
+    </script>
+
+
+
+
 }

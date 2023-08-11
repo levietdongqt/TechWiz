@@ -11,11 +11,12 @@ using TechWizMain.Models;
 using TechWizMain.Repository;
 using TechWizMain.Repository.BillRepository;
 using TechWizMain.Repository.CategoryRepository;
+using TechWizMain.Repository.DiscountRepository;
 using TechWizMain.Repository.FeedbackRepository;
 using TechWizMain.Repository.ProductRepository;
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
-
+using TechWizMain.Services.DiscountService;
 using TechWizMain.Services.ProductsService;
 using TestEmail.Services;
 
@@ -80,6 +81,8 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<IDiscountService, DiscountService>();
+builder.Services.AddTransient<IDiscountRepository, DiscountRespository>();
 
 var app = builder.Build();
 

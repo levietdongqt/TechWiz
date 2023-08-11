@@ -66,21 +66,24 @@ namespace TechWizMain.Controllers.AdminModule
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Discounts/Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Percent,DateBegin,DateEnd")] Discount discount)
         {
             if (ModelState.IsValid)
             {
-                    var result = _discountService.AddDiscount(discount);
+                var result = _discountService.AddDiscount(discount);
                 if (result)
                 {
-                    return RedirectToAction("Index");
+                    return Redirect("admin/Discounts");
                 }
             }
             return View(discount);
         }
 
         // GET: Discounts/Edit/5
+        [Route("Discounts/Edit")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Discounts == null)
@@ -100,6 +103,7 @@ namespace TechWizMain.Controllers.AdminModule
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Discounts/Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Percent,DateBegin,DateEnd")] Discount discount)
         {
@@ -131,6 +135,7 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // GET: Discounts/Delete/5
+        [Route("Discounts/Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Discounts == null)
@@ -150,6 +155,7 @@ namespace TechWizMain.Controllers.AdminModule
 
         // POST: Discounts/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Route("Discounts/Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
