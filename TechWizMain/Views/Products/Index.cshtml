@@ -282,3 +282,164 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
+=======
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeProduct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InventoryQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discount.Id)
+                </td>
+                <td>
+                    <a class="btn btn-info open-modal-button" data-id="@item.Id" href="#">
+                        <i class="far fa-eye"></i> Details
+                    </a>
+                </td>
+                <td>
+                    <img src="/images/Screenshot 2023-03-11 191150.png" width="100px">
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <a class="btn btn-primary btn-icon btn-sm me-2 modal-edit" data-id="@item.Id" href="#">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+
+                        <a class="btn btn-danger btn-icon btn-sm modal-delete" data-id="@item.Id" href="#">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    </div>
+                </td>
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header text-center">
+                <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal-content"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //js xem detail
+    $(document).ready(function () {
+        $(".open-modal-button").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Products/Details", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js edit
+    $(document).ready(function () {
+        $(".modal-edit").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Edit", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js delete
+    $(document).ready(function () {
+        $(".modal-delete").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Delete", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+</script>
+>>>>>>> Phuoc

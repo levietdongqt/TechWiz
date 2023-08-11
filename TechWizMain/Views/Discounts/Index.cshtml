@@ -5,6 +5,7 @@
         Layout = "_AdminLayout";
     }
 
+<<<<<<< HEAD
     
 <div class="d-flex align-items-center mb-3">
 	<div>
@@ -41,6 +42,62 @@
 								</div>
 							</div>
 						</div>
+=======
+    <h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Percent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateBegin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateEnd)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Percent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateBegin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateEnd)
+                </td>
+                <td>
+                    <a class="btn btn-primary modal-edit" data-id="@item.Id" href="#">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a class="btn btn-info open-modal-button" data-id="@item.Id" href="#">
+                        <i class="far fa-eye"></i> Details
+                    </a>
+                    <a class="btn btn-danger modal-delete" data-id="@item.Id" href="#">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </td>
+            </tr>
+    }
+        </tbody>
+
+    </table>
+>>>>>>> Phuoc
 
 
 						<div class="table-responsive">
@@ -105,8 +162,8 @@
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+            <div class="modal-header text-center">
+                <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -114,9 +171,12 @@
                 <div id="modal-content"></div>
             </div>
 
+<<<<<<< HEAD
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
+=======
+>>>>>>> Phuoc
         </div>
     </div>
 </div>
