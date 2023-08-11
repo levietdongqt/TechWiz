@@ -3,75 +3,6 @@
     ViewData["Title"] = "Details";
     Layout = null;
 }
-<<<<<<< HEAD
-=======
-<h1>Details</h1>
-<div>
-    <h4>Product</h4>
-    <hr />
-    <div class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BasePrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BasePrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.ImageUrl" width="100px"/>
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeProduct)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeProduct)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InventoryQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InventoryQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Discount.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Discount.Name)
-        </dd>
-    </div>
-    
-</div>
-
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
->>>>>>> master
-
     <div class="container">
         <div class="card bg-transparent border-0 shadow-lg">
             <div class="card-body p-5">
@@ -107,9 +38,8 @@
                         <dd class="col-sm-8 fs-5 text-end">
                                 @Html.DisplayFor(model => model.TypeProduct)
                             </dd>
-                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">InventoryQuantity:</dt> <!-- Chỉnh lại để tiêu đề không xuống dòng -->
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">InventoryQuantity:</dt> 
 
-<<<<<<< HEAD
                         <dd class="col-sm-8 fs-5 text-end">
                                 @Html.DisplayFor(model => model.InventoryQuantity)
                             </dd>
@@ -146,85 +76,3 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-=======
-
-<div class="container">
-    <div class="card bg-transparent border-0 shadow-lg">
-        <div class="card-body p-5 text-center">
-            <h2 class="fw-bold mb-5 text-primary">Chi Tiết Sản Phẩm</h2>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-tag"></i> Tên Sản Phẩm
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-info-circle"></i> Mô Tả
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-dollar-sign"></i> Giá
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-money-bill-wave"></i> Giá Gốc
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.BasePrice)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-image"></i> Ảnh
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.ImageUrl)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-tags"></i> Loại Sản Phẩm
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.TypeProduct)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-cubes"></i> Số Lượng Tồn Kho
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.InventoryQuantity)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-check-circle"></i> Trạng Thái
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.status)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-percent"></i> Giảm Giá
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Discount.Id)
-                </dd>
-            </dl>
-
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Back to list
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
->>>>>>> master
