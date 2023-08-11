@@ -56,14 +56,6 @@ namespace TechWizMain.Models
                     .HasConstraintName("FK__CategoryP__Produ__5441852A");
             });
 
-            modelBuilder.Entity<Feedback>(entity =>
-            {
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Feedbacks)
-                    .HasForeignKey(d => d.UserID)
-                    .HasConstraintName("FK__Feedback__UserId__5BE2A6F2");
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasOne(d => d.Discount)

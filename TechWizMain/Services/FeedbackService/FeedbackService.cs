@@ -14,7 +14,12 @@ namespace TechWizMain.Services.FeedbackService
             this._FeedbackRepository = FeedbackRepository;
         }
 
-        public bool InsertFeedback(Feedback feedback)
+		public Task<IEnumerable<Feedback>> GetAllAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool InsertFeedback(Feedback feedback)
         {
             try
             {

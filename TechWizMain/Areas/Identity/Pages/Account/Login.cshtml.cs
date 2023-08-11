@@ -133,7 +133,11 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                      var user = await _userManager.FindByNameAsync(Input.UserNameOrEmail);
+<<<<<<< HEAD
                      if(user == null)
+=======
+                        if (user == null)
+>>>>>>> 193ca51ca0c9d19cc8157692d513aafe440871af
                         {
                             user = await _userManager.FindByEmailAsync(Input.UserNameOrEmail);
                         }

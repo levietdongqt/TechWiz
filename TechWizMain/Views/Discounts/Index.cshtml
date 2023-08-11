@@ -1,54 +1,177 @@
-﻿@model IEnumerable<TechWizMain.Models.Discount>
+﻿    @model IEnumerable<TechWizMain.Models.Discount>
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "_AdminLayout";
-}
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "_AdminLayout";
+    }
 
-<h1>Index</h1>
+    
+<div class="d-flex align-items-center mb-3">
+		<div>
+			<ul class="breadcrumb">
+				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+				<li class="breadcrumb-item active">Discounts</li>
+			</ul>
+			<h1 class="page-header mb-0">Discounts</h1>
+		</div>
+	</div>
+			<div class="card">
+				<div class="tab-content p-4">
+					<div class="tab-pane fade show active" id="allTab">
+						<div class="input-group mb-4">
+							<button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">Filter products &nbsp;</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<a class="dropdown-item" href="#">Something else here</a>
+								<div role="separator" class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Separated link</a>
+							</div>
+							<div class="flex-fill position-relative z-1">
+								<div class="input-group">
+									<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+										style="z-index: 1020;">
+										<i class="fa fa-search opacity-5"></i>
+									</div>
+									<input type="text" class="form-control ps-35px" placeholder="Search products">
+								</div>
+							</div>
+						</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Percent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateBegin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateEnd)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Percent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateBegin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateEnd)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+						<div class="table-responsive">
+							<table class="table table-hover text-nowrap">
+								<thead>
+									<tr>
+										<th class="pt-0 pb-2">ID</th>
+										<th class="pt-0 pb-2">@Html.DisplayNameFor(model => model.Name)</th>
+										<th class="pt-0 pb-2">@Html.DisplayNameFor(model => model.Percent)</th>
+										<th class="pt-0 pb-2"> @Html.DisplayNameFor(model => model.DateBegin)</th>
+										<th class="pt-0 pb-2">@Html.DisplayNameFor(model => model.DateEnd)</th>
+										<th class="pt-0 pb-2">Action</th>
+									</tr>
+								</thead>
+							<tbody>
+							@foreach (var x in Model)
+							{
+								<tr>
+									@if (x.Id != null)
+									{
+										var count = 1;
+										<td class="align-middle">@(count++)</td>
+									}
+									<td class="align-middle">
+										<a class="fw-bold text-green text-decoration-none">@x.Name</a>
+									</td>
+									<td class="align-middle">@x.Percent</td>
+									<td class="align-middle">@x.DateBegin</td>
+									<td class="align-middle">@x.DateEnd</td>
+									<td class="align-middle">
+										<button class="btn btn-info btn-rounded btn-sm buttonEdit waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a> <i class="fas fa-pen-square ml-1 text-white"></i></button>
+										<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a cdata-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
+										<button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a><i class="fas fa-times ml-1 text-white"></i></button>
+										</td>
+								</tr>
+							}
+							</tbody>
+							</table>
+						</div>
+
+						<div class="d-md-flex align-items-center">
+							<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+								Showing 1 to 10 of 57 entries
+							</div>
+							<ul class="pagination mb-0 justify-content-center">
+								<li class="page-item disabled"><a class="page-link">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item active"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item"><a class="page-link" href="#">6</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+<div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modal-content"></div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //js xem detail
+    $(document).ready(function () {
+        $(".open-modal-button").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Details", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js edit
+    $(document).ready(function () {
+        $(".modal-edit").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Edit", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js delete
+    $(document).ready(function () {
+        $(".modal-delete").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Delete", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+

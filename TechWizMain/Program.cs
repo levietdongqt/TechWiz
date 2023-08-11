@@ -17,7 +17,7 @@ using TechWizMain.Repository.FeedbackRepository;
 using TechWizMain.Repository.ProductRepository;
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
-
+using TechWizMain.Services.DiscountService;
 using TechWizMain.Services.ProductsService;
 using TestEmail.Services;
 using TechWizMain.Services.FeedbackService;
@@ -84,6 +84,7 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<IDiscountService, DiscountService>();
 builder.Services.AddTransient<IDiscountRepository, DiscountRespository>();
 builder.Services.AddTransient<IFeedbackService, FeedbackService>();
 var app = builder.Build();

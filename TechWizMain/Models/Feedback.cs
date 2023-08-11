@@ -21,16 +21,12 @@ namespace TechWizMain.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public string UserID { get; set; } = null!;
+        public string? UserID { get; set; } = null!;
 
         [Required]
         public string Name { get; set; }
 
         [Required]
         public string Message { get; set; }
-
-        [ForeignKey("UserId")]
-        [InverseProperty("Feedbacks")]
-        public virtual UserManager?   User { get; set; }
     }
 }
