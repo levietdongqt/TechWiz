@@ -145,11 +145,11 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                
-                if(!result.Succeeded)
+
+                if (!result.Succeeded)
                 {
                     userFind = await _userManager.FindByNameAsync(Input.UserName);
-                    if(userFind != null)
+                    if (userFind != null)
                     {
                         if (userFind.status == false && userFind.Email.Equals(Input.Email))
                         {
@@ -158,9 +158,8 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                             userUpdate = await _userStore.UpdateAsync(userFind, CancellationToken.None);
                         }
                     }
-                   
                 }
-                
+
                 if (result.Succeeded || userUpdate.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -175,7 +174,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
                     {
                         userId = await _userManager.GetUserIdAsync(user);
                         code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    }                  
+                    }
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
@@ -188,12 +187,12 @@ namespace TechWizMain.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return Content("Success:" + returnUrl);
                     }
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        return Content("Success:" + returnUrl);
                     }
                 }
                 foreach (var error in result.Errors)
@@ -203,7 +202,7 @@ namespace TechWizMain.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return Content("Error:" + returnUrl);
         }
 
         private UserManager CreateUser()
