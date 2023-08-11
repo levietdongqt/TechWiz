@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Collections;
 using TechWizMain.Models;
 using TechWizMain.Repository.ProductRepository;
 
@@ -18,7 +20,7 @@ namespace TechWizMain.Services.ProductsService
             {
                 if (formFile != null)
                 {
-                    var filePath = Path.Combine("wwwroot/images", formFile.FileName);
+                    var filePath = Path.Combine("wwwroot/images/product", formFile.FileName);
                     var fileStream = new FileStream(filePath, FileMode.Create);
                     formFile.CopyToAsync(fileStream);
                     product.ImageUrl = "/images/" + formFile.FileName;
@@ -34,6 +36,25 @@ namespace TechWizMain.Services.ProductsService
                 return false;
             }
             
+        }
+
+        public async Task<IEnumerable<Product>> GetProductListByStatus(bool status)
+        {
+            var products = await _productRepository.GetProductListByStatus(status);
+            return products;
+        }
+
+        public IEnumerable getTypeProduct()
+        {
+            var enumValues = Enum.GetValues(typeof(TypeProduct))
+                    .Cast<TypeProduct>()
+                    .Select(e => new SelectListItem
+                    {
+                        Value = e.ToString(),
+                        Text = e.ToString()
+                    })
+                    .ToList();
+            return enumValues;
         }
     }
 }

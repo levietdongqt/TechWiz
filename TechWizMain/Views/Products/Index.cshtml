@@ -10,76 +10,225 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BasePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TypeProduct)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InventoryQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BasePrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TypeProduct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InventoryQuantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount.Id)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                </td>
-                <td>
-                    <img src="/images/Screenshot 2023-03-11 191150.png" width="100px">
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+            <li class="breadcrumb-item active">Product Management</li>
+        </ul>
+        <h1 class="page-header mb-0">Products List</h1>
+    </div>
+</div>
+
+<div class="card">
+    <ul class="nav nav-tabs nav-tabs-v2 px-4">
+        <li class="nav-item me-3">
+            <a href="#ActiveTab" class="nav-link active px-2"
+               data-bs-toggle="tab">Active</a>
+        </li>
+        <li class="nav-item me-3">
+            <a href="#BannedTab" class="nav-link px-2"
+               data-bs-toggle="tab">Discontinued</a>
+        </li>
+    </ul>
+    <div class="tab-content p-4">
+        <div class="tab-pane fade show active" id="ActiveTab">
+            <div class="input-group mb-4">
+                <div class="flex-fill position-relative">
+                    <div class="input-group">
+                        <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                             style="z-index: 1020;">
+                            <i class="fa fa-search opacity-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                Type
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.BasePrice)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                Inventory
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Discount)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.ImageUrl)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in ViewBag.Active)
+                        {
+                            <tr>
+                                @if (x.Id != null)
+                                {
+                                    var count = 1;
+                                    <td class="align-middle">@(count)</td>
+                                }
+                                <td class="align-middle">@x.Name</td>
+                                <td class="align-middle">@x.TypeProduct</td>
+                                <td>@x.Price</td>
+                                <td>@x.BasePrice</td>
+                                <td>@x.InventoryQuantity</td>
+                                <td class="align-middle">
+                                    @x.Discount.Name
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
+                                </td>
+                                <td>
+                                    <img src="@x.ImageUrl" width="100px">
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@x.Id">Edit</a> |
+
+                                    <a asp-action="Delete" asp-route-id="@x.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-md-flex align-items-center">
+                <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                    Showing 1 to 10 of 57 entries
+                </div>
+                <ul class="pagination mb-0 justify-content-center">
+                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content p-4">
+        <div class="tab-pane fade" id="BannedTab">
+            <div class="input-group mb-4">
+                <div class="flex-fill position-relative">
+                    <div class="input-group">
+                        <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                             style="z-index: 1020;">
+                            <i class="fa fa-search opacity-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>TT</th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.TypeProduct)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.BasePrice)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.InventoryQuantity)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Discount)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th class="border-top-0 pt-0 pb-2">
+                                @Html.DisplayNameFor(model => model.ImageUrl)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var x in ViewBag.Deleted)
+                        {
+                            <tr>
+                                @if (x.Id != null)
+                                {
+                                    var count = 1;
+                                    <td class="align-middle">@(count)</td>
+                                }
+                                <td class="align-middle">@x.Name</td>
+                                <td class="align-middle">@x.TypeProduct</td>
+                                <td>@x.Price</td>
+                                <td>@x.BasePrice</td>
+                                <td>@x.InventoryQuantity</td>
+                                <td class="align-middle">
+                                    @x.Discount
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
+                                </td>
+                                <td>
+                                    <img src="/images/Screenshot 2023-03-11 191150.png" width="100px">
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@x.Id">Edit</a> |
+
+                                    <a asp-action="Delete" asp-route-id="@x.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-md-flex align-items-center">
+                <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                    Showing 1 to 10 of 57 entries
+                </div>
+                <ul class="pagination mb-0 justify-content-center">
+                    <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

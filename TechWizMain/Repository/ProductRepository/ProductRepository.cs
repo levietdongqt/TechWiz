@@ -61,5 +61,11 @@ namespace TechWizMain.Repository.ProductRepository
         {
            return await (_genericRepository.InsertAll(list));
         }
+
+        public async Task<IEnumerable<Product>> GetProductListByStatus(bool status)
+        {
+            var productList = await _context.Products.Include(p => p.Discount).Where(t => t.status == status).ToListAsync();
+            return productList; 
+        } 
     }
 }

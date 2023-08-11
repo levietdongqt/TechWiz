@@ -30,9 +30,12 @@ namespace TechWizMain.Controllers.AdminModule
         [Route("Products")]
         public async Task<IActionResult> Index()
         {
-            var techWizContext = _context.Products;
-            return View(await techWizContext.ToListAsync());
-        }
+            var productActive = await _productService.GetProductListByStatus(true);
+			var productDeleted = await _productService.GetProductListByStatus(false);
+			ViewBag.Active = productActive;
+			ViewBag.Deleted = productDeleted;
+			return View(ViewBag.productActive);
+		}
 
         // GET: Products/Details/5
         [Route("Products/Details")]
@@ -58,6 +61,7 @@ namespace TechWizMain.Controllers.AdminModule
         public IActionResult Create()
         {
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
+            ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             return View();
         }
 
@@ -81,7 +85,11 @@ namespace TechWizMain.Controllers.AdminModule
                     return View(product);
                 }
             }
+            else
+            {
+            }
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Id", "Id", product.DiscountId);
+            ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             ViewData["errMess"] = "Product is invalid";
             return View(product);
         }

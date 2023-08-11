@@ -221,7 +221,6 @@
         integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
         data-cf-beacon='{"rayId":"7f45cb594eed04b5","version":"2023.7.0","r":1,"b":1,"token":"4db8c6ef997743fda032d4f73cfeff63","si":100}'
         crossorigin="anonymous"></script>
-    @RenderSection("Scripts", required: false)
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

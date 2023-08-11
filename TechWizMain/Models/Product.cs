@@ -28,8 +28,11 @@ namespace TechWizMain.Models
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         [Column(TypeName = "decimal(10, 2)")]
+        [Range(0.00,10000000.00,ErrorMessage ="Price is invalid !")]
         public decimal Price { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
+        [Range(0, 10000000, ErrorMessage = "Price is invalid !")]
+
         public decimal BasePrice { get; set; }
         [Column("ImageURL")]
         [StringLength(255)]
@@ -42,6 +45,7 @@ namespace TechWizMain.Models
         public int DiscountId { get; set; }
 
         [DisplayName("Inventory of quantity")]
+        [Range(0,10000000,ErrorMessage ="Price is invalid !")]
         public int InventoryQuantity { get; set; }
 
         [DisplayName("Date Sale")]
