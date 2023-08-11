@@ -1,4 +1,4 @@
-﻿
+﻿@model TechWizMain.Models.Feedback
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
@@ -23,21 +23,14 @@
     <!--breadcrumbs area end-->
 <div class="container">
      <!--contact map start-->
-       <div class="contact_map mt-100">
-           <div class="map-area d-flex justify-content-center">
-               <div id="googleMap">
-                   <iframe width="100%" height="470" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&amp;height=470&amp;hl=en&amp;q=TTTM%20The%20Garden,%20khu%20%C4%91%C3%B4%20th%E1%BB%8B,%20%C4%90.%20M%E1%BB%85%20Tr%C3%AC,%20M%E1%BB%B9%20%C4%90%C3%ACnh,%20Nam%20T%E1%BB%AB%20Li%C3%AAm,%20H%C3%A0%20N%E1%BB%99i%20Hanoi+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-    
-                   </div>
-           </div>
-       </div>
+       
         <!--contact map end-->
     
         <!--contact area start-->
         <div class="contact_area">
-            <div class="container">
+            <div class="container" style="margin-top: 4rem;">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-6">
                         <div class="contact_message content">
                             <h3>contact us</h3>
                             <p>
@@ -47,30 +40,38 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
                                 <li><i class="fa fa-phone"></i> <a href="#">ae@gmail.com</a></li>
                                 <li><i class="fa fa-envelope-o"></i><a href="tel:0123456789">0123456789</a> </li>
                             </ul>
+                        <div class="contact_map mt-50">
+                            <div class="map-area d-flex justify-content-center">
+                                <div id="googleMap">
+                                    <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&amp;height=470&amp;hl=en&amp;q=TTTM%20The%20Garden,%20khu%20%C4%91%C3%B4%20th%E1%BB%8B,%20%C4%90.%20M%E1%BB%85%20Tr%C3%AC,%20M%E1%BB%B9%20%C4%90%C3%ACnh,%20Nam%20T%E1%BB%AB%20Li%C3%AAm,%20H%C3%A0%20N%E1%BB%99i%20Hanoi+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-6">
                         <div class="contact_message form">
                             <h3>Contact Us</h3>
-                            <form id="contact-form" method="POST" action="">
-                                <p>
-                                    <label> Your Name</label>
-                                    <input name="name" placeholder="Name *" type="text">
-                                </p>
-                                <p>
-                                    <label> Your Email</label>
-                                    <input name="email" placeholder="Email *" type="email">
-                                </p>
-                                <p>
-                                    <label> Subject</label>
-                                    <input name="subject" placeholder="Subject *" type="text">
-                                </p>
-                                <div class="contact_textarea">
-                                    <label> Your Message</label>
-                                    <textarea placeholder="Message *" name="message" class="form-control2"></textarea>
-                                </div>
-                                <button type="submit"> Send</button>
-                            </form>
+                        <form id="contact-form" method="post" asp-action="Contact" asp-controller="Home">
+                            <p>
+                                <label asp-for="Name"> Your Name</label>
+                                <input asp-for="Name" name="Name" placeholder="Name *" type="text">
+                            </p>
+                            <p>
+                                <label asp-for="Email"> Your Email</label>
+                                <input asp-for="Email" name="Email" placeholder="Email *" type="email">
+                            </p>
+                            <p>
+                                <label asp-for="Subject"> Subject</label>
+                                <input asp-for="Subject" name="Subject" placeholder="Subject *" type="text">
+                            </p>
+                            <div class="contact_textarea">
+                                <label asp-for="Message"> Your Message</label>
+                                <textarea asp-for="Message" placeholder="Message *" name="Message" class="form-control2"></textarea>
+                            </div>
+                            <button type="submit"> Send</button>
+                        </form>
     
                         </div>
                     </div>

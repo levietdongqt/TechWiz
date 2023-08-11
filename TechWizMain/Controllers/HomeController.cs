@@ -22,7 +22,7 @@ namespace TechWizMain.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -45,16 +45,18 @@ namespace TechWizMain.Controllers
                 Feedback feedback = new Feedback();
                 feedback.UserID = currentUser.Id;
                 feedback.Name = currentUser.UserName;
+                feedback.Email = currentUser.Email;
                      return View(feedback);
             }
                 return View();
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Contact(Feedback feedback)
+        public  IActionResult Contact(Feedback feedback)
         {
             if (ModelState.IsValid)
             {
+                feedback.FeedbackDate = DateTime.Now;
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
