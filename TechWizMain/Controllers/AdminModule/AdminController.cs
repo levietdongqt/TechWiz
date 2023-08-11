@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechWizMain.Areas.Identity.Data;  
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
 
 namespace TechWizMain.Controllers
 {
-
-  [Route("Admin")]
+	//[Authorize(Roles ="admin")]
+	[Route("Admin")]
   public class AdminController : Controller
   {
 
     private readonly IAdminService _adminService;
-
+    
     public AdminController(IAdminService adminService)
     {
 
@@ -22,21 +23,36 @@ namespace TechWizMain.Controllers
     [Route("")]
     public async Task<IActionResult> Index()
     {
-      var users = await _adminService.GetAllAsync(true);
-      return View(users);
+      return View();
     }
 
     [Route("Users")]
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> GetUsers(string? UserName)
     {
-      var usersActive = await _adminService.GetAllAsync(true);
+        
+	    if (UserName == null)
+       {
+		    ViewBag.Active = await _adminService.GetAllAsync(true);
+       }
+       else
+       {
+			ViewBag.Active = await _adminService.GetByUserName(UserName);
+	    }
+     
 	  var usersBanned = await _adminService.GetAllAsync(false);
-	  ViewBag.Active = usersActive;
       ViewBag.Banned = usersBanned;
-      return View(ViewBag.active);
+      return View();
     }
+		[Route("FeedBacks")]
+		public IActionResult FeedBacks()
+        {
+            return View();
+        }
 
-    [HttpPost]
+
+
+
+	[HttpPost]
     [Route("Banned")]
     public async Task<IActionResult> Banned(string Id)
     {
