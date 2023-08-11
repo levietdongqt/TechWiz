@@ -6,15 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 using TechWizMain.Models;
 using TechWizMain.Services.DiscountService;
 
 namespace TechWizMain.Controllers.AdminModule
 {
     [Authorize(Roles ="admin")]
-    [Route("admin")]
-
-
+    [Route("Admins")]
     public class DiscountsController : Controller
     {
         private readonly TechWizContext _context;
@@ -24,9 +23,7 @@ namespace TechWizMain.Controllers.AdminModule
             _context = context;
             _discountService = discountService; 
         }
-
-
-
+        
         // GET: Discounts
         [Route("Discounts")]
         public async Task<IActionResult> Index()
@@ -80,7 +77,7 @@ namespace TechWizMain.Controllers.AdminModule
             }
             return View(discount);
         }
-
+        
         // GET: Discounts/Edit/5
         [Route("Discounts/Edit")]
 
@@ -133,7 +130,7 @@ namespace TechWizMain.Controllers.AdminModule
             }
             return View(discount);
         }
-
+        
         // GET: Discounts/Delete/5
         [Route("Discounts/Delete")]
         public async Task<IActionResult> Delete(int? id)
@@ -174,5 +171,7 @@ namespace TechWizMain.Controllers.AdminModule
         {
             return (_context.Discounts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
     }
 }

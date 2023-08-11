@@ -21,7 +21,7 @@ namespace TechWizMain.Services.ProductsService
                     var filePath = Path.Combine("wwwroot/images", formFile.FileName);
                     var fileStream = new FileStream(filePath, FileMode.Create);
                     formFile.CopyToAsync(fileStream);
-                    product.ImageUrl = "images/" + formFile.FileName;
+                    product.ImageUrl = "/images/" + formFile.FileName;
                 }
                 else
                 {

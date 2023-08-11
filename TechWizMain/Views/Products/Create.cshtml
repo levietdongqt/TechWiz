@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "_AdminLayout";
 }
 
 <h1>Create</h1>
@@ -10,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -19,27 +20,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" type="number" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" />
+                <input asp-for="BasePrice" class="form-control" type="number" />
                 <span asp-validation-for="BasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label" ></label>
-                <input asp-for="ImageUrl" class="form-control" type="file" name="formFile" id="formFile" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <label class="control-label">Image</label>
+                <input class="form-control" type="file" name="formFile" id="formFile" required />
+
             </div>
             <div class="form-group">
-                <label asp-for="TypeProduct" class="control-label"></label>
-                <input asp-for="TypeProduct" class="form-control" />
-                <span asp-validation-for="TypeProduct" class="text-danger"></span>
-                <!-- <input asp-for="TypeProduct" type="radio" id="radio1" name="radioGroup" value="Plant">
-                  <label for="radio1"> @TypeProduct.Plant </label>
-                  <input asp-for="TypeProduct" type="radio" id="radio1" name="radioGroup" value="Accessories">
-                    <label for="radio1"> @TypeProduct.Accessories </label> -->
+                <label asp-for="TypeProduct" class="control-label"></label> <br />
+                <input asp-for="TypeProduct" type="radio" id="TypeProduct" name="TypeProduct" value="Plant" >
+                <label for="radio1" class="control-label"> @TypeProduct.Plant </label>
+                <input asp-for="TypeProduct" type="radio" id="TypeProduct" name="TypeProduct" value="Accessories" >
+                <label for="radio1"> @TypeProduct.Accessories </label>
             </div>
             <div class="form-group">
                 <label asp-for="DiscountId" class="control-label"></label>
@@ -55,10 +54,10 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="status" /> @Html.DisplayNameFor(model => model.status)
-                </label>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

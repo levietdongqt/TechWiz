@@ -8,11 +8,11 @@
 {
     var currentUser = UserManager.GetUserAsync(User).Result;
     var fullName = currentUser.FullName;
-    <div class="quick_button pt-1">  
-         <i class="fa-solid fa-user" style="color: #080b12;font-size: 27px;"></i>
+    <div class="quick_button pt-1 mini_cart_wrapper ">  
+         <i class="fa-solid fa-user" style="color: #080b12;font-size: 27px;"></i><span class="item_count" style=" top: -5px !important;right: -9px !important;">Hi</span>
     </div>
-    <ul class="dropdown_links">
-        <li class="pb-3 pt-2 border-bottom mb-1">
+    <ul class="dropdown_links" style="right: -110px !important;">
+        <li class=" pb-3 pt-2 border-bottom mb-1" >
             <p class="text-dark fw-bold" style="max-width: 200px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 13px;cursor:pointer;">
                 Hi! @fullName
             </p>
@@ -31,7 +31,7 @@ else
     <div class="quick_button pt-1">
         <i class="fa-solid fa-user" style="color: #080b12;font-size: 27px;"></i>
     </div>
-    <ul class="dropdown_links ">
+    <ul class="dropdown_links " style="right: -110px !important;">
         <li><a class="btn text-white bg-dark rounded-1" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
         <li class="mt-2">
             <p style="width: 200px;font-size: 12px;display: inline-block;">

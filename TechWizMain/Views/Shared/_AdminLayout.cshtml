@@ -1,0 +1,229 @@
+﻿@using TechWizMain.Areas.Identity.Data
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Plant Nest</title>
+    	
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="description" content>
+    	<meta name="author" content>
+    
+	<link href="/assets/css/vendor.min.css" rel="stylesheet">
+    <link href="/assets/css/app.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+	
+<div class="app" id="app">
+	<div id="header" class="app-header">
+    			<div class="mobile-toggler">
+    				<button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
+    					<span class="bar"></span>
+    					<span class="bar"></span>
+    				</button>
+    			</div>
+    
+    
+    			<div class="brand">
+    				<div class="desktop-toggler">
+    					<button type="button" class="menu-toggler" data-toggle="sidebar-minify">
+    						<span class="bar"></span>
+    						<span class="bar"></span>
+    					</button>
+    				</div>
+    				<a href="index-2.html" class="brand-logo">
+    					<img src="assets/img/logo.png" class="invert-dark" alt height="20">
+    				</a>
+    			</div>
+    
+    
+    			<div class="menu">
+    				<form class="menu-search" method="" name="header_search_form">
+    					<div class="menu-search-icon"><i class="fa fa-search"></i></div>
+    					<div class="menu-search-input">
+    						<input type="text" class="form-control" placeholder="Search menu...">
+    					</div>
+    				</form>
+    				<div class="menu-item dropdown">
+    					<a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
+    						<div class="menu-icon"><i class="fa fa-bell nav-icon"></i></div>
+    						<div class="menu-label">3</div>
+    					</a>
+    					<div class="dropdown-menu dropdown-menu-end dropdown-notification">
+    						<h6 class="dropdown-header text-body-emphasis mb-1">Notifications</h6>
+    						<a href="#" class="dropdown-notification-item">
+    							<div class="dropdown-notification-icon">
+    								<i class="fa fa-receipt fa-lg fa-fw text-success"></i>
+    							</div>
+    							<div class="dropdown-notification-info">
+    								<div class="title">Your store has a new order for 2 items totaling $1,299.00</div>
+    								<div class="time">just now</div>
+    							</div>
+    							<div class="dropdown-notification-arrow">
+    								<i class="fa fa-chevron-right"></i>
+    							</div>
+    						</a>
+    						<a href="#" class="dropdown-notification-item">
+    							<div class="dropdown-notification-icon">
+    								<i class="far fa-user-circle fa-lg fa-fw text-muted"></i>
+    							</div>
+    							<div class="dropdown-notification-info">
+    								<div class="title">3 new customer account is created</div>
+    								<div class="time">2 minutes ago</div>
+    							</div>
+    							<div class="dropdown-notification-arrow">
+    								<i class="fa fa-chevron-right"></i>
+    							</div>
+    						</a>
+    						<a href="#" class="dropdown-notification-item">
+    							<div class="dropdown-notification-icon">
+    								<img src="assets/img/icon/android.svg" alt width="26">
+    							</div>
+    							<div class="dropdown-notification-info">
+    								<div class="title">Your android application has been approved</div>
+    								<div class="time">5 minutes ago</div>
+    							</div>
+    							<div class="dropdown-notification-arrow">
+    								<i class="fa fa-chevron-right"></i>
+    							</div>
+    						</a>
+    						<a href="#" class="dropdown-notification-item">
+    							<div class="dropdown-notification-icon">
+    								<img src="assets/img/icon/paypal.svg" alt width="26">
+    							</div>
+    							<div class="dropdown-notification-info">
+    								<div class="title">Paypal payment method has been enabled for your store</div>
+    								<div class="time">10 minutes ago</div>
+    							</div>
+    							<div class="dropdown-notification-arrow">
+    								<i class="fa fa-chevron-right"></i>
+    							</div>
+    						</a>
+    						<div class="p-2 text-center mb-n1">
+    							<a href="#" class="text-body-emphasis text-opacity-50 text-decoration-none">See all</a>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="menu-item dropdown">
+					    <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
+						    <div class="menu-text">
+							    <span class="__cf_email__" >Hello Admin!</span>
+						    </div>
+					    </a>
+    					<div class="dropdown-menu dropdown-menu-end me-lg-3">
+    						<a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i
+    								class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
+    						<a class="dropdown-item d-flex align-items-center" href="email_inbox.html">Inbox <i
+    								class="fa fa-envelope fa-fw ms-auto text-body text-opacity-50"></i></a>
+    						<a class="dropdown-item d-flex align-items-center" href="calendar.html">Calendar <i
+    								class="fa fa-calendar-alt fa-fw ms-auto text-body text-opacity-50"></i></a>
+    						<a class="dropdown-item d-flex align-items-center" href="settings.html">Setting <i
+    								class="fa fa-wrench fa-fw ms-auto text-body text-opacity-50"></i></a>
+    						<div class="dropdown-divider"></div>
+    						<a class="dropdown-item d-flex align-items-center" href="page_login.html">Log Out <i
+    								class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i></a>
+    					</div>
+    				</div>
+    			</div>
+    
+    		</div>
+	<div id="sidebar" class="app-sidebar">
+		<div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+    
+			<div class="menu">
+				<div class="menu-header">Navigation</div>
+				<div class="menu-item active">
+					<a asp-action="Index" asp-controller="Admin" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa-solid fa-laptop" style="color: #020203;"></i></span>
+						<span class="menu-text">Dashboard</span>
+					</a>
+				</div>
+				<div class="menu-divider"></div>
+				<div class="menu-header">Components</div>
+				<div class="menu-item">
+					<a asp-action="GetUsers" asp-controller="Admin" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-user-circle"></i></span>
+						<span class="menu-text">Users management</span>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
+						<span class="menu-text">Product management</span>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-wallet"></i></span>
+						<span class="menu-text">Process Bill</span>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-table"></i></span>
+						<span class="menu-text">revenue management</span>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+						<span class="menu-text">Feed Backs</span>
+					</a>
+				</div>
+				<div class="menu-item">
+                        <a asp-action="Index" asp-controller="Discounts" asp-area="" class="menu-link">
+						<span class="menu-icon"><i class="fa-solid fa-tag"></i></span>
+						<span class="menu-text">Discounts management</span>
+					</a>
+				</div>
+				<div class="p-3 px-4 mt-auto hide-on-minified">
+					<a href="documentation/index.html" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
+						<i class="fa fa-code-branch me-1 ms-n1 opacity-5"></i> Documentation
+					</a>
+				</div>
+			</div>
+    
+		</div>
+    
+    
+		<button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
+    
+	</div>
+	<div id="content" class="app-content">
+    		@RenderBody()
+    </div>
+</div>
+
+<!-- javascript -->
+<script data-cfasync="false" src="~/assets/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script src="~/assets/js/vendor.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+<script src="~/assets/js/app.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+
+
+<script src="~/assets/plugins/apexcharts/dist/apexcharts.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+<script src="~/assets/js/demo/dashboard.demo.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+<script type="9f2ac5c2af6239ca86fcd313-text/javascript">
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-Y3Q0VGQKY3');
+	</script>
+<script src="~/assets/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="9f2ac5c2af6239ca86fcd313-|49" defer></script>
+<script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
+        integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
+        data-cf-beacon='{"rayId":"7f45cb594eed04b5","version":"2023.7.0","r":1,"b":1,"token":"4db8c6ef997743fda032d4f73cfeff63","si":100}'
+        crossorigin="anonymous"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

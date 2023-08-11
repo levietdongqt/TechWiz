@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "_AdminLayout";
 }
 
 <h1>Create</h1>
@@ -43,6 +44,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
@@ -70,7 +72,7 @@
 
                 // Kiểm tra DateBegin phải nhỏ hơn DateEnd
                 if (dateBegin >= dateEnd) {
-                    errorDe.textContent = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+                    errorDe.textContent = 'The end date must be greater than the start date.';
                 } else {
                     errorDe.textContent = '';
                 }
@@ -79,7 +81,7 @@
                 var tomorrow = new Date(currentDate);
                 tomorrow.setDate(currentDate.getDate() + 1);
                 if (dateBegin < tomorrow) {
-                    errorDb.textContent = 'Ngày bắt đầu phải lớn hơn ngày hiện tại ít nhất 1 ngày.';
+                    errorDb.textContent = 'The start date must be at least 1 day older than the current date.';
                 } else {
                     errorDb.textContent = '';
                 }
