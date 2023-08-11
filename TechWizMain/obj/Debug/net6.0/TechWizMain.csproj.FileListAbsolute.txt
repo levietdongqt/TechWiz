@@ -1,0 +1,9 @@
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.csproj.AssemblyReference.cache
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.AssemblyInfoInputs.cache
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.AssemblyInfo.cs
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.csproj.CoreCompileInputs.cache
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.RazorAssemblyInfo.cache
+C:\Users\Thang\Documents\GitHub\10-08\TechWizMain\obj\Debug\net6.0\TechWizMain.RazorAssemblyInfo.cs
