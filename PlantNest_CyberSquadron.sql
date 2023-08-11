@@ -368,9 +368,12 @@ CREATE TABLE Review(
 
 CREATE TABLE Feedback (
   [Id] int PRIMARY KEY identity,
-  Content nvarchar(255) NOT NULL,
-  FeedbackDate datetime NOT NULL,
-  [UserId] nvarchar(450) foreign key references Users(Id) null
+  [FeedbackDate] datetime not null,
+  [Name] nvarchar(255) not null,
+  [Message] ntext not null,
+  [Email] nvarchar(50) not null,
+  [Subject] nvarchar(50) not null,
+  [UserId] nvarchar(450) null
 );
 
 CREATE TABLE Bill (

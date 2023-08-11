@@ -28,6 +28,7 @@ namespace TechWizMain.Controllers
             _productService = productService;
             _context = context;
         }
+        [HttpGet]
 
         public async Task<IActionResult> Index()
         {
@@ -69,23 +70,26 @@ namespace TechWizMain.Controllers
                 Feedback feedback = new Feedback();
                 feedback.UserID = currentUser.Id;
                 feedback.Name = currentUser.UserName;
+                feedback.Email = currentUser.Email;
                      return View(feedback);
             }
                 return View();
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Contact(Feedback feedback)
+        public  IActionResult Contact(Feedback feedback)
         {
             if (ModelState.IsValid)
             {
+                feedback.FeedbackDate = DateTime.Now;
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-                    return Redirect("/");
+                    // Return a JSON response indicating success
+                    return Json(new { success = true });
                 }
             }
-            return View(feedback); 
+            return Json(new { success = false });
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
