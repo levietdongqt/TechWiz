@@ -22,7 +22,7 @@ namespace TechWizMain.Controllers
     [Route("")]
     public async Task<IActionResult> Index()
     {
-      var users = await _adminService.GetAllAsync();
+      var users = await _adminService.GetAllAsync(true);
       return View(users);
     }
 

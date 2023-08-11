@@ -21,7 +21,7 @@ namespace TechWizMain.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public int UserID { get; set } = null; 
+        public string UserID { get; set; } = null!;
 
         [Required]
         public string Name { get; set; }

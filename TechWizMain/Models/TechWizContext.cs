@@ -60,7 +60,7 @@ namespace TechWizMain.Models
             {
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Feedbacks)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.UserID)
                     .HasConstraintName("FK__Feedback__UserId__5BE2A6F2");
             });
 
