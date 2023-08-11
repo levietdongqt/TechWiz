@@ -11,68 +11,104 @@
 				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
 				<li class="breadcrumb-item active">PRODUCTS</li>
 			</ul>
-			<h1 class="page-header mb-0">Add New Products</h1>
+			<h1 class="page-header mb-0">Create new Product</h1>
 		</div>
 		<div class="ms-auto">
-			<a asp-action="Create" asp-controller="Products" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
+			<a asp-action="Index" asp-controller="Products" class="btn btn-theme"><i class="fa-solid fa-backward" style="color: #ffffff;"></i> Back to list</a>
 		</div>
 	</div>
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" type="number" min="0" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" type="number" min="0"/>
-                <span asp-validation-for="BasePrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TypeProduct" class="control-label"></label>
-                <select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountId" class="control-label"></label>
-                <select  id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId" ></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="InventoryQuantity" class="control-label"></label>
-                <input asp-for="InventoryQuantity" class="form-control" />
-                <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Image</label>
-                <input class="form-control" type="file" name="formFile" id="formFile" required />
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" placeholder="Desciption" class="form-control2"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-12">
+		<div class="box">
+			<div class="box-body">
+				<form asp-action="Create" method="post" enctype="multipart/form-data">
+					 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="Name"></label>
+									<input asp-for="Name" class="form-control" />
+									<span asp-validation-for="Name" class="text-danger"></span>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="CreatedDate"></label>
+									<input asp-for="CreatedDate" class="form-control">
+									<span asp-validation-for="CreatedDate" class="text-danger"></span>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="InventoryQuantity"></label>
+									<input asp-for="InventoryQuantity" class="form-control" />
+									<span asp-validation-for="InventoryQuantity" class="text-danger"></span>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="TypeProduct"></label>
+									<select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="Price"></label>
+									<input asp-for="Price" class="form-control" type="number" min="0" />
+									<span asp-validation-for="Price" class="text-danger"></span>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="BasePrice"></label>
+									<input asp-for="BasePrice" class="form-control" type="number" min="0"/>
+									<span asp-validation-for="BasePrice" class="text-danger"></span>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="DiscountId"></label>
+									<select  id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="fw-700 fs-16 form-label" asp-for="Description"></label>
+									<textarea asp-for="Description" class="form-control p-15" rows="4"></textarea>
+									<span asp-validation-for="Description" class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-actions mt-15px">
+						<button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i>Create</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>		  
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 
 @section Scripts {

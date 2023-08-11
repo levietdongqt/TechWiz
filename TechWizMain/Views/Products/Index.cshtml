@@ -17,6 +17,7 @@
         <a asp-action="Create" asp-controller="Products" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="card">
     <ul class="nav nav-tabs nav-tabs-v2 px-4">
         <li class="nav-item me-3">
@@ -66,31 +67,37 @@
                     <h1 class="page-header mb-0">Products List</h1>
                 </div>
             </div>
+=======
 
-            <div class="card">
-                <ul class="nav nav-tabs nav-tabs-v2 px-4">
-                    <li class="nav-item me-3">
-                        <a href="#ActiveTab" class="nav-link active px-2"
-                           data-bs-toggle="tab">Active</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a href="#BannedTab" class="nav-link px-2"
-                           data-bs-toggle="tab">Discontinued</a>
-                    </li>
-                </ul>
-                <div class="tab-content p-4">
-                    <div class="tab-pane fade show active" id="ActiveTab">
-                        <div class="input-group mb-4">
-                            <div class="flex-fill position-relative">
-                                <div class="input-group">
-                                    <input type="text" class="form-control ps-35px" placeholder="Filter User">
-                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                         style="z-index: 1020;">
-                                        <i class="fa fa-search opacity-5"></i>
-                                    </div>
+>>>>>>> master
+
+
+    <div class="tab-pane fade show active" id="allTab">
+   
+        <div class="card">
+            <ul class="nav nav-tabs nav-tabs-v2 px-4">
+                <li class="nav-item me-3">
+                    <a href="#ActiveTab" class="nav-link active px-2"
+                       data-bs-toggle="tab">Active</a>
+                </li>
+                <li class="nav-item me-3">
+                    <a href="#BannedTab" class="nav-link px-2"
+                       data-bs-toggle="tab">Discontinued</a>
+                </li>
+            </ul>
+            <div style=" padding: 0.5rem!important; margint-top:10px" class="tab-content ">
+                <div class="tab-pane fade show active mx-3" id="ActiveTab" style="margin-top:30px;">
+                    <div class="input-group mb-4">
+                        <div class="flex-fill position-relative">
+                            <div class="input-group">
+                                <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                     style="z-index: 1020;">
+                                    <i class="fa fa-search opacity-5"></i>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
 
 
                         <div class="table-responsive">
@@ -192,10 +199,195 @@
                             <div id="modal-content"></div>
                         </div>
 
+=======
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>TT</th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    Type
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.BasePrice)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    Inventory
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Discount)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.ImageUrl)
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var x in ViewBag.Active)
+                            {
+                                <tr>
+                                    @if (x.Id != null)
+                                    {
+                                        var count = 1;
+                                        <td class="align-middle">@(count++)</td>
+                                    }
+                                    <td class="align-middle">@x.Name</td>
+                                    <td class="align-middle">@x.TypeProduct</td>
+                                    <td class="align-middle">@x.Price</td>
+                                    <td class="align-middle">@x.BasePrice</td>
+                                    <td class="align-middle"><button class="btn btn-default">@x.InventoryQuantity</button></td>
+                                    <td class="align-middle">
+                                        @x.Discount.Name
+                                    </td>
+                                    <td class="align-middle">
+                                        <button class="btn btn-default"> <a asp-action="Details" asp-route-id="@x.Id" class="text-dark text-decoration-none"><i class="fa-regular fa-eye" style="color: #1ff97e;"></i>&nbsp;Details</a></button>
+                                    </td>
+                                    <td>
+                                        <img src="@x.ImageUrl" width="100px">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success"><i class="fa-regular fa-pen-to-square" style="color: #1f5cc7;"></i><a asp-action="Edit" asp-route-id="@x.Id" class="text-dark text-decoration-none">Edit</a></button>
+                                        <button class="btn btn-danger"> <i class="fa-solid fa-trash" style="color: #fff;"></i><a asp-action="Delete" asp-route-id="@x.Id" class="text-white text-decoration-none">Delete</a></button>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-md-flex align-items-center">
+                        <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                            Showing 1 to 10 of 57 entries
+                        </div>
+                        <ul class="pagination mb-0 justify-content-center">
+                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+>>>>>>> master
                     </div>
                 </div>
             </div>
+            
+            <div class="tab-content p-4">
+                <div class="tab-pane fade" id="BannedTab">
+                    <div class="input-group mb-4">
+                        <div class="flex-fill position-relative">
+                            <div class="input-group">
+                                <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                                <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                     style="z-index: 1020;">
+                                    <i class="fa fa-search opacity-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+
+                    <div class="table-responsive">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>TT</th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.TypeProduct)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.BasePrice)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.InventoryQuantity)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Discount)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th class="border-top-0 pt-0 pb-2">
+                                    @Html.DisplayNameFor(model => model.ImageUrl)
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach (var x in ViewBag.Deleted)
+                            {
+                                <tr>
+                                    @if (x.Id != null)
+                                    {
+                                        var count = 1;
+                                        <td class="align-middle">@(count++)</td>
+                                    }
+                                    <td class="align-middle">@x.Name</td>
+                                    <td class="align-middle">@x.TypeProduct</td>
+                                    <td class="align-middle">@x.Price</td>
+                                    <td class="align-middle">@x.BasePrice</td>
+                                    <td class="align-middle">@x.InventoryQuantity</td>
+                                    <td class="align-middle">
+                                        @x.Discount
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default"> <a asp-action="Details" asp-route-id="@x.Id" class="text-dark text-decoration-none"><i class="fa-regular fa-eye" style="color: #1ff97e;"></i>&nbsp;Details</a></button>
+                                    </td>
+                                    <td>
+                                        <img src="@x.ImageUrl" width="100px">
+                                    </td>
+                                    <td>
+                                       <button class="btn btn-success"><i class="fa-solid fa-chart-line" style="color: #000000;"></i>&nbsp;<a asp-action="Active" asp-route-id="@x.Id" class="text-decoration-none text-white">Active</a></button>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-md-flex align-items-center">
+                        <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                            Showing 1 to 10 of 57 entries
+                        </div>
+                        <ul class="pagination mb-0 justify-content-center">
+                            <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<<<<<<< HEAD
 
 
             <script>
@@ -253,6 +445,8 @@
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -343,4 +537,67 @@
 
 
 
+<<<<<<< HEAD
 >>>>>>> Phuoc*@
+=======
+            <div class="modal-body">
+                <div id="modal-content"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //js xem detail
+    $(document).ready(function () {
+        $(".open-modal-button").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Products/Details", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js edit
+    $(document).ready(function () {
+        $(".modal-edit").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Edit", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+    //js delete
+    $(document).ready(function () {
+        $(".modal-delete").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Discounts/Delete", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
+
+</script>
+>>>>>>> master

@@ -119,11 +119,13 @@
     								class="fa fa-envelope fa-fw ms-auto text-body text-opacity-50"></i></a>
     						<a class="dropdown-item d-flex align-items-center" href="calendar.html">Calendar <i
     								class="fa fa-calendar-alt fa-fw ms-auto text-body text-opacity-50"></i></a>
-    						<a class="dropdown-item d-flex align-items-center" href="settings.html">Setting <i
-    								class="fa fa-wrench fa-fw ms-auto text-body text-opacity-50"></i></a>
     						<div class="dropdown-divider"></div>
-    						<a class="dropdown-item d-flex align-items-center" href="page_login.html">Log Out <i
-    								class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i></a>
+						    <div class="dropdown-item d-flex align-items-center">
+							    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+								    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+							    </form>
+								     <i class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i>
+						    </div>
     					</div>
     				</div>
     			</div>
@@ -210,7 +212,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
 <script type="9f2ac5c2af6239ca86fcd313-text/javascript">
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}999
+		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
 		gtag('config', 'G-Y3Q0VGQKY3');
