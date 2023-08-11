@@ -44,9 +44,15 @@
                     @Html.DisplayFor(modelItem => item.DateEnd)
                 </td>
                 <td>
-                    <a class=" modal-edit" data-id="@item.Id">Edit</a> |
-                    <a class=" open-modal-button" data-id="@item.Id">Details</a> |
-                    <a class=" modal-delete" data-id="@item.Id">Delete</a> 
+                    <a class="btn btn-primary modal-edit" data-id="@item.Id" href="#">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a class="btn btn-info open-modal-button" data-id="@item.Id" href="#">
+                        <i class="far fa-eye"></i> Details
+                    </a>
+                    <a class="btn btn-danger modal-delete" data-id="@item.Id" href="#">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
                 </td>
             </tr>
     }
@@ -62,8 +68,8 @@
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+            <div class="modal-header text-center">
+                <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -71,10 +77,6 @@
                 <div id="modal-content"></div>
             </div>
 
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
         </div>
     </div>
 </div>
