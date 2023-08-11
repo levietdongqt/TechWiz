@@ -11023,3 +11023,30 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   opacity:
 /*privacy policy css end*/
 /*# sourceMappingURL=style.css.map */
+
+  .box-body {
+  padding: 1.5rem;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  border-radius: 10px; }
+  .box-body .box-title {
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 1rem;
+    color: #172b4c; }
+  .box-body > .table {
+    margin-bottom: 0; }
+  .box-body .fc {
+    margin-top: 0px; }
+  .box-body .full-width-chart {
+    margin: -10px; }
+  .box-body.no-padding .full-width-chart {
+    margin: -9px; }
+  .box-body .box-pane {
+    border-radius: 0 0 0 10px; }
+  .box-body .box-pane-right {
+    border-radius: 0 0 10px; }
+  .box-body > *:last-child {
+    margin-bottom: 0; }
+  .box-body ul li {
+    line-height: 24px; }

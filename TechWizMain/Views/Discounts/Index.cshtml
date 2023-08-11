@@ -7,13 +7,16 @@
 
     
 <div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
-				<li class="breadcrumb-item active">Discounts</li>
-			</ul>
-			<h1 class="page-header mb-0">Discounts</h1>
-		</div>
+	<div>
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+			<li class="breadcrumb-item active">Discounts</li>
+		</ul>
+		<h1 class="page-header mb-0">Discounts</h1>
+	</div>
+	<div class="ms-auto">
+    			<a asp-action="Create" asp-controller="Discounts" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Discount</a>
+    		</div>
 	</div>
 			<div class="card">
 				<div class="tab-content p-4">
@@ -110,7 +113,6 @@
             <div class="modal-body">
                 <div id="modal-content"></div>
             </div>
-
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
