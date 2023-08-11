@@ -60,16 +60,9 @@
                     </div>
                 </div>
             </div>
-            <p>
-                <a asp-action="Create">Create New</a>
-            </p>
 
             <div class="d-flex align-items-center mb-3">
                 <div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
-                        <li class="breadcrumb-item active">Product Management</li>
-                    </ul>
                     <h1 class="page-header mb-0">Products List</h1>
                 </div>
             </div>
@@ -149,16 +142,18 @@
                                             <td class="align-middle">
                                                 @x.Discount.Name
                                             </td>
-                                            <td class="align-middle">
-                                                <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
+
                                             </td>
                                             <td>
                                                 <img src="@x.ImageUrl" width="100px">
                                             </td>
                                             <td>
-                                                <a asp-action="Edit" asp-route-id="@x.Id">Edit</a> |
+                                                <button class="btn btn-info btn-rounded btn-sm buttonEdit waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a> <i class="fas fa-pen-square ml-1 text-white"></i></button>
 
-                                                <a asp-action="Delete" asp-route-id="@x.Id">Delete</a>
+                                                <button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a><i class="fas fa-times ml-1 text-white"></i></button>
+
                                             </td>
                                         </tr>
                                     }
@@ -183,104 +178,78 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-content p-4">
-                    <div class="tab-pane fade" id="BannedTab">
-                        <div class="input-group mb-4">
-                            <div class="flex-fill position-relative">
-                                <div class="input-group">
-                                    <input type="text" class="form-control ps-35px" placeholder="Filter User">
-                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-                                         style="z-index: 1020;">
-                                        <i class="fa fa-search opacity-5"></i>
-                                    </div>
-                                </div>
-                            </div>
+
+            <div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog  modal-lg" role="document">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header text-center">
+                            <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-
-                        <div class="table-responsive">
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>TT</th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.Name)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.TypeProduct)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.Price)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.BasePrice)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.InventoryQuantity)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.Discount)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.Description)
-                                        </th>
-                                        <th class="border-top-0 pt-0 pb-2">
-                                            @Html.DisplayNameFor(model => model.ImageUrl)
-                                        </th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach (var x in ViewBag.Deleted)
-                                    {
-                                        <tr>
-                                            @if (x.Id != null)
-                                            {
-                                                var count = 1;
-                                                <td class="align-middle">@(count)</td>
-                                            }
-                                            <td class="align-middle">@x.Name</td>
-                                            <td class="align-middle">@x.TypeProduct</td>
-                                            <td class="align-middle">@x.Price</td>
-                                            <td class="align-middle">@x.BasePrice</td>
-                                            <td class="align-middle">@x.InventoryQuantity</td>
-                                            <td class="align-middle">
-                                                @x.Discount
-                                            </td>
-                                            <td>
-                                                <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
-                                            </td>
-                                            <td>
-                                                <img src="@x.ImageUrl" width="100px">
-                                            </td>
-                                            <td>
-                                                <a asp-action="Active" asp-route-id="@x.Id">Active</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                        <div class="modal-body">
+                            <div id="modal-content"></div>
                         </div>
 
-                        <div class="d-md-flex align-items-center">
-                            <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-                                Showing 1 to 10 of 57 entries
-                            </div>
-                            <ul class="pagination mb-0 justify-content-center">
-                                <li class="page-item disabled"><a class="page-link">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
+
+
+
+            <script>
+                //js xem detail
+                $(document).ready(function () {
+                    $(".open-modal-button").click(function () {
+                        var id = $(this).data("id");
+                        $.ajax({
+                            url: "Products/Details", // Đường dẫn đến action Details
+                            type: "GET",
+                            data: { id: id },
+                            success: function (data) {
+                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                                $("#myModal").modal("show"); // Mở cửa sổ popup
+                            }
+                        });
+                    });
+                });
+
+                //js edit
+                $(document).ready(function () {
+                    $(".modal-edit").click(function () {
+                        var id = $(this).data("id");
+                        $.ajax({
+                            url: "Products/Edit", // Đường dẫn đến action Details
+                            type: "GET",
+                            data: { id: id },
+                            success: function (data) {
+                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                                $("#myModal").modal("show"); // Mở cửa sổ popup
+                            }
+                        });
+                    });
+                });
+
+                //js delete
+                $(document).ready(function () {
+                    $(".modal-delete").click(function () {
+                        var id = $(this).data("id");
+                        $.ajax({
+                            url: "Products/Delete", // Đường dẫn đến action Details
+                            type: "GET",
+                            data: { id: id },
+                            success: function (data) {
+                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                                $("#myModal").modal("show"); // Mở cửa sổ popup
+                            }
+                        });
+                    });
+                });
+
+            </script>
+
+@*
 
 <<<<<<< HEAD
 =======
@@ -373,73 +342,5 @@
 </table>
 
 
-<div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog  modal-lg" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header text-center">
-                <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
 
-            <div class="modal-body">
-                <div id="modal-content"></div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-
-<script>
-    //js xem detail
-    $(document).ready(function () {
-        $(".open-modal-button").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                url: "Products/Details", // Đường dẫn đến action Details
-                type: "GET",
-                data: { id: id },
-                success: function (data) {
-                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                    $("#myModal").modal("show"); // Mở cửa sổ popup
-                }
-            });
-        });
-    });
-
-    //js edit
-    $(document).ready(function () {
-        $(".modal-edit").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                url: "Discounts/Edit", // Đường dẫn đến action Details
-                type: "GET",
-                data: { id: id },
-                success: function (data) {
-                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                    $("#myModal").modal("show"); // Mở cửa sổ popup
-                }
-            });
-        });
-    });
-
-    //js delete
-    $(document).ready(function () {
-        $(".modal-delete").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                url: "Discounts/Delete", // Đường dẫn đến action Details
-                type: "GET",
-                data: { id: id },
-                success: function (data) {
-                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                    $("#myModal").modal("show"); // Mở cửa sổ popup
-                }
-            });
-        });
-    });
-
-</script>
->>>>>>> Phuoc
+>>>>>>> Phuoc*@

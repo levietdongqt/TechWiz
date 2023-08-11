@@ -148,7 +148,7 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
-        [Route("Products/Delete/{id}")]
+        [Route("Products/Delete")]
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,10 +156,31 @@ namespace TechWizMain.Controllers.AdminModule
             {
                 return NotFound();
             }
-            _productService.changeStatus(id,false);
-            return RedirectToAction("Index");
+            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
         // POST: Products/Delete/5
+        [Route("Discounts/Delete")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Products == null)
+            {
+                return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+            }
+            else
+            {
+                _productService.changeStatus(id, false);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [HttpGet]
         [Route("Products/Active")]
         public async Task<IActionResult> Active(int? id)

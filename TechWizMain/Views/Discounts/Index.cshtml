@@ -5,7 +5,6 @@
         Layout = "_AdminLayout";
     }
 
-<<<<<<< HEAD
     
 <div class="d-flex align-items-center mb-3">
 	<div>
@@ -42,64 +41,6 @@
 								</div>
 							</div>
 						</div>
-=======
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Percent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateBegin)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateEnd)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Percent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateBegin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateEnd)
-                </td>
-                <td>
-                    <a class="btn btn-primary modal-edit" data-id="@item.Id" href="#">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <a class="btn btn-info open-modal-button" data-id="@item.Id" href="#">
-                        <i class="far fa-eye"></i> Details
-                    </a>
-                    <a class="btn btn-danger modal-delete" data-id="@item.Id" href="#">
-                        <i class="fas fa-trash"></i> Delete
-                    </a>
-                </td>
-            </tr>
-    }
-        </tbody>
-
-    </table>
->>>>>>> Phuoc
-
-
 						<div class="table-responsive">
 							<table class="table table-hover text-nowrap">
 								<thead>
@@ -129,7 +70,7 @@
 									<td class="align-middle">@x.DateEnd</td>
 									<td class="align-middle">
 										<button class="btn btn-info btn-rounded btn-sm buttonEdit waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a> <i class="fas fa-pen-square ml-1 text-white"></i></button>
-										<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a cdata-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
+										<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
 										<button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a><i class="fas fa-times ml-1 text-white"></i></button>
 										</td>
 								</tr>
@@ -144,8 +85,8 @@
 							</div>
 							<ul class="pagination mb-0 justify-content-center">
 								<li class="page-item disabled"><a class="page-link">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item "><a class="page-link" href="#">2</a></li>
 								<li class="page-item"><a class="page-link" href="#">3</a></li>
 								<li class="page-item"><a class="page-link" href="#">4</a></li>
 								<li class="page-item"><a class="page-link" href="#">5</a></li>
@@ -170,13 +111,6 @@
             <div class="modal-body">
                 <div id="modal-content"></div>
             </div>
-
-<<<<<<< HEAD
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-=======
->>>>>>> Phuoc
         </div>
     </div>
 </div>

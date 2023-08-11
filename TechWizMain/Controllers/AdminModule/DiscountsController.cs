@@ -72,7 +72,7 @@ namespace TechWizMain.Controllers.AdminModule
                 var result = _discountService.AddDiscount(discount);
                 if (result)
                 {
-                    return Redirect("admin/Discounts");
+                    return Redirect("/Admins/Discounts");
                 }
             }
             return View(discount);

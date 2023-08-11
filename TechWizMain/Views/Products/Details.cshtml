@@ -1,148 +1,85 @@
 ﻿@model TechWizMain.Models.Product
 @{
     ViewData["Title"] = "Details";
-    Layout = "_AdminLayout";
+    Layout = null;
 }
-<<<<<<< HEAD
-<h1>Details</h1>
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BasePrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BasePrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.ImageUrl" width="100px"/>
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeProduct)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeProduct)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InventoryQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InventoryQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Discount.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Discount.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-=======
 
+    <div class="container">
+        <div class="card bg-transparent border-0 shadow-lg">
+            <div class="card-body p-5">
+                <div class="text-center">
+                    <!-- Thêm cảnh chỉnh giữa -->
+                <h2 class="fw-bold mb-4 text-primary" >Product Details</h2>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="row">
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
+                                Product Name:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            <dt class="col-sm-4 fs-6 text-muted">
+                            Price:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.Price)
+                            </dd>
+                            <dt class="col-sm-4 fs-6 text-muted">
+                            BasePrice:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.BasePrice)
+                            </dd>
+                            <dt class="col-sm-4 fs-6 text-muted">
+                            TypeProduct:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.TypeProduct)
+                            </dd>
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">InventoryQuantity:</dt> <!-- Chỉnh lại để tiêu đề không xuống dòng -->
 
-
-<div class="container">
-    <div class="card bg-transparent border-0 shadow-lg">
-        <div class="card-body p-5 text-center">
-            <h2 class="fw-bold mb-5 text-primary">Chi Tiết Sản Phẩm</h2>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-tag"></i> Tên Sản Phẩm
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-info-circle"></i> Mô Tả
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-dollar-sign"></i> Giá
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-money-bill-wave"></i> Giá Gốc
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.BasePrice)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-image"></i> Ảnh
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.ImageUrl)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-tags"></i> Loại Sản Phẩm
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.TypeProduct)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-cubes"></i> Số Lượng Tồn Kho
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.InventoryQuantity)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-check-circle"></i> Trạng Thái
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.status)
-                </dd>
-                <dt class="col-sm-3 fs-6 text-muted">
-                    <i class="fas fa-percent"></i> Giảm Giá
-                </dt>
-                <dd class="col-sm-9 fs-5">
-                    @Html.DisplayFor(model => model.Discount.Id)
-                </dd>
-            </dl>
-
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
-                    <i class="fas fa-edit"></i> Chỉnh Sửa
-                </a>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Quay Lại Danh Sách
-                </a>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.InventoryQuantity)
+                            </dd>
+                            <dt class="col-sm-4 fs-6 text-muted">
+                                Status:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.status)
+                            </dd>
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
+                            DiscountName:
+                            </dt>
+                        <dd class="col-sm-8 fs-5 text-end">
+                                @Html.DisplayFor(model => model.Discount.Name)
+                            </dd>
+                            <!-- Các thông tin khác -->
+                        </dl>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <img src="@Model.ImageUrl" class="img-fluid mb-4 img-thumbnail" alt="Hình Sản Phẩm" />
+                    </div>
+                </div>
+                <div class="mt-4">
+                <h4>Description</h4>
+                    <p class="fs-5">
+                        @Html.DisplayFor(model => model.Description)
+                    </p>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Quay Lại Danh Sách
+                    </a>
+                </div>
             </div>
         </div>
     </div>
->>>>>>> Phuoc
-</div>
+
+
+
+
+
+

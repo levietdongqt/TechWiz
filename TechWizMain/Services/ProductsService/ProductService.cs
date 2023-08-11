@@ -39,9 +39,25 @@ namespace TechWizMain.Services.ProductsService
 
         public bool changeStatus(int? id, bool status)
         {
-           var result = _productRepository.changeStatus(id,status);
-            return result;
+           
+                var result = _productRepository.changeStatus(id, status);
+                return result;
+            
+          
         }
+
+        public bool DeleteProduct(int id)
+        {
+            var product = _productRepository.GetByID(id).Result;
+            if(product != null)
+            {
+                _productRepository.Delete(product);
+            }
+            return true;    
+
+        }
+
+
 
         public async Task<IEnumerable<Product>> GetProductListByStatus(bool status)
         {
