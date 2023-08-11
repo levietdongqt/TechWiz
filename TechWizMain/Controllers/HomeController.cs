@@ -23,6 +23,7 @@ namespace TechWizMain.Controllers
             _userManager = userManager;
         }
         [HttpGet]
+
         public IActionResult Index()
         {
             return View();
@@ -60,10 +61,11 @@ namespace TechWizMain.Controllers
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-                    return Redirect("/");
+                    // Return a JSON response indicating success
+                    return Json(new { success = true });
                 }
             }
-            return View(feedback); 
+            return Json(new { success = false });
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

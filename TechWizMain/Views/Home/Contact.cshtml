@@ -70,7 +70,7 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
                                 <label asp-for="Message"> Your Message</label>
                                 <textarea asp-for="Message" placeholder="Message *" name="Message" class="form-control2"></textarea>
                             </div>
-                            <button type="submit"> Send</button>
+                            <button type="submit" id="buttonSubmit"> Send</button>
                         </form>
     
                         </div>
@@ -80,5 +80,46 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
         </div>
         <!--contact area end-->
 </div>
+<script>
+    // Use jQuery to handle the form submission via AJAX
+    $(document).ready(function () {
+        $('#contact-form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        // Display SweetAlert2 success message with confirmation
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Feedback submitted successfully!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: false // Prevent closing on backdrop click
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to home page
+                                window.location.href = '/';
+                            }
+                        });
+                    } else {
+                        // Display SweetAlert2 error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Feedback submission failed. Please try again later.'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
    
     
