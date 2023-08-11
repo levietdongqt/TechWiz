@@ -57,12 +57,18 @@ namespace TechWizMain.Controllers
             return View();
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
         public IActionResult Checkout()
         {
             return View();
         }
-        public IActionResult ShopList()
+        public async Task<IActionResult> ShopList()
         {
+            var Product = await _context.Products.ToListAsync();
+            ViewData["Products"] = Product;
             return View();
         }
 
@@ -82,7 +88,7 @@ namespace TechWizMain.Controllers
                 feedback.Email = currentUser.Email;
                      return View(feedback);
             }
-                return View();
+            return View();
         }
         [HttpPost]
         [AllowAnonymous]
