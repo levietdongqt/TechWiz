@@ -5,123 +5,280 @@
     Layout = "_AdminLayout";
 }
 
-	<div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
-				<li class="breadcrumb-item active">PRODUCTS</li>
-			</ul>
-			<h1 class="page-header mb-0">Products</h1>
-		</div>
-		<div class="ms-auto">
-			<a asp-action="Create" asp-controller="Products" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
-		</div>
-	</div>
-			<div class="card">
-				<ul class="nav nav-tabs nav-tabs-v2 px-4">
-					<li class="nav-item me-3"><a href="#allTab" class="nav-link active px-2"
-							data-bs-toggle="tab">All</a></li>
-					<li class="nav-item me-3"><a href="#publishedTab" class="nav-link px-2"
-							data-bs-toggle="tab">Published</a></li>
-					<li class="nav-item me-3"><a href="#expiredTab" class="nav-link px-2"
-							data-bs-toggle="tab">Expired</a></li>
-					<li class="nav-item me-3"><a href="#deletedTab" class="nav-link px-2"
-							data-bs-toggle="tab">Deleted</a></li>
-				</ul>
-				<div class="tab-content p-4">
-					<div class="tab-pane fade show active" id="allTab">
-						<div class="input-group mb-4">
-							<button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">Filter products &nbsp;</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div role="separator" class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
-							</div>
-							<div class="flex-fill position-relative z-1">
-								<div class="input-group">
-									<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
-										style="z-index: 1020;">
-										<i class="fa fa-search opacity-5"></i>
-									</div>
-									<input type="text" class="form-control ps-35px" placeholder="Search products">
-								</div>
-							</div>
-						</div>
+<div class="d-flex align-items-center mb-3">
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+            <li class="breadcrumb-item active">PRODUCTS</li>
+        </ul>
+        <h1 class="page-header mb-0">Products</h1>
+    </div>
+    <div class="ms-auto">
+        <a asp-action="Create" asp-controller="Products" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
+    </div>
+</div>
+<div class="card">
+    <ul class="nav nav-tabs nav-tabs-v2 px-4">
+        <li class="nav-item me-3">
+            <a href="#allTab" class="nav-link active px-2"
+               data-bs-toggle="tab">All</a>
+        </li>
+        <li class="nav-item me-3">
+            <a href="#publishedTab" class="nav-link px-2"
+               data-bs-toggle="tab">Published</a>
+        </li>
+        <li class="nav-item me-3">
+            <a href="#expiredTab" class="nav-link px-2"
+               data-bs-toggle="tab">Expired</a>
+        </li>
+        <li class="nav-item me-3">
+            <a href="#deletedTab" class="nav-link px-2"
+               data-bs-toggle="tab">Deleted</a>
+        </li>
+    </ul>
+    <div class="tab-content p-4">
+        <div class="tab-pane fade show active" id="allTab">
+            <div class="input-group mb-4">
+                <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Filter products &nbsp;
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+                <div class="flex-fill position-relative z-1">
+                    <div class="input-group">
+                        <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                             style="z-index: 1020;">
+                            <i class="fa fa-search opacity-5"></i>
+                        </div>
+                        <input type="text" class="form-control ps-35px" placeholder="Search products">
+                    </div>
+                </div>
+            </div>
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+
+            <div class="d-flex align-items-center mb-3">
+                <div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+                        <li class="breadcrumb-item active">Product Management</li>
+                    </ul>
+                    <h1 class="page-header mb-0">Products List</h1>
+                </div>
+            </div>
+
+            <div class="card">
+                <ul class="nav nav-tabs nav-tabs-v2 px-4">
+                    <li class="nav-item me-3">
+                        <a href="#ActiveTab" class="nav-link active px-2"
+                           data-bs-toggle="tab">Active</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a href="#BannedTab" class="nav-link px-2"
+                           data-bs-toggle="tab">Discontinued</a>
+                    </li>
+                </ul>
+                <div class="tab-content p-4">
+                    <div class="tab-pane fade show active" id="ActiveTab">
+                        <div class="input-group mb-4">
+                            <div class="flex-fill position-relative">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                         style="z-index: 1020;">
+                                        <i class="fa fa-search opacity-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-						<div class="table-responsive">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th class="pt-0 pb-2">ID</th>
-										<th class="pt-0 pb-2">Images</th>
-										<th class="pt-0 pb-2">@Html.DisplayNameFor(x => x.Name)</th>
-										<th class="pt-0 pb-2">Type</th>
-										<th class="pt-0 pb-2">@Html.DisplayNameFor(x => x.Price)</th>
-										<th class="pt-0 pb-2">Base Price</th>
-										<th class="pt-0 pb-2">Quantity</th>
-										<th class="pt-0 pb-2">Date</th>
-										<th class="pt-0 pb-2">Action</th>
-									</tr>
-								</thead>
-							<tbody>
-							@foreach (var x in Model)
-							{
-								<tr>
-									@if (x.Id != null)
-									{
-										var count = 1;
-										<td class="align-middle">@(count++)</td>
-									}
-									<td>
-										<div class="d-flex align-items-center">
-											<div
-												class="w-60px h-60px bg-gray-100 d-flex align-items-center justify-content-center">
-												<img alt="@x.Name" class="mw-100 mh-100"
-												     src="images/product/@x.ImageUrl">
-											</div>
-										</div>
-									</td>
-									<td class="align-middle">
-										<a asp-action="Details" asp-controller="Products" class="fw-bold text-green-100">@x.Name</a>
-									</td>
-									<td class="align-middle">@x.TypeProduct</td>
-									<td class="align-middle">@x.Price</td>
-									<td class="align-middle">@x.BasePrice</td>
-									<td class="align-middle">@x.InventoryQuantity</td>
-									<td class="align-middle">@x.CreatedDate</td>
-									<td class="align-middle">
-										
-										<button class="btn btn-info btn-rounded btn-sm buttonEdit waves-effect waves-light py-2 px-3" type="button"><a asp-action="Edit" asp-controller="Products" asp-route-id="@x.Id" class="text-white text-decoration-none">Edit </a><i class="fas fa-pen-square ml-1 text-white"></i>
-                                                    </button>
-										
-									<button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a asp-action="Delete" asp-controller="Products" asp-route-id="@x.Id" class="text-white text-decoration-none">Delete </a><i class="fas fa-times ml-1 text-white"></i>
-                                                </button>
-										</td>
-								</tr>
-							}
-							</tbody>
-							</table>
-						</div>
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Name)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            Type
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Price)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.BasePrice)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            Inventory
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Discount)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Description)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.ImageUrl)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var x in ViewBag.Active)
+                                    {
+                                        <tr>
+                                            @if (x.Id != null)
+                                            {
+                                                var count = 1;
+                                                <td class="align-middle">@(count)</td>
+                                            }
+                                            <td class="align-middle">@x.Name</td>
+                                            <td class="align-middle">@x.TypeProduct</td>
+                                            <td class="align-middle">@x.Price</td>
+                                            <td class="align-middle">@x.BasePrice</td>
+                                            <td class="align-middle">@x.InventoryQuantity</td>
+                                            <td class="align-middle">
+                                                @x.Discount.Name
+                                            </td>
+                                            <td class="align-middle">
+                                                <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
+                                            </td>
+                                            <td>
+                                                <img src="@x.ImageUrl" width="100px">
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@x.Id">Edit</a> |
 
-						<div class="d-md-flex align-items-center">
-							<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-								Showing 1 to 10 of 57 entries
-							</div>
-							<ul class="pagination mb-0 justify-content-center">
-								<li class="page-item disabled"><a class="page-link">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">6</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+                                                <a asp-action="Delete" asp-route-id="@x.Id">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-md-flex align-items-center">
+                            <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                                Showing 1 to 10 of 57 entries
+                            </div>
+                            <ul class="pagination mb-0 justify-content-center">
+                                <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content p-4">
+                    <div class="tab-pane fade" id="BannedTab">
+                        <div class="input-group mb-4">
+                            <div class="flex-fill position-relative">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ps-35px" placeholder="Filter User">
+                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0"
+                                         style="z-index: 1020;">
+                                        <i class="fa fa-search opacity-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>TT</th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Name)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.TypeProduct)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Price)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.BasePrice)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.InventoryQuantity)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Discount)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Description)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.ImageUrl)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var x in ViewBag.Deleted)
+                                    {
+                                        <tr>
+                                            @if (x.Id != null)
+                                            {
+                                                var count = 1;
+                                                <td class="align-middle">@(count)</td>
+                                            }
+                                            <td class="align-middle">@x.Name</td>
+                                            <td class="align-middle">@x.TypeProduct</td>
+                                            <td class="align-middle">@x.Price</td>
+                                            <td class="align-middle">@x.BasePrice</td>
+                                            <td class="align-middle">@x.InventoryQuantity</td>
+                                            <td class="align-middle">
+                                                @x.Discount
+                                            </td>
+                                            <td>
+                                                <a asp-action="Details" asp-route-id="@x.Id">Details</a> |
+                                            </td>
+                                            <td>
+                                                <img src="@x.ImageUrl" width="100px">
+                                            </td>
+                                            <td>
+                                                <a asp-action="Active" asp-route-id="@x.Id">Active</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-md-flex align-items-center">
+                            <div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+                                Showing 1 to 10 of 57 entries
+                            </div>
+                            <ul class="pagination mb-0 justify-content-center">
+                                <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+

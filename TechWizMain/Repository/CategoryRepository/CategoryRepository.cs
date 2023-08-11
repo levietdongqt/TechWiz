@@ -1,5 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using TechWizMain.Models;
+using X.PagedList;
 
 namespace TechWizMain.Repository.CategoryRepository
 {
@@ -62,6 +64,32 @@ namespace TechWizMain.Repository.CategoryRepository
         public async Task<bool> UpdateAll(List<Category> list)
         {
             return await _genericRepository.UpdateAll(list);
+        }
+        public async Task<IEnumerable<Product>> GetByCateID(int cate_id, int page = 1)
+        {
+            int pagesize = 3;
+            try
+            {
+                var result = _context.Categories.
+                    Include(p => p.CategoryProducts).
+                    ThenInclude(pc => pc.Product).
+                    ThenInclude(dc => dc.Discount).
+                    FirstOrDefault(t => t.Id == cate_id);
+                var CategoryProductsList = result.CategoryProducts;
+
+                var productList = new List<Product>();
+                foreach (var item in CategoryProductsList)
+                {
+                    var product = item.Product;
+                    productList.Add(product);
+                }
+                return productList.ToPagedList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return null;
+            }
         }
     }
 }
