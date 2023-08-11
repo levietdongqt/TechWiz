@@ -33,7 +33,7 @@ namespace TechWizMain.Controllers
         {
             // Lấy danh sách sản phẩm mới nhất
             var newestProducts = await _context.Products
-                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10))
+                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Plant"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
