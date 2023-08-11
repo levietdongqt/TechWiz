@@ -151,8 +151,8 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // POST: Discounts/Delete/5
-        [HttpPost, ActionName("Delete")]
         [Route("Discounts/Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
