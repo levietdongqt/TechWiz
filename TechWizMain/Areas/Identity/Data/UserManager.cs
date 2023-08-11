@@ -22,8 +22,6 @@ public class UserManager : IdentityUser
     [InverseProperty("User")]
     public virtual ICollection<Bill> Bills { get; set; }
     [InverseProperty("User")]
-    public virtual ICollection<Feedback> Feedbacks { get; set; }
-    [InverseProperty("User")]
     public virtual ICollection<Review> Reviews { get; set; }
 
 

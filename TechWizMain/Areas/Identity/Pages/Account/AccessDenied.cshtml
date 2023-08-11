@@ -3,8 +3,13 @@
 @{
     ViewData["Title"] = "Access denied";
 }
-
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
+<style>
+    .margintop {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+</style>
+<header class="margintop">
+    <h1 class="text-center text-danger">@ViewData["Title"]</h1>
+    <p class="text-center text-danger">You do not have access to this resource.</p>
 </header>

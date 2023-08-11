@@ -7557,7 +7557,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 /*wishlist css end*/
 /* 15. contact page css here */
 .contact_area {
-  margin-bottom: 87px;
+  /*margin-bottom: 20px;*/
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .contact_area {

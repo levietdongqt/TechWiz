@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-
+    Layout = "_AdminLayout";
 }
 
 <h1>Edit</h1>
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -36,13 +36,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="DiscountId" class="control-label"></label>
-                <select asp-for="DiscountId" class="form-control" asp-items="ViewBag.DiscountId"></select>
-                <span asp-validation-for="DiscountId" class="text-danger"></span>
+                <select asp-for="Discount.Name" id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="InventoryQuantity" class="control-label"></label>
                 <input asp-for="InventoryQuantity" class="form-control" />
                 <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" readonly />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -51,10 +55,15 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Image</label>
-                <input class="form-control" type="file" name="formFile" id="formFile" required />
+                <input class="form-control" type="file" name="formFile" id="formFile" />
+                <input asp-for="ImageUrl" class="form-control" hidden />
                 <img src="@Model.ImageUrl" width="100" />
             </div>
-
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" placeholder="Desciption" class="form-control2"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="UPDATE" class="btn btn-primary" />
             </div>

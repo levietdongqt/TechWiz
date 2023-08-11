@@ -9,5 +9,6 @@ namespace TechWizMain.Services.ProductsService
         IEnumerable getTypeProduct();
         Task<IEnumerable<Product>> GetProductListByStatus(bool status);
        bool UpdateProduct(Product product, IFormFile? formFile);
+        bool changeStatus(int? id,bool status);
     }
 }

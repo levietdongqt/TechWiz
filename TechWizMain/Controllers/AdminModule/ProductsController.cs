@@ -65,16 +65,17 @@ namespace TechWizMain.Controllers.AdminModule
             ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             return View();
         }
-
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("Products/create")]
-        public async Task<IActionResult> Create( Product product, IFormFile? formFile   )
+        public async Task<IActionResult> Create( Product product, IFormFile? formFile ,string DiscountName)
         {
             if (ModelState.IsValid)
             {
+                var discount = _context.Discounts.Where(t => t.Name.Equals(DiscountName)).First();
+                product.DiscountId = discount.Id;
                 var result = _productService.AddProduct( product,formFile);
                 if (result)
                 {
@@ -88,8 +89,17 @@ namespace TechWizMain.Controllers.AdminModule
             }
             else
             {
+                foreach (var key in ModelState.Keys)
+                {
+                    var errors = ModelState[key].Errors;
+                    foreach (var error in errors)
+                    {
+                        var errorMessage = error.ErrorMessage;
+                        // Xử lý thông báo lỗi
+                    }
+                }
             }
-            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Id", "Id", product.DiscountId);
+            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
             ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             ViewData["errMess"] = "Product is invalid";
             return View(product);
@@ -104,7 +114,7 @@ namespace TechWizMain.Controllers.AdminModule
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(t => t.Discount).Where(p => p.Id == id).SingleOrDefaultAsync();
             if (product == null)
             {
                 return NotFound();
@@ -120,7 +130,7 @@ namespace TechWizMain.Controllers.AdminModule
         [Route("Products/Edit")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product, IFormFile? formFile)
+        public async Task<IActionResult> Edit(int? id, Product product, IFormFile? formFile, string DiscountName)
         {
             if (id != product.Id)
             {
@@ -128,26 +138,13 @@ namespace TechWizMain.Controllers.AdminModule
             }
             if (ModelState.IsValid)
             {
+                var discount = _context.Discounts.Where(t => t.Name.Equals(DiscountName)).First();
+                product.DiscountId = discount.Id;
                 var result = _productService.UpdateProduct(product, formFile);
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Id", "Id", product.DiscountId);
+            ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
+            ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
             return View(product);
         }
 
@@ -159,34 +156,20 @@ namespace TechWizMain.Controllers.AdminModule
             {
                 return NotFound();
             }
-            var product = await _context.Products
-                .Include(p => p.Discount)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            _productService.changeStatus(id,false);
+            return RedirectToAction("Index");
+        }
+        // POST: Products/Delete/5
+        [HttpGet]
+        [Route("Products/Active")]
+        public async Task<IActionResult> Active(int? id)
+        {
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'TechWizContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _productService.changeStatus(id, true);
+            return RedirectToAction("Index");
         }
 
         private bool ProductExists(int id)

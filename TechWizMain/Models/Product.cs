@@ -40,11 +40,11 @@ namespace TechWizMain.Models
         public string? ImageUrl { get; set; } = null!;
         [StringLength(255)]
         [Unicode(false)]
-        [DisplayName("Type of product")]
+        [DisplayName("Type")]
         public string TypeProduct { get; set; }
-        public int DiscountId { get; set; }
+        public int? DiscountId { get; set; }
 
-        [DisplayName("Inventory of quantity")]
+        [DisplayName("Inventory")]
         [Range(0,10000000,ErrorMessage ="Price is invalid !")]
         public int InventoryQuantity { get; set; }
 
@@ -56,6 +56,7 @@ namespace TechWizMain.Models
 
         [ForeignKey("DiscountId")]
         [InverseProperty("Products")]
+        [DisplayName("Discount")]
         public virtual Discount? Discount { get; set; }
         [InverseProperty("Product")]
         public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
