@@ -279,8 +279,14 @@ namespace TechWizMain.Controllers
             }
             ViewBag.Reviews = list;
             ViewBag.CountReviews = list.Count();
-            ViewBag.Number = number / countReview;
-
+            if (list.Count() == 0)
+            {
+                ViewBag.Number = 0;
+            }
+            else
+            {
+                ViewBag.Number = number / list.Count();
+            }
 
             return View(product);
         }
