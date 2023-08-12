@@ -1,8 +1,16 @@
+<<<<<<< HEAD
+﻿@{
+var cart = ViewBag.Cart as List<Product>;
+if(cart == null) {
+cart = new List<Product>(); 
+}
+=======
 
 
 @{
     var cart = ViewData["listCart"] as List<ProductBill>;
     Console.WriteLine("");
+>>>>>>> master
 }
 <div class="mini_cart">
     <form asp-action="Index" asp-controller="Home">
@@ -59,5 +67,4 @@
         </div>
     </form>
 </div>
->>>>>>> master
 

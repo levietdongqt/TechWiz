@@ -75,7 +75,7 @@ namespace TechWizMain.Controllers.AdminModule
             if (id == null || _context.Products == null)
             {
                 return NotFound();
-            }
+            }   
 
             var product = await _context.Products
                 .Include(p => p.Discount)

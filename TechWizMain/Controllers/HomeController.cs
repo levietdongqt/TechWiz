@@ -28,6 +28,11 @@ namespace TechWizMain.Controllers
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> master
         private readonly string SubjectEmail;
 
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,
@@ -218,9 +223,23 @@ namespace TechWizMain.Controllers
 
         }
 
-        public IActionResult Details()
+       
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Discount)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
         public IActionResult Checkout()
         {
