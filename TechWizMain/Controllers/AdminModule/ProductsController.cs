@@ -144,11 +144,8 @@ namespace TechWizMain.Controllers.AdminModule
                 product.DiscountId = discount.Id;
                 var result = _productService.UpdateProduct(product, formFile);
                 //return RedirectToAction(nameof(Index));
-                if (result)
-                {
-                    return Json(new { success = true });
-                }
-                //return Json(new { success = true});
+
+                return Json(new { success = true });
             }
             ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
