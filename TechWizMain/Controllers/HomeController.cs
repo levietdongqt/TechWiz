@@ -53,22 +53,55 @@ namespace TechWizMain.Controllers
                 .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Plant"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
+                .Join(_context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
+                {
+                    Product = product,
+                    Discount = discount
+                })
                 .ToListAsync();
+
             var newestProductsAccessories = await _context.Products
                 .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
+                .Join(_context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
+                {
+                    Product = product,
+                    Discount = discount
+                })
                 .ToListAsync();
             // Lấy danh sách sản phẩm best seller
-            var bestSellerProducts = await _context.Products
-                .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
-                .Take(8) // Lấy 8 sản phẩm best seller
+            var bestSellerProducts = await _context.ProductBills
+                .GroupBy(pb => pb.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    TotalQuantitySold = g.Sum(pb => pb.Quantity)
+                })
+                .OrderByDescending(result => result.TotalQuantitySold)
+                .Take(8)
+                .Join(_context.Products, result => result.ProductId, product => product.Id, (result, product) => new
+                {
+                    Product = product,
+                    TotalQuantitySold = result.TotalQuantitySold
+                })
+                .Join(_context.Discounts, productResult => productResult.Product.DiscountId, discount => discount.Id, (productResult, discount) => new
+                {
+                    Product = productResult.Product,
+                    TotalQuantitySold = productResult.TotalQuantitySold,
+                    Discount = discount
+                })
                 .ToListAsync();
-
+            
 
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
-            ViewData["BestSellerProducts"] = bestSellerProducts;
+            ViewData["BestSellerProducts"] = bestSellerProducts.Select(result => new ProductResult
+            {
+                Product = result.Product,
+                TotalQuantitySold = result.TotalQuantitySold,
+                Discount = result.Discount
+            }).ToList();
             ViewData["newestAccessories"] = newestProductsAccessories;
 
 
@@ -250,34 +283,40 @@ namespace TechWizMain.Controllers
         }
         public IActionResult Checkout()
         {
-
             return View();
         }
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
         public async Task<IActionResult> AddToCart(int? id, int quantity, Decimal salePrice)
         {
-            ProductBill productBill = null;
-            var currentUser = await _userManager.GetUserAsync(User);
-            var bill = await _homeService.getBills(currentUser);
-            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
-            if (productBill == null)
+            try
             {
-                productBill = new ProductBill();
-                productBill.BillId = bill.Id;
-                productBill.ProductId = id;
-                productBill.Quantity = quantity;
-                productBill.SalePrice = salePrice;
-                await _context.ProductBills.AddAsync(productBill);
-                await _context.SaveChangesAsync();
-            }
-            else
+                ProductBill productBill = null;
+                var currentUser = await _userManager.GetUserAsync(User);
+                var bill = await _homeService.getBills(currentUser);
+                productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
+                if (productBill == null)
+                {
+                    productBill = new ProductBill();
+                    productBill.BillId = bill.Id;
+                    productBill.ProductId = id;
+                    productBill.Quantity = quantity;
+                    productBill.SalePrice = salePrice;
+                    await _context.ProductBills.AddAsync(productBill);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    productBill.Quantity += quantity;
+                    productBill.SalePrice = salePrice;
+                    _context.ProductBills.Update(productBill);
+                    await _context.SaveChangesAsync();
+                }
+            }catch(Exception ex)
             {
-                productBill.Quantity = quantity;
-                productBill.SalePrice = salePrice;
-                _context.ProductBills.Update(productBill);
-                await _context.SaveChangesAsync();
+                return Json(new { success = false });
             }
-            return RedirectToAction("Index");
+            
+            return Json(new { success = true });
         }
         [Route("UpdateCart/{id}/{quantity}/{salePrice}")]
         public async Task<IActionResult> UpdateCart(int? id, int quantity, Decimal salePrice)

@@ -75,7 +75,7 @@
                             </ul>
                         </div>
                         <div class="search_container">
-                            <form asp-action="Search" asp-controller="Home">
+                            <form asp-action="ProductByCategory" asp-controller="Home">
                                 <div class="hover_category">
                                     <select class="select_option" name="select" id="categori2">
                                         <option selected value="1">All Categories</option>
@@ -221,48 +221,46 @@
                                         <a id="showCartLink" href="javascript:void(0)">
                                             <i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span class="item_count">2</span></a>
                                                 <!--mini cart-->
-                                        <div class="mini_cart">
-                                            <form asp-action="Index" asp-controller="Home">
-                                                <div class="cart_gallery">
-                                                    <div class="cart_close">
-                                                        <div class="cart_text">
-                                                            <h3>cart</h3>
-                                                        </div>
-                                                        <div class="mini_cart_close">
-                                                            <a href="javascript:void(0)"><i class="fa-solid fa-circle-xmark" style="color: #0b0e14;"></i></a>
-                                                        </div>
+                                                
+                                                    <div class="mini_cart">
+                                                        <form asp-action="Index" asp-controller="Home">
+                                                            <div class="cart_gallery">
+                                                                <div class="cart_close">
+                                                                    <div class="cart_text">
+                                                                        <h3>cart</h3>
+                                                                    </div>
+                                                                    <div class="mini_cart_close">
+                                                                        <a href="javascript:void(0)"><i class="fa-solid fa-circle-xmark" style="color: #0b0e14;"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="targetElement">
+                                                                    <!--Dữ liệu thêm vào đây-->
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="mini_cart_table">
+                                                                <div class="cart_table_border">
+                                                                    <div class="cart_total">
+                                                                        <span>Sub total:</span>
+                                                                    </div>
+                                                                    <div class="cart_total mt-10">
+                                                                        <span>total:</span>
+                                                                        <span class="price"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mini_cart_footer">
+                                                                <div class="cart_button">
+                                                                    <a class="active" asp-controller="Home" asp-action="Checkout">
+                                                                        <i class="fa fa-sign-in"></i>
+                                                                        Checkout
+                                                                    </a>
+                                                                </div>
+                                                  
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div id="targetElement">
-                                                        <!--Dữ liệu thêm vào đây-->
-                                                     </div>
-
                                                 </div>
-                                                <div class="mini_cart_table">
-                                                    <div class="cart_table_border">
-                                                        <div class="cart_total">
-                                                            <span>Sub total:</span>
-                                                        </div>
-                                                        <div class="cart_total mt-10">
-                                                            <span>total:</span>
-                                                            <span class="price">$125.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mini_cart_footer">
-                                                    git
-                                                    <div class="cart_button">
-                                                        <a href="cart.html">update</a>
-                                                    </div>
-                                                    <div class="cart_button">
-                                                        <a class="active" asp-controller="Home" asp-action="Checkout">
-                                                            <i class="fa fa-sign-in"></i>
-                                                            Checkout
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-                                        </div>
                                                 <!--mini cart end-->
                                             </div>
                                         </div>
@@ -291,7 +289,6 @@
                                                         <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=3 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Indoor</a></li>
                                                            <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=4 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Outdoor</a></li>
                                                         <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=5 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Succulents</a></li>
-                                                        
                                                                                                                       
                                                             </ul>
                                                         </li>
@@ -332,7 +329,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
     </header>
  
         <main role="main" class="pb-3">
@@ -601,6 +597,7 @@
         <!-- Main JS -->
         <script src="~/js/main.js"  asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/showCart.js" asp-append-version="true"> </script>
     @await RenderSectionAsync("Scripts", required: false)
 
         // Use jQuery to handle the form submission via AJAX
@@ -609,5 +606,6 @@
 
 
     </script>
+
 </body>
 </html>

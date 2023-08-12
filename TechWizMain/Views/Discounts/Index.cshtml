@@ -124,7 +124,7 @@
         $(".open-modal-button").click(function () {
             var id = $(this).data("id");
             $.ajax({
-                url: "Discounts/Details", // Đường dẫn đến action Details
+				url: "Discounts/Details", // Đường dẫn đến action Details
                 type: "GET",
                 data: { id: id },
                 success: function (data) {
