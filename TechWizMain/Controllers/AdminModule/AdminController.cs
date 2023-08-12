@@ -104,6 +104,25 @@ namespace TechWizMain.Controllers
         return RedirectToAction("GetUsers");
     }
 
+        [HttpGet]
+		[Route("Details")]
+		public async Task<IActionResult> Details(int? Id)
+        {
+            if (Id == null || _context.Feedbacks == null)
+            {
+                return NotFound();
+            }
+
+            var feedback = await _context.Feedbacks
+                .FirstOrDefaultAsync(m => m.Id == Id);
+            if (feedback == null)
+            {
+                return NotFound();
+            }
+
+            return View(feedback);
+        }
+
   }
 
 }

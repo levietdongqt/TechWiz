@@ -167,17 +167,14 @@ namespace TechWizMain.Controllers.AdminModule
         [Route("Discounts/Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            if (_context.Products == null)
+            if (id == null || _context.Products == null)
             {
-                return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+                return NotFound();
             }
-            else
-            {
-                _productService.changeStatus(id, false);
-            }
-            return RedirectToAction(nameof(Index));
+            _productService.changeStatus(id, false);
+            return RedirectToAction("Index");
         }
 
 
