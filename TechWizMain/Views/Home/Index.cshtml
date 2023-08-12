@@ -172,7 +172,7 @@
                                             <article class="single_product">
                                                 <figure>
                                                     <div class="product_thumb">
-                                                        <a class="primary_img" href="#">
+                                                    <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">
                                                             @if(!string.IsNullOrEmpty(x.ImageUrl)){
                                                                 <img src="@x.ImageUrl" alt="@x.Name">
                                                             }
@@ -203,7 +203,8 @@
                                                             </ul>
                                                         </div>
                                                         <h4 class="product_name">
-                                                            <a>@x.Name</a></h4>
+                                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">@x.Name</a>
+                                                    </h4>
                                                         <div class="price_box">
                                                             <span class="current_price">$@x.Price</span>
                                                             <span class="old_price">$@x.BasePrice</span>
@@ -228,7 +229,7 @@
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                            <a class="primary_img" href="#">
+                                                <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">
                                                 @if(!string.IsNullOrEmpty(@x.ImageUrl)){
                                                     <img src="@x.ImageUrl" alt="@x.Name">
                                                 }

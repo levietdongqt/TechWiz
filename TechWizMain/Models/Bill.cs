@@ -8,6 +8,7 @@ using TechWizMain.Areas.Identity.Data;
 
 namespace TechWizMain.Models
 {
+
     public enum ProcessBill
     {
        Cancel,
@@ -16,6 +17,7 @@ namespace TechWizMain.Models
        Temporary
     }
     [Table("Bill")]
+    [Serializable]
     public partial class Bill
     {
         public Bill()

@@ -218,10 +218,51 @@
                                                 <partial name="_LoginPartial" />
                                             </div>
                                             <div class="header_account-list  mini_cart_wrapper">
-                                                <a href="javascript:void(0)" ><i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span
-                                                        class="item_count">2</span></a>
+                                        <a id="showCartLink" href="javascript:void(0)">
+                                            <i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span class="item_count">2</span></a>
                                                 <!--mini cart-->
-                                                <partial name="_Cart"/>
+                                        <div class="mini_cart">
+                                            <form asp-action="Index" asp-controller="Home">
+                                                <div class="cart_gallery">
+                                                    <div class="cart_close">
+                                                        <div class="cart_text">
+                                                            <h3>cart</h3>
+                                                        </div>
+                                                        <div class="mini_cart_close">
+                                                            <a href="javascript:void(0)"><i class="fa-solid fa-circle-xmark" style="color: #0b0e14;"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div id="targetElement">
+                                                        <!--Dữ liệu thêm vào đây-->
+                                                     </div>
+
+                                                </div>
+                                                <div class="mini_cart_table">
+                                                    <div class="cart_table_border">
+                                                        <div class="cart_total">
+                                                            <span>Sub total:</span>
+                                                        </div>
+                                                        <div class="cart_total mt-10">
+                                                            <span>total:</span>
+                                                            <span class="price">$125.00</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mini_cart_footer">
+                                                    git
+                                                    <div class="cart_button">
+                                                        <a href="cart.html">update</a>
+                                                    </div>
+                                                    <div class="cart_button">
+                                                        <a class="active" asp-controller="Home" asp-action="Checkout">
+                                                            <i class="fa fa-sign-in"></i>
+                                                            Checkout
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
                                                 <!--mini cart end-->
                                             </div>
                                         </div>
@@ -561,8 +602,11 @@
         <script src="~/js/main.js"  asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script src="./js/showCart.js">
+
         // Use jQuery to handle the form submission via AJAX
+
+    <script src="./js//showCart.js">
+
 
     </script>
 </body>

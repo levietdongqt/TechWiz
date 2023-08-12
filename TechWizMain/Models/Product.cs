@@ -13,6 +13,7 @@ namespace TechWizMain.Models
         Accessories
     }
     [Table("Product")]
+    [Serializable]
     public partial class Product
     {
         public Product()

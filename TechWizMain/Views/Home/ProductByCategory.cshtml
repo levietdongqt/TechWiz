@@ -29,27 +29,38 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <!--sidebar widget start-->
-                <aside class="niceselect_option">
-                    <div class="widget_inner">
-                       
-                            <h3>Filter by price</h3>
-                            <form asp-action="ProductByCategory" asp-controller="Home" method="get">
-                            <label>Min:</label> <input type="number" value=0 name="minPrice" /></br>
-                            <label>Max:</label> <input type="number" name="maxPrice" /></br>
+                
+                    <!--sidebar widget start-->
+                    <aside class="niceselect_option">
+                        <div class="widget_inner">
+                            <h4 class="mb-4">FILTER BY PRICE</h4>
+                            <form asp-action="ProductByCategory" asp-controller="Home" method="get" class="filter-form">
+                                <div class="form-group">
+                                    <label for="minPrice">Min:</label>
+                                    <input type="number" value="0" name="minPrice" id="minPrice" class="form-control form-control-sm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxPrice">Max:</label>
+                                    <input type="number" name="maxPrice" id="maxPrice" class="form-control form-control-sm">
+                                </div>
 
-                            <select name="orderSort" id="short">
-                               <option value="price-asc">Sort by price: low to high</option>
-                                <option value="price-desc">Sort by price: high to low</option>
-                               
-                            </select>
-                            <button type="submit">Filter</button>
+                                <div class="form-group">
+                                    <label for="orderSort">Sort by:</label>
+                                    <select name="orderSort" id="orderSort" class="form-control form-control-sm">
+                                        <option value="price-asc">Price: Low to High</option>
+                                        <option value="price-desc">Price: High to Low</option>
+                                    </select>
+                                </div>
 
-
+                                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
                             </form>
-                      
 
-                    </div>
-                </aside>
+
+                        </div>
+                    </aside>
+                    <!--sidebar widget end-->
+                
+
                 <!--sidebar widget end-->
             </div>
             <div class="col-lg-9 col-md-12">
