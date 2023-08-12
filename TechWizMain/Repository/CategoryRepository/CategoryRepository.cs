@@ -65,7 +65,7 @@ namespace TechWizMain.Repository.CategoryRepository
         {
             return await _genericRepository.UpdateAll(list);
         }
-        public async Task<IEnumerable<Product>> GetByCateID(int cate_id, int page = 1)
+        public async Task<IEnumerable<Product>> GetByCateID(int id, int page = 1)
         {
             int pagesize = 3;
             try
@@ -74,7 +74,7 @@ namespace TechWizMain.Repository.CategoryRepository
                     Include(p => p.CategoryProducts).
                     ThenInclude(pc => pc.Product).
                     ThenInclude(dc => dc.Discount).
-                    FirstOrDefault(t => t.Id == cate_id);
+                    FirstOrDefault(t => t.Id == id);
                 var CategoryProductsList = result.CategoryProducts;
 
                 var productList = new List<Product>();

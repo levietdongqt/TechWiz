@@ -173,9 +173,8 @@
                                                 <figure>
                                                     <div class="product_thumb">
                                                         <a class="primary_img" href="#">
-                                                            @if(x.ImageUrl != null){
-                                                                var count = 1;
-                                                                <img src="/images/product/product@(count++).jpg" alt="@x.Name">
+                                                            @if(!string.IsNullOrEmpty(x.ImageUrl)){
+                                                                <img src="@x.ImageUrl" alt="@x.Name">
                                                             }
                                                         </a>
                                                         <div class="label_product">
@@ -212,7 +211,6 @@
                                                     </figcaption>
                                                 </figure>
                                             </article>
-
                                         </div>
                                     </div>
                                 }
@@ -231,9 +229,8 @@
                                     <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="#">
-                                                @if(x.ImageUrl != null){
-                                                    var count = 1;
-                                                    <img src="/images/product/product@(count++).jpg" alt="@x.Name">
+                                                @if(!string.IsNullOrEmpty(@x.ImageUrl)){
+                                                    <img src="@x.ImageUrl" alt="@x.Name">
                                                 }
                                             </a>
                                             <div class="label_product">

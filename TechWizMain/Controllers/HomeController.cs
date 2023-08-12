@@ -11,7 +11,7 @@ using TechWizMain.Services.ProductsService;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Cryptography;
 using TechWizMain.Services.HomeService;
-
+using TechWizMain.Services;
 namespace TechWizMain.Controllers
 {
     public class HomeController : Controller
@@ -26,7 +26,6 @@ namespace TechWizMain.Controllers
         private readonly IHomeService _homeService;
 
         private readonly string SubjectEmail;
-        private readonly string BodyEmail;
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager, IProductService productService, TechWizContext context, IEmailSender emailSender, IHomeService homeService)
         {
             _homeService = homeService;
@@ -38,8 +37,7 @@ namespace TechWizMain.Controllers
             _context = context;
             _emailSender = emailSender;
             SubjectEmail = "Thank You for Your Feedback,";
-            BodyEmail = "<p>I hope this email finds you well. I wanted to take a moment to express my sincere appreciation for the feedback you provided. Your insights and thoughts are incredibly valuable to me, and I'm grateful for your time and effort in sharing your perspective.</p>\r\n    <p>Your feedback will help me improve and grow, and I truly value your honesty. Please know that your input matters to me, and I'm committed to using it constructively.</p>\r\n    <p>Once again, thank you for taking the time to provide your feedback. I'm looking forward to implementing the suggested improvements and working towards delivering a better experience.</p>\r\n    <p>Best regards";
-        }
+		}
         [HttpGet]
 
         public async Task<IActionResult> Index()
@@ -69,12 +67,28 @@ namespace TechWizMain.Controllers
             return View();
         }
 
+        public async Task<IActionResult> _Cart()
+        {
+            var cart = await _context.Products.ToListAsync();
+            ViewBag.Cart = cart;
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Details()
         {
             return View();
         }
         public IActionResult Checkout()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+                Feedback feedback = new Feedback();
+                feedback.UserID = currentUser.Id;
+                feedback.Name = currentUser.UserName;
+                feedback.Email = currentUser.Email;
+                return View(feedback);
+            }
             return View();
         }
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
@@ -125,6 +139,9 @@ namespace TechWizMain.Controllers
 
         public IActionResult Privacy()
         {
+            MailBuilder mailBuilder = new MailBuilder();
+            decimal a = 10000;
+            _emailSender.SendEmailAsync("huy.tran9510@gmail.com", "ABC", mailBuilder.BuildMailOrders("HuyTran", new DateTime(), a, "abc"));
             return View();
         }
         public IActionResult AddToCart()
@@ -150,11 +167,13 @@ namespace TechWizMain.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 feedback.FeedbackDate = DateTime.Now;
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-                    await _emailSender.SendEmailAsync(feedback.Email, SubjectEmail, "<p>Dear, " + feedback.Name + "</p>\r\n" + BodyEmail);
+					MailBuilder mailBuilder = new MailBuilder();
+					await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail,mailBuilder.BuilderMailContact(feedback.Name));
                     // Return a JSON response indicating success
                     return Json(new { success = true });
                 }
