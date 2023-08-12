@@ -72,7 +72,7 @@ namespace TechWizMain.Controllers.AdminModule
                 var result = _discountService.AddDiscount(discount);
                 if (result)
                 {
-                    return Redirect("admin/Discounts");
+                    return Redirect("/Admins/Discounts");
                 }
             }
             return View(discount);
@@ -151,8 +151,8 @@ namespace TechWizMain.Controllers.AdminModule
         }
 
         // POST: Discounts/Delete/5
-        [HttpPost, ActionName("Delete")]
         [Route("Discounts/Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

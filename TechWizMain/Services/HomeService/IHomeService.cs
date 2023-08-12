@@ -1,7 +1,9 @@
-﻿namespace TechWizMain.Services.HomeService
+﻿using TechWizMain.Models;
+
+namespace TechWizMain.Services.HomeService
 {
     public interface IHomeService
     {
-        public void YeuCauTuHome();
+        public Task<IEnumerable<Category>> GetAllCate();
     }
 }

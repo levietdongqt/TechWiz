@@ -9,7 +9,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
     	<meta name="description" content>
     	<meta name="author" content>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
 	<link href="/assets/css/vendor.min.css" rel="stylesheet">
     <link href="/assets/css/app.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -119,11 +119,13 @@
     								class="fa fa-envelope fa-fw ms-auto text-body text-opacity-50"></i></a>
     						<a class="dropdown-item d-flex align-items-center" href="calendar.html">Calendar <i
     								class="fa fa-calendar-alt fa-fw ms-auto text-body text-opacity-50"></i></a>
-    						<a class="dropdown-item d-flex align-items-center" href="settings.html">Setting <i
-    								class="fa fa-wrench fa-fw ms-auto text-body text-opacity-50"></i></a>
     						<div class="dropdown-divider"></div>
-    						<a class="dropdown-item d-flex align-items-center" href="page_login.html">Log Out <i
-    								class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i></a>
+						    <div class="dropdown-item d-flex align-items-center">
+							    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+								    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+							    </form>
+								     <i class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i>
+						    </div>
     					</div>
     				</div>
     			</div>
@@ -221,7 +223,6 @@
         integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
         data-cf-beacon='{"rayId":"7f45cb594eed04b5","version":"2023.7.0","r":1,"b":1,"token":"4db8c6ef997743fda032d4f73cfeff63","si":100}'
         crossorigin="anonymous"></script>
-    @RenderSection("Scripts", required: false)
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

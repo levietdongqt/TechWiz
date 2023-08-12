@@ -4,16 +4,17 @@
         ViewData["Title"] = "Index";
         Layout = "_AdminLayout";
     }
-
-    
 <div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
-				<li class="breadcrumb-item active">Discounts</li>
-			</ul>
-			<h1 class="page-header mb-0">Discounts</h1>
-		</div>
+	<div>
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+			<li class="breadcrumb-item active">Discounts</li>
+		</ul>
+		<h1 class="page-header mb-0">Discounts</h1>
+	</div>
+	<div class="ms-auto">
+    			<a asp-action="Create" asp-controller="Discounts" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Discount</a>
+    		</div>
 	</div>
 			<div class="card">
 				<div class="tab-content p-4">
@@ -38,7 +39,6 @@
 								</div>
 							</div>
 						</div>
-
 
 						<div class="table-responsive">
 							<table class="table table-hover text-nowrap">
@@ -69,7 +69,7 @@
 									<td class="align-middle">@x.DateEnd</td>
 									<td class="align-middle">
 										<button class="btn btn-info btn-rounded btn-sm buttonEdit waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a> <i class="fas fa-pen-square ml-1 text-white"></i></button>
-										<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a cdata-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
+										<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
 										<button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a><i class="fas fa-times ml-1 text-white"></i></button>
 										</td>
 								</tr>
@@ -84,8 +84,8 @@
 							</div>
 							<ul class="pagination mb-0 justify-content-center">
 								<li class="page-item disabled"><a class="page-link">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item "><a class="page-link" href="#">2</a></li>
 								<li class="page-item"><a class="page-link" href="#">3</a></li>
 								<li class="page-item"><a class="page-link" href="#">4</a></li>
 								<li class="page-item"><a class="page-link" href="#">5</a></li>
@@ -102,18 +102,13 @@
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+            <div class="modal-header text-center">
+                <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <div id="modal-content"></div>
-            </div>
-
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>

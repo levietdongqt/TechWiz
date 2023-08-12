@@ -61,5 +61,24 @@ namespace TechWizMain.Repository.ProductRepository
         {
            return await (_genericRepository.InsertAll(list));
         }
+
+        public async Task<IEnumerable<Product>> GetProductListByStatus(bool status)
+        {
+            var productList = await _context.Products.Include(p => p.Discount).Where(t => t.status == status).ToListAsync();
+            return productList; 
+        }
+
+        public bool changeStatus(int? id, bool status)
+        {
+            var product = _context.Products.First(p => p.Id == id);
+            if (product != null)
+            {
+                product.status = status;
+                _context.Products.Update(product);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }
