@@ -8,6 +8,8 @@ using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Models;
 using TechWizMain.Services.FeedbackService;
 using TechWizMain.Services.ProductsService;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Security.Cryptography;
 
 namespace TechWizMain.Controllers
 {
@@ -19,7 +21,11 @@ namespace TechWizMain.Controllers
         private readonly UserManager<UserManager> _userManager;
         private readonly IProductService _productService;
         private readonly TechWizContext _context;
-        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,IProductService productService,TechWizContext context)
+		private readonly IEmailSender _emailSender;
+
+        private readonly string SubjectEmail;
+        private readonly string BodyEmail;
+		public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,IProductService productService,TechWizContext context, IEmailSender emailSender)
         {
             _logger = logger;
             _feedbackService = feedbackService;
@@ -27,7 +33,10 @@ namespace TechWizMain.Controllers
             _userManager = userManager;
             _productService = productService;
             _context = context;
-        }
+            _emailSender = emailSender;
+            SubjectEmail = "Thank You for Your Feedback,";
+			BodyEmail = "<p>I hope this email finds you well. I wanted to take a moment to express my sincere appreciation for the feedback you provided. Your insights and thoughts are incredibly valuable to me, and I'm grateful for your time and effort in sharing your perspective.</p>\r\n    <p>Your feedback will help me improve and grow, and I truly value your honesty. Please know that your input matters to me, and I'm committed to using it constructively.</p>\r\n    <p>Once again, thank you for taking the time to provide your feedback. I'm looking forward to implementing the suggested improvements and working towards delivering a better experience.</p>\r\n    <p>Best regards";
+		}
         [HttpGet]
 
         public async Task<IActionResult> Index()
@@ -77,7 +86,7 @@ namespace TechWizMain.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public  IActionResult Contact(Feedback feedback)
+        public async Task<IActionResult> Contact(Feedback feedback)
         {
             if (ModelState.IsValid)
             {
@@ -85,6 +94,7 @@ namespace TechWizMain.Controllers
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
+                    await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail, "<p>Dear, " +feedback.Name+"</p>\r\n"+BodyEmail);
                     // Return a JSON response indicating success
                     return Json(new { success = true });
                 }

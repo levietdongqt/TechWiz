@@ -1,22 +1,36 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TechWizMain.Areas.Identity.Data;  
+using Microsoft.EntityFrameworkCore;
+using TechWizMain.Areas.Identity.Data;
+using TechWizMain.Models;
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
+using TechWizMain.Services.FeedbackService;
 
 namespace TechWizMain.Controllers
 {
-	//[Authorize(Roles ="admin")]
-	[Route("Admin")]
+    [Authorize(Roles = "admin")]
+    [Route("Admin")]
   public class AdminController : Controller
   {
 
     private readonly IAdminService _adminService;
+    private readonly IFeedbackService _feedbackService;
+    private readonly TechWizContext _context;
+    private const int ITEM_PER_PAGE = 5;
+
+
+    [BindProperty(SupportsGet = true,Name = "p")]
+    public int currentPage { get; set; }
+	public int countPages { get; set; }
+
     
-    public AdminController(IAdminService adminService)
+    public AdminController(IAdminService adminService, IFeedbackService feedbackService, TechWizContext context)
     {
 
       _adminService = adminService;
+      _feedbackService = feedbackService;
+       _context = context;
 
     }
 
@@ -43,9 +57,36 @@ namespace TechWizMain.Controllers
       ViewBag.Banned = usersBanned;
       return View();
     }
+
+
+
+
 		[Route("FeedBacks")]
-		public IActionResult FeedBacks()
+		public async Task<IActionResult> FeedBacks(int? p)
         {
+            if(p == null)
+            {
+                p = 1;
+                
+            }
+			currentPage = p.Value;
+			int totalPages = await _context.Feedbacks.CountAsync();
+            countPages = (int) Math.Ceiling((double)totalPages / ITEM_PER_PAGE);
+
+            if(currentPage < 1)
+            {
+                currentPage = 1;
+            }
+            if(currentPage > totalPages)
+            {
+                currentPage = totalPages;
+            }
+            ViewBag.currentPage = currentPage;
+            ViewBag.countPages = countPages;
+
+            var list = await _feedbackService.GetAllAsync();
+            var list2 = list.Skip((currentPage-1) * 5).Take(ITEM_PER_PAGE).ToList();
+            ViewBag.List = list2;
             return View();
         }
 

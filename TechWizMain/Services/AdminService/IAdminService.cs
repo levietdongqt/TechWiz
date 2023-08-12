@@ -10,6 +10,7 @@ namespace TechWizMain.Services.AdminService
 
         public Task<IEnumerable<UserManager>> GetByUserName(string UserName);
 
+
 	}
 }
 
