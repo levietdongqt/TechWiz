@@ -16,14 +16,12 @@ checkScroll();
 
 // Check when new item added
 cartContainer.addEventListener('DOMNodeInserted', checkScroll);
-
-
 $(document).ready(function () {
     $('#showCartLink').click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "Get",
-            url: "https://localhost:5000/showCart",
+            url: "/showCart",
             data: $(this).serialize(),
             success: function (data) {
                 var html = '';
