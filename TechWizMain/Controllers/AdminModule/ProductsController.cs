@@ -88,6 +88,26 @@ namespace TechWizMain.Controllers.AdminModule
             return View(product);
         }
 
+        // GET: Products/Details/5
+        [Route("Products/ProductDetails")]
+        public async Task<IActionResult> ProductDetails(int? id)
+        {
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Discount)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
         [Route("Products/create")]
         public IActionResult Create()
         {

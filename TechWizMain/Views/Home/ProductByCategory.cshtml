@@ -29,19 +29,24 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <!--sidebar widget start-->
-                <aside class="sidebar_widget">
+                <aside class="niceselect_option">
                     <div class="widget_inner">
-                        <div class="widget_list widget_filter">
+                       
                             <h3>Filter by price</h3>
-                            <form action="#">
-                                @*<div id="slider-range"></div>
-                                <button type="submit">Filter</button>
-                                <input type="text" name="text" id="amount" />*@
-                                 Min: <input type="number" name="minPrice" />
-                                Max:  <input type="number" name="maxPrice" />
+                            <form asp-action="ProductByCategory" asp-controller="Home" method="get">
+                            <label>Min:</label> <input type="number" value=0 name="minPrice" /></br>
+                            <label>Max:</label> <input type="number" name="maxPrice" /></br>
+
+                            <select name="orderSort" id="short">
+                               <option value="price-asc">Sort by price: low to high</option>
+                                <option value="price-desc">Sort by price: high to low</option>
+                               
+                            </select>
+                            <button type="submit">Filter</button>
+
 
                             </form>
-                        </div>
+                      
 
                     </div>
                 </aside>
@@ -69,14 +74,11 @@
                         </button>
                     </div>
                     <div class=" niceselect_option">
-                        <form class="select_option" action="#">
-                            <select name="orderby" id="short">                             
-                                <option value="1">Sort by newness</option>
-                                <option value="2">Sort by average rating: low to high</option>
-                                <option value="3">Sort by average rating: low to high</option>
-                                <option value="4">Sort by price: low to high</option>
-                                <option value="5">Sort by price: high to low</option>
-                                <option value="6">Product Name: Z</option>
+                        <form class="select_option" asp-action="ProductByCategory" asp-controller="Home" method="get">
+                            <select name="orderby" id="short">                       
+                                <option value="price-asc">Sort by price: low to high</option>
+                                <option value="price-desc">Sort by price: high to low</option>
+                                <option value="atoz">Product Name: A - Z</option>
                             </select>
                         </form>
                     </div>                   
@@ -189,7 +191,7 @@
                 <div class="shop_toolbar t_bottom">
                   
                         <div>
-                            @Html.PagedListPager(Model, page=>Url.Action("ProductByCategory", "Home", new { page = page, @id = ViewBag.cateID}),  new PagedListRenderOptions()
+                        @Html.PagedListPager(Model, page=>Url.Action("ProductByCategory", "Home", new { page = page, @id = ViewBag.cateID, @minPrice= ViewBag.MinPrice, @maxPrice=ViewBag.MaxPrice, @orderSort = ViewBag.OrderSort }),  new PagedListRenderOptions()
                             {
                             ActiveLiElementClass = "active",
                             PageClasses = new[]{ "page-link"},

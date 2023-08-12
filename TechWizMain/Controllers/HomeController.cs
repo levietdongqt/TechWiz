@@ -10,7 +10,9 @@ using TechWizMain.Services.FeedbackService;
 using TechWizMain.Services.ProductsService;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Cryptography;
+using TechWizMain.Services.HomeService;
 using TechWizMain.Services;
+using X.PagedList;
 
 namespace TechWizMain.Controllers
 {
@@ -22,11 +24,16 @@ namespace TechWizMain.Controllers
         private readonly UserManager<UserManager> _userManager;
         private readonly IProductService _productService;
         private readonly TechWizContext _context;
-		private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
+        private readonly IHomeService _homeService;
 
         private readonly string SubjectEmail;
-		public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,IProductService productService,TechWizContext context, IEmailSender emailSender)
+
+        public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,
+            SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,
+            IProductService productService, TechWizContext context, IEmailSender emailSender, IHomeService homeService)
         {
+            _homeService = homeService;
             _logger = logger;
             _feedbackService = feedbackService;
             _signInManager = signInManager;
@@ -35,9 +42,9 @@ namespace TechWizMain.Controllers
             _context = context;
             _emailSender = emailSender;
             SubjectEmail = "Thank You for Your Feedback,";
-		}
-        [HttpGet]
+        }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             // Lấy danh sách sản phẩm mới nhất
@@ -56,18 +63,24 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
                 .Take(8) // Lấy 8 sản phẩm best seller
                 .ToListAsync();
-            var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
+            var cart = await _context.Products.Where(p =>
+                    p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
             ViewBag.Cart = cart;
-            
+
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
             ViewData["newestAccessories"] = newestProductsAccessories;
+
+
+            var CategoryList = await _context.Categories.ToListAsync();
+            ViewData["CategoryList"] = CategoryList;
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Account()
         {
@@ -83,13 +96,111 @@ namespace TechWizMain.Controllers
                     PhoneNumber = currentUser.PhoneNumber,
                     DateOfBirth = currentUser.DateOfBirth,
                 };
-        
                 // Định dạng ngày tháng theo chuẩn MM/dd/yyyy
 
                 return View("Account", accountModel);
             }
-            return View();
-        }
+        
+
+        return View();
+    }
+
+            
+        
+
+        public async Task<IActionResult> Search(string searchString)
+            {
+
+                //int pagesize = 3;
+                var list = await _context.Products.Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString))
+                    .ToListAsync();
+
+
+
+                return View(list);
+            }
+
+            public async Task<IActionResult> ProductByCategory1(int id, int page)
+            {
+                int pagesize = 3;
+                ViewBag.cateID = id;
+                int pageIndex = 1;
+                var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
+                    .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
+                var CategoryProductsList = result.CategoryProducts;
+
+                var productList = new List<Product>();
+                var productListFilter = new List<Product>();
+                var productListFilterSort = new List<Product>();
+                foreach (var item in CategoryProductsList)
+                {
+                    var product = item.Product;
+                    productList.Add(product);
+                }
+
+                return View(productList.ToPagedList(pageIndex, pagesize));
+            }
+
+            public async Task<IActionResult> ProductByCategory(int id, int page, string orderSort, int? minPrice,
+                int? maxPrice)
+            {
+                int pagesize = 3;
+                ViewBag.cateID = id;
+                ViewBag.MinPrice = minPrice;
+                ViewBag.MaxPrice = maxPrice;
+                ViewBag.OrderSort = orderSort;
+
+                int pageIndex = 1;
+
+
+                var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
+                    .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
+                var CategoryProductsList = result.CategoryProducts;
+
+                var productList = new List<Product>();
+                var productListFilter = new List<Product>();
+                var productListFilterSort = new List<Product>();
+                foreach (var item in CategoryProductsList)
+                {
+                    var product = item.Product;
+                    productList.Add(product);
+                }
+
+                productListFilter = productList.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+
+                if (minPrice == null || maxPrice == null)
+                {
+                    switch (orderSort)
+                    {
+                        case "price-asc":
+                            productListFilterSort = productList.OrderBy(o => o.Price).ToList();
+                            break;
+                        case "price-desc":
+                            productListFilterSort = productList.OrderByDescending(o => o.Price).ToList();
+                            break;
+                    }
+
+                    return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
+                }
+                else
+                {
+                    switch (orderSort)
+                    {
+                        case "price-asc":
+                            productListFilterSort = productListFilter.OrderBy(o => o.Price).ToList();
+                            break;
+                        case "price-desc":
+                            productListFilterSort = productListFilter.OrderByDescending(o => o.Price).ToList();
+                            break;
+                    }
+
+                    return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
+                }
+            }
+            
+
+          
+
         public async Task<IActionResult> Cart()
         {
             var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
@@ -98,6 +209,7 @@ namespace TechWizMain.Controllers
                 .ToListAsync();
             ViewBag.Cart = cart;
             return View();
+
         }
 
         public IActionResult Details()
@@ -108,6 +220,45 @@ namespace TechWizMain.Controllers
         {
             
             return View();
+        }
+        [Route("addToCart/{id}/{quantity}/{salePrice}")]
+        public async Task<IActionResult> AddToCart(int? id, int quantity, Decimal salePrice)
+        {
+            ProductBill productBill = null;
+            var currentUser = await _userManager.GetUserAsync(User);
+            var bill = await _homeService.getBills(currentUser);
+            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId==id);
+            if (productBill == null)
+            {
+                productBill = new ProductBill();
+                productBill.BillId = bill.Id;
+                productBill.ProductId = id;
+                productBill.Quantity = quantity;
+                productBill.SalePrice = salePrice;
+                await _context.ProductBills.AddAsync(productBill);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                productBill.Quantity = quantity;
+                productBill.SalePrice = salePrice;
+                _context.ProductBills.Update(productBill);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+        [Route("UpdateCart/{id}/{quantity}/{salePrice}")]
+        public async Task<IActionResult> UpdateCart(int? id, int quantity, Decimal salePrice)
+        {
+            ProductBill productBill = null;
+            var currentUser = await _userManager.GetUserAsync(User);
+            var bill = await _context.Bills.FirstOrDefaultAsync(t => t.UserId.Equals(currentUser.Id) && t.Status.Equals(ProcessBill.Temporary.ToString()));
+            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id);
+            productBill.Quantity = quantity;
+            productBill.SalePrice = salePrice;
+            _context.ProductBills.Update(productBill);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> ShopList()
         {
@@ -123,7 +274,10 @@ namespace TechWizMain.Controllers
             _emailSender.SendEmailAsync("huy.tran9510@gmail.com", "ABC", mailBuilder.BuildMailOrders("HuyTran", new DateTime(), a, "abc"));
             return View();
         }
-
+        public IActionResult AddToCart()
+        {
+            return View();
+        }
         public IActionResult Contact()
         {
             if (_signInManager.IsSignedIn(User))
@@ -133,7 +287,7 @@ namespace TechWizMain.Controllers
                 feedback.UserID = currentUser.Id;
                 feedback.Name = currentUser.UserName;
                 feedback.Email = currentUser.Email;
-                     return View(feedback);
+                return View(feedback);
             }
             return View();
         }
@@ -156,7 +310,7 @@ namespace TechWizMain.Controllers
             }
             return Json(new { success = false });
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -125,8 +125,9 @@ namespace TechWizMain.Controllers
     {
         if(Id != null) 
         {
+            
            await _adminService.BannedUsers(Id);
-        }
+			}
         return RedirectToAction("GetUsers");
     }
 
@@ -144,7 +145,8 @@ namespace TechWizMain.Controllers
             if (feedback == null)
             {
                 return NotFound();
-            }
+            }                
+
 
             return View(feedback);
         }
