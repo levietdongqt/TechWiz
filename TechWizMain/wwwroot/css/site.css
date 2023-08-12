@@ -11295,6 +11295,27 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   font-weight: 600;
   color: #0062cc;
 }
+<<<<<<< HEAD
+.checkbox-group {
+    display: flex;
+    gap: 10px;
+}
+
+.star-checkbox {
+    display: none;
+}
+
+.star-label {
+    font-size: 24px; /* Kích thước của biểu tượng ngôi sao */
+    color: gray; /* Màu mặc định của biểu tượng ngôi sao chưa chọn */
+    cursor: pointer;
+}
+
+.star-checkbox:checked + .star-label {
+    color: gold; /* Màu của biểu tượng ngôi sao đã chọn */
+}
+
+=======
 
 #targetElement {
   max-height: 400px;
@@ -11304,3 +11325,4 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 #targetElement.scrolled {
   overflow-y: scroll;
 }
+>>>>>>> master
