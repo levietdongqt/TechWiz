@@ -150,10 +150,48 @@ namespace TechWizMain.Controllers
         }
         [HttpGet]
         [Route("ProcessBill")]
-        public async Task<IActionResult> ProcessBill(int? Id)
+        public async Task<IActionResult> ProcessBillHandler(int? p)
         {
-            return View();
-        }   
+			if (p == null)
+			{
+				p = 1;
+			}
+			currentPage = p.Value;
+			var listSpending = await _adminService.GetAllBillAsync(ProcessBill.Pending.ToString());
+			var listCancel = await _adminService.GetAllBillAsync(ProcessBill.Cancel.ToString());
+			var listSuccess = await _adminService.GetAllBillAsync(ProcessBill.Success.ToString());
+
+            int totalPages = listSpending.Count();
+			countPages = (int)Math.Ceiling((double)totalPages / ITEM_PER_PAGE);
+
+			if (currentPage < 1)
+			{
+				currentPage = 1;
+			}
+			if (currentPage > totalPages)
+			{
+				currentPage = totalPages;
+			}
+			ViewBag.currentPage = currentPage;
+			ViewBag.countPages = countPages;
+
+            
+            ViewBag.ListSpending = listSpending;
+            ViewBag.ListCancel = listCancel;
+            ViewBag.ListSuccess = listSuccess;
+			ViewBag.Cancel = ProcessBill.Cancel.ToString();
+			ViewBag.Success = ProcessBill.Success.ToString();
+			return View();
+
+		}
+        [HttpGet]
+        [Route("ProccessStatus")]
+        public async Task<IActionResult> ProccessStatus(int Id, string process)
+        {
+            await _adminService.ChangedStatusBill(Id, process);
+
+			return RedirectToAction("ProcessBill");
+		}
 
   }
 

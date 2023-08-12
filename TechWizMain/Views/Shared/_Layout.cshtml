@@ -206,9 +206,9 @@
                                 <div class="col-lg-9 col-md-6 col-6">
                                     <div class="header_right_info">
                                         <div class="search_container">
-                                            <form action="#">
+                                            <form asp-controller="Home" asp-action="Search">
                                                 <div class="search_box">
-                                                    <input placeholder="Search product..." type="text">
+                                                    <input placeholder="Search product..." type="text" name="searchString">
                                                     <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
                                                 </div>
                                             </form>
@@ -244,13 +244,14 @@
                                                 <li class="menu_item_children"><a href="#"> Plant Nest<i class="fa fa-angle-right"></i></a>
                                                     <ul class="categories_mega_menu column_2">
                                                         <li class="menu_item_children"><a href="#">Plants</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Flowering</a></li>
-                                                                <li><a href="#">Non-flowering</a></li>
-                                                                <li><a href="#">Indoor</a></li>
-                                                                <li><a href="#">Outdoor</a></li>
-                                                                <li><a href="">Succulents</a></li>
-                                                                <li><a href="">Medicinal and so on</a></li>
+                                                            <ul class="categorie_sub_menu">                                                        
+                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=1 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Flowering</a></li>
+                                                         <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=2 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Non-flowering</a></li>
+                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=3 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Indoor</a></li>
+                                                           <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=4 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Outdoor</a></li>
+                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=5 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Succulents</a></li>
+                                                        
+                                                                                                                      
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -260,10 +261,7 @@
                                                     <ul class="categories_mega_menu column_2">
                                                         <li class="menu_item_children"><a href="#">Accessories </a>
                                                             <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Tools</a></li>
-                                                                <li><a href="#">fertilizers</a></li>
-                                                                <li><a href="#">spades</a></li>
-                                                                <li><a href="#">pesticides</a></li>
+                                                               <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=6>Medicinal and so on</a></li>
                                                             </ul>
                                                         </li>
                                                     </ul>

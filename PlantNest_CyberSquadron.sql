@@ -379,8 +379,8 @@ CREATE TABLE Feedback (
 CREATE TABLE Bill (
   Id int PRIMARY KEY identity,
   OrderDate datetime NOT NULL,
-  Total decimal NOT NULL,
-  [Status] varchar check (Status in ('Cancel','Pending','Success')),
+  Total decimal ,
+  [Status] varchar(10) check (Status in ('Cancel','Pending','Success','Temporary')),
   DeliveryPhone varchar(13) NOT NULL,
   DeliveryAddress varchar(255) Not null,
   [UserId] nvarchar(450) foreign key references Users(Id)

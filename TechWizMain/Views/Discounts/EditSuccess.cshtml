@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Success</title>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '@Model',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

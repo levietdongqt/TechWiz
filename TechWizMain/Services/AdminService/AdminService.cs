@@ -31,6 +31,17 @@ namespace TechWizMain.Services.AdminService
             }
 		}
 
+		public async Task ChangedStatusBill(int Id,string Status)
+		{
+			var bill = await _billRepository.GetByID(Id);
+            if (bill != null)
+            {
+                bill.Status = Status;
+                bool check = _billRepository.Update(bill);
+            }
+            
+		}
+
 		public async Task<IEnumerable<UserManager>> GetAllAsync(bool status)
         {
             List<UserManager> ListUsers = new List<UserManager>();
@@ -51,9 +62,13 @@ namespace TechWizMain.Services.AdminService
             var list = await _billRepository.GetAll();
             foreach (var bill in (List<Bill>)list)
             {
-                
+                if(bill.Status == Status)
+                {
+                    ListBill.Add(bill);
+                }
             }
-		}
+            return ListBill;
+        }
 
 		public async Task<IEnumerable<UserManager>> GetByUserName(string UserName)
         {

@@ -13,6 +13,8 @@ namespace TechWizMain.Services.AdminService
 
         public Task<IEnumerable<Bill>> GetAllBillAsync(string Status);
 
+        public Task ChangedStatusBill(int Id,string Status);
+
 
 	}
 }
