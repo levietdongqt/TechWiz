@@ -22,7 +22,7 @@
 	<div class="col-12">
 		<div class="box">
 			<div class="box-body">
-				<form asp-action="Create" method="post" enctype="multipart/form-data">
+				<form asp-action="Create" method="post" enctype="multipart/form-data" id="createForm">
 					 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 					<div class="form-body">
 						<div class="row">
@@ -115,4 +115,42 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+	<script>
+		$(document).ready(function () {
+			$('#createForm').submit(function (e) {
+				e.preventDefault();
+
+				$.ajax({
+					type: "POST",
+					url: $(this).attr('action'),
+					data: $(this).serialize(),
+					success: function (data) {
+						if (data.success) {
+							// Display SweetAlert2 success message with confirmation
+							Swal.fire({
+								icon: 'success',
+								title: 'Success',
+								text: 'Add new product successfully!',
+								showConfirmButton: true,
+								confirmButtonText: 'OK',
+								allowOutsideClick: false // Prevent closing on backdrop click
+							}).then((result) => {
+								if (result.isConfirmed) {
+									// Redirect to home page
+									window.location.href = '/Admin/Products';
+								}
+							});
+						} else {
+							// Display SweetAlert2 error message
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'Add new product failed. Please try again later.'
+							});
+						}
+					}
+				});
+			});
+		});
+	</script>
 }

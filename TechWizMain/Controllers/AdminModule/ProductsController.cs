@@ -79,7 +79,8 @@ namespace TechWizMain.Controllers.AdminModule
                 var result = _productService.AddProduct( product,formFile);
                 if (result)
                 {
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    return Json(new { success = true });
                 }
                 else
                 {
@@ -96,6 +97,7 @@ namespace TechWizMain.Controllers.AdminModule
                     {
                         var errorMessage = error.ErrorMessage;
                         // Xử lý thông báo lỗi
+                        return Json(new { success = false });
                     }
                 }
             }
@@ -141,7 +143,12 @@ namespace TechWizMain.Controllers.AdminModule
                 var discount = _context.Discounts.Where(t => t.Name.Equals(DiscountName)).First();
                 product.DiscountId = discount.Id;
                 var result = _productService.UpdateProduct(product, formFile);
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                if (result)
+                {
+                    return Json(new { success = true });
+                }
+                //return Json(new { success = true});
             }
             ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
@@ -171,13 +178,15 @@ namespace TechWizMain.Controllers.AdminModule
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+                //return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+                return Json(new { success = false });
             }
             else
             {
                 _productService.changeStatus(id, false);
             }
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true });
+            ////return RedirectToAction(nameof(Index));
         }
 
 

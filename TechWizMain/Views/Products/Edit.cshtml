@@ -7,94 +7,94 @@
 
 
 <div class="container">
-    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <form id="editForm" asp-action="Edit" method="post" enctype="multipart/form-data">
         <div class="card bg-transparent border-0 shadow-lg">
             <div class="card-body p-5">
                 <div class="text-center">
-                    <h1>PORDUCT EDIT</h1>
+                    <h1>PRODUCT EDIT</h1>
                     <hr />
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-8">
 
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Id" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="Name" class="form-label"></label>
-                                    <input asp-for="Name" class="form-control" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="TypeProduct" class="form-label"></label>
-                                    <select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
+                            <div class="col-md-6">
+                                <label asp-for="TypeProduct" class="form-label"></label>
+                                <select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
+                            </div>
+                        </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="BasePrice" class="form-label"></label>
-                                    <input asp-for="BasePrice" class="form-control" />
-                                    <span asp-validation-for="BasePrice" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="Price" class="form-label"></label>
-                                    <input asp-for="Price" class="form-control" />
-                                    <span asp-validation-for="Price" class="text-danger"></span>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="BasePrice" class="form-label"></label>
+                                <input asp-for="BasePrice" class="form-control" />
+                                <span asp-validation-for="BasePrice" class="text-danger"></span>
                             </div>
+                            <div class="col-md-6">
+                                <label asp-for="Price" class="form-label"></label>
+                                <input asp-for="Price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="CreatedDate" class="form-label"></label>
-                                    <input asp-for="CreatedDate" class="form-control" readonly />
-                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="InventoryQuantity" class="form-label"></label>
-                                    <input asp-for="InventoryQuantity" class="form-control" />
-                                    <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="CreatedDate" class="form-label"></label>
+                                <input asp-for="CreatedDate" class="form-control" readonly />
+                                <span asp-validation-for="CreatedDate" class="text-danger"></span>
                             </div>
+                            <div class="col-md-6">
+                                <label asp-for="InventoryQuantity" class="form-label"></label>
+                                <input asp-for="InventoryQuantity" class="form-control" />
+                                <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
+                            </div>
+                        </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="DiscountId" class="form-label"></label>
-                                    <select asp-for="Discount.Name" id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId"></select>
-                                </div>
-                                <div class="col-md-6 form-check">
-                                    <br /><br />
-                                    <input class="form-check-input" asp-for="status" id="status" />
-                                    <label class="form-check-label" for="status">@Html.DisplayNameFor(model => model.status)</label>
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="DiscountId" class="form-label"></label>
+                                <select asp-for="Discount.Name" id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId"></select>
                             </div>
-                    </div>
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label class="form-label"></label>
-                                <input class="form-control" type="file" name="formFile" id="formFile" />
-                                <input asp-for="ImageUrl" class="form-control" hidden />
-                                <img src="@Model.ImageUrl" width="100" />
+                            <div class="col-md-6 form-check">
+                                <br /><br />
+                                <input class="form-check-input" asp-for="status" id="status" />
+                                <label class="form-check-label" for="status">@Html.DisplayNameFor(model => model.status)</label>
                             </div>
-                            <div class="mb-3">
-                                <label asp-for="Description" class="form-label"></label>
-                                <textarea asp-for="Description" placeholder="Mô Tả" class="form-control"></textarea>
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6 text-md-end">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                                <div class="col-md-6 text-md-start mt-md-0 mt-3">
-                                    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back To List</a>
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label class="form-label"></label>
+                            <input class="form-control" type="file" name="formFile" id="formFile" />
+                            <input asp-for="ImageUrl" class="form-control" hidden />
+                            <img src="@Model.ImageUrl" width="100" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label"></label>
+                            <textarea asp-for="Description" placeholder="Mô Tả" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 text-md-end">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                            <div class="col-md-6 text-md-start mt-md-0 mt-3">
+                                <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back To List</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -105,4 +105,44 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // Use jQuery to handle the form submission via AJAX
+        $(document).ready(function () {
+            $('#editForm').submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if (data.true) {
+                            // Display SweetAlert2 success message with confirmation
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Feedback submitted successfully!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK',
+                                allowOutsideClick: false // Prevent closing on backdrop click
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Redirect to home page
+                                    window.location.href = '/';
+                                }
+                            });
+                        } else {
+                            // Display SweetAlert2 error message
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Feedback submission failed. Please try again later.'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 }
