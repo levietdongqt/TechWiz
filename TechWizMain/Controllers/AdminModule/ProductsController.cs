@@ -87,6 +87,7 @@ namespace TechWizMain.Controllers.AdminModule
 
         // GET: Products/Details/5
         [Route("Products/ProductDetails")]
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetails(int? id)
         {
             if (id == null || _context.Products == null)
