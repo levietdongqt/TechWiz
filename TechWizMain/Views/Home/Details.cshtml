@@ -1,4 +1,9 @@
-﻿@model TechWizMain.Models.Product
+﻿@using Microsoft.AspNetCore.Identity;
+@using TechWizMain.Areas.Identity.Data;
+@model TechWizMain.Models.Product
+@inject UserManager<UserManager> _userManager;
+@inject SignInManager<UserManager> SignInManager
+
 @{
     ViewBag.Title = "Details Product";
     Layout = "_Layout";
@@ -56,9 +61,10 @@
 
                         <div class="product_ratting">
                             <ul>
-
-                                <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-
+                            @for (int i = 0; i < ViewBag.Number; i++)
+                            {
+                                    <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                            }
                                 <li class="review"><a href="#"> (customer review ) </a></li>
                             </ul>
                         </div>
@@ -115,7 +121,7 @@
                         <ul class="nav" role="tablist" id="nav-tab">
                             <li class="nav-item">
                                 <a class="nav-link active" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab"
-                                   aria-controls="reviews" aria-selected="true">Reviews (1)</a>
+                                   aria-controls="reviews" aria-selected="true">Reviews @ViewBag.CountReviews</a>
                             </li>
                         </ul>
                     </div>
@@ -123,53 +129,91 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="reviews" role="tabpanel">
                             <div class="reviews_wrapper">
-                                <h2>1 review for Donec eu furniture</h2>
+                                <h2>@ViewBag.CountReviews review for @Model.Name</h2>
                                 <div class="reviews_comment_box">
                                     <div class="comment_thmb">
                                         <img src="assets/img/blog/comment2.jpg" alt="">
                                     </div>
                                     <div class="comment_text">
-                                        <div class="reviews_meta">
-                                            <div class="star_rating">
-                                                <ul>
+                                    @foreach(var x in ViewBag.Reviews)
+                                    {
+                            <div class="reviews_meta">
+                                <div class="star_rating">
+                                    <ul>
+                                        
+                                                @for (int i = 0; i < x.Rating; i++)
+                                                {
                                                     <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                    
-                                                </ul>
+                                                }
+                                                    </ul>
+                                                </div>
+                                                @{
+                                                    var user = await _userManager.FindByIdAsync(x.UserId);
+                                                }
+                                                
+                                                <p><strong>@user.UserName </strong>
+                                                - @x.ReviewDate</p>
+                                                <span>@x.Content</span>
                                             </div>
-                                            <p><strong>admin </strong>- September 12, 2018</p>
-                                            <span>roadthemes</span>
-                                        </div>
+                                    }
+                        
                                     </div>
                                 </div>
-                                <div class="comment_title">
+                                <div class="comment_title text-center">
                                     <h2>Add a review</h2>
-                                    <p>Your email address will not be published. Required fields are marked</p>
                                 </div>
-                                <div class="product_ratting mb-10">
-                                    <h3>Your rating</h3>
-                                    <ul>
-                                        <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product_review_form">
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <label for="review_comment">Your review</label>
-                                                <textarea name="comment" id="review_comment"></textarea>
+                                <div>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var currentUser = _userManager.GetUserAsync(User).Result;
+
+                                    <div class="product_ratting mb-10">
+                                        <h3>Your rating</h3>
+                                    </div>
+                                    <div class="product_review_form">
+                                            <form asp-controller="Home" asp-action="InsertReview">
+                                            <div class="checkbox-group">
+                                                <div class="checkbox-group">
+                                                    <input type="checkbox" id="star1" class="star-checkbox" name="vehicle1" value="1">
+                                                    <label class="star-label" for="star1">&#9733;</label>
+
+                                                    <input type="checkbox" id="star2" class="star-checkbox" name="vehicle1" value="2">
+                                                    <label class="star-label" for="star2">&#9733;</label>
+
+                                                    <input type="checkbox" id="star3" class="star-checkbox" name="vehicle1" value="3">
+                                                    <label class="star-label" for="star3">&#9733;</label>
+
+                                                    <input type="checkbox" id="star4" class="star-checkbox" name="vehicle1" value="4">
+                                                    <label class="star-label" for="star4">&#9733;</label>
+
+                                                    <input type="checkbox" id="star5" class="star-checkbox" name="vehicle1" value="5">
+                                                    <label class="star-label" for="star5">&#9733;</label>
+                                                </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <label for="author">Name</label>
-                                                <input id="author" type="text">
+                                            <div class="row">
+                                                 <div class="col-12">
+                                                    <input name="ProductId" id="review_comment" value="@Model.Id" type="hidden" />
+                                                   <input name="UserId" id="review_comment" value="@currentUser.Id" type="hidden"/>
+                                                 </div>
+                                                <div class="col-12">
+                                                    <label for="review_comment">Your review</label>
+                                                    <textarea name="content" id="review_comment"></textarea>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <label for="author">Name</label>
+                                                        <input id="author" type="text" value="@currentUser.FullName">
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <label for="email">Email</label>
+                                                    <input id="email" type="text" value="@currentUser.Email">
+                                                </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6">
-                                                <label for="email">Email</label>
-                                                <input id="email" type="text">
-                                            </div>
-                                        </div>
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                </div>
+                                            <button type="submit">Submit</button>
+                                        </form>
+                                    </div>
+                                    }else{
+                                    <h2 class="text-center"><a href="/Identity/Account/Login">Please Login to Review</a></h2>
+                                    }                            
                             </div>
                         </div>
                     </div>
@@ -310,6 +354,21 @@
             $("#shortDescription").show();
             $("#hideFullDescription").hide();
             $("#showFullDescription").show();
+        });
+    });
+
+
+        const ratingStars = document.querySelectorAll('#ratingStars li a');
+
+    ratingStars.forEach(star => {
+        star.addEventListener('click', function (event) {
+            event.preventDefault();
+            const selectedStar = parseInt(this.getAttribute('data-star'));
+
+            // Xử lý logic khi người dùng đánh giá sao ở mức selectedStar
+
+            // Ví dụ: Hiển thị thông báo
+            alert(`Bạn đã đánh giá ${selectedStar} sao`);
         });
     });
 </script>

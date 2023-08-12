@@ -179,7 +179,6 @@ namespace TechWizMain.Controllers.AdminModule
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Route("Products/Edit")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, Product product, IFormFile? formFile, string DiscountName)
         {
             if (id != product.Id)

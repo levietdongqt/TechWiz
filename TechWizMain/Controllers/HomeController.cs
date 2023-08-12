@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using TechWizMain.Services.HomeService;
 using TechWizMain.Services;
 using X.PagedList;
+using NuGet.Protocol;
 
 namespace TechWizMain.Controllers
 {
@@ -249,7 +250,7 @@ namespace TechWizMain.Controllers
             }
             return Json(listCart);
 
-        }
+                }
 
        
         public async Task<IActionResult> Details(int? id)
@@ -262,10 +263,24 @@ namespace TechWizMain.Controllers
             var product = await _context.Products
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var list = await _context.Reviews.Include(r => r.Product).Where(m=>m.ProductId == id).ToListAsync();
+            int countReview = _context.Reviews.Count();
+            int? number = 0;
+            if(list != null)
+            {
+				foreach (var e in list)
+				{
+					number += e.Rating;
+				}
+			}
             if (product == null)
             {
                 return NotFound();
             }
+            ViewBag.Reviews = list;
+            ViewBag.CountReviews = list.Count();
+            ViewBag.Number = number / countReview;
+
 
             return View(product);
         }
@@ -333,10 +348,6 @@ namespace TechWizMain.Controllers
             _emailSender.SendEmailAsync("huy.tran9510@gmail.com", "ABC", mailBuilder.BuildMailOrders("HuyTran", new DateTime(), a, "abc"));
             return View();
         }
-        public IActionResult AddToCart()
-        {
-            return View();
-        }
         public IActionResult Contact()
         {
             if (_signInManager.IsSignedIn(User))
@@ -374,6 +385,22 @@ namespace TechWizMain.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [Route("InsertReview")]
+        public IActionResult InsertReview(List<int>? vehicle1,string? content,int? ProductId,string UserId)
+        {
+            int rating = vehicle1.Count();
+            Review review = new Review();
+            review.Rating = rating;
+            review.Content = content;
+            review.ProductId = ProductId; 
+            review.UserId = UserId;
+            review.ReviewDate = DateTime.Now;
+            _context.Reviews.Add(review);
+            _context.SaveChanges();
+            return Redirect("/");
         }
     }
 }
