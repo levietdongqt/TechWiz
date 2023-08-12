@@ -11141,3 +11141,37 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .form-group {
   margin-bottom: 1rem;
 }
+
+.product-img {
+    text-align: center;
+    position: relative;
+    transition: all 1s ease;
+}
+
+    .product-img img {
+        max-width: 250px;
+    }
+
+    .product-img .pro-img-overlay a {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .product-img .fileupload {
+        overflow: hidden;
+        position: relative;
+    }
+
+        .product-img .fileupload input.upload {
+            cursor: pointer;
+            filter: alpha(opacity=0);
+            font-size: 1.429rem;
+            margin: 0;
+            opacity: 0;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }

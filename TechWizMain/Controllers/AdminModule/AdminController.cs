@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechWizMain.Areas.Identity.Data;
+using TechWizMain.Data;
 using TechWizMain.Models;
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
@@ -17,6 +18,7 @@ namespace TechWizMain.Controllers
     private readonly IAdminService _adminService;
     private readonly IFeedbackService _feedbackService;
     private readonly TechWizContext _context;
+    private readonly UserManagerContext _userManagerContext;
     private const int ITEM_PER_PAGE = 5;
 
 
@@ -24,13 +26,16 @@ namespace TechWizMain.Controllers
     public int currentPage { get; set; }
 	public int countPages { get; set; }
 
+
+
     
-    public AdminController(IAdminService adminService, IFeedbackService feedbackService, TechWizContext context)
+    public AdminController(IAdminService adminService, IFeedbackService feedbackService, TechWizContext context, UserManagerContext userManagerContext)
     {
 
       _adminService = adminService;
       _feedbackService = feedbackService;
        _context = context;
+        _userManagerContext = userManagerContext;
 
     }
 
@@ -41,17 +46,38 @@ namespace TechWizMain.Controllers
     }
 
     [Route("Users")]
-    public async Task<IActionResult> GetUsers(string? UserName)
+    public async Task<IActionResult> GetUsers(int? p, string? UserName)
     {
-        
-	    if (UserName == null)
-       {
-		    ViewBag.Active = await _adminService.GetAllAsync(true);
-       }
-       else
-       {
-			ViewBag.Active = await _adminService.GetByUserName(UserName);
-	    }
+			if (p == null)
+			{
+				p = 1;
+
+			}
+			currentPage = p.Value;
+			int totalPages = await _userManagerContext.Users.CountAsync();
+			countPages = (int)Math.Ceiling((double)totalPages / ITEM_PER_PAGE);
+
+			if (currentPage < 1)
+			{
+				currentPage = 1;
+			}
+			if (currentPage > totalPages)
+			{
+				currentPage = totalPages;
+			}
+			ViewBag.currentPage = currentPage;
+			ViewBag.countPages = countPages;
+
+			if (UserName == null)
+            {
+		    var list = await _adminService.GetAllAsync(true);
+			ViewBag.Active = list.Skip((currentPage - 1) * 5).Take(ITEM_PER_PAGE).ToList();
+			}
+            else
+            {
+			var list = await _adminService.GetByUserName(UserName);
+			ViewBag.Active = list.Skip((currentPage - 1) * 5).Take(ITEM_PER_PAGE).ToList();
+			}
      
 	  var usersBanned = await _adminService.GetAllAsync(false);
       ViewBag.Banned = usersBanned;
