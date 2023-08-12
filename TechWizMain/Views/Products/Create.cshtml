@@ -112,7 +112,27 @@
 
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script>
+		$(document).ready(function () {
+			$('#fedit').submit(function (e) {
+				var currentDate = new Date();
+				var createdDate = new Date($('#CreatedDate').val());
+
+				// Calculate the time difference in minutes
+				var timeDifference = (createdDate - currentDate) / (1000 * 60);
+
+				if (timeDifference < 60) {
+					e.preventDefault();
+
+					// Display error message
+					$('#errCreatedDate').text('Created Date phải sau ít nhất 60 phút so với thời gian hiện tại.');
+				}
+			});
+		});
+	</script>
 }
+
