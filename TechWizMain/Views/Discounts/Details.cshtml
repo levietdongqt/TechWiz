@@ -5,43 +5,44 @@
     Layout = null;
 }
 
-@*<h1>Details</h1>
+<div class="container">
+    <div class="card bg-transparent border-0 shadow-lg">
+        <div class="card-body p-5 text-center">
+            <h2 class="fw-bold mb-5 text-primary">Discounts Details</h2>
 
-<div>
-    <h4>Discount</h4>
-    <hr />*@
-            <dl class="row" >
-    <dt class="col-sm-2 col-md-2 ">
-                    @Html.DisplayNameFor(model => model.Name)
+            <dl class="row">
+                <dt class="col-sm-3 fs-6 text-muted">
+                    Discounts Name
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9 fs-5">
                     @Html.DisplayFor(model => model.Name)
                 </dd>
-    <dt class="col-sm-2 col-md-2">
-                    @Html.DisplayNameFor(model => model.Percent)
+                <dt class="col-sm-3 fs-6 text-muted">
+                    Percent
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9 fs-5">
                     @Html.DisplayFor(model => model.Percent)
                 </dd>
-    <dt class="col-sm-2 col-md-2">
-                    @Html.DisplayNameFor(model => model.DateBegin)
+                <dt class="col-sm-3 fs-6 text-muted">
+                    DateBegin
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9 fs-5">
                     @Html.DisplayFor(model => model.DateBegin)
                 </dd>
-    <dt class="col-sm-2 col-md-2">
-                    @Html.DisplayNameFor(model => model.DateEnd)
+                <dt class="col-sm-3 fs-6 text-muted">
+                    DateEnd
                 </dt>
-    <dd class="col-sm-2 col-md-2">
+                <dd class="col-sm-9 fs-5">
                     @Html.DisplayFor(model => model.DateEnd)
                 </dd>
             </dl>
-@*</div>
-</div>*@
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <div class="d-flex justify-content-center mt-4">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back To List</a>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 

@@ -10,15 +10,14 @@
         .cascading-right {
             margin-right: -50px;
         }
-       
     </style>
 
 
     <div class="breadcrumb_content">
-        <h3>My Account</h3>
+        <h3>Register</h3>
         <ul>
-            <li><a href="index.html">home</a></li>
-            <li>My account</li>
+            <li><a asp-controller="Home" asp-action="Index">home</a></li>
+            <li>Register</li>
         </ul>
     </div>
     <!-- Jumbotron -->
@@ -32,7 +31,7 @@
             backdrop-filter: blur(30px);
             ">
                     <div class="card-body p-5 shadow-5 text-center">
-                        <h2 class="fw-bold mb-5">Sign up now</h2>
+                        <h2 class="fw-bold mb-5">Sign up</h2>
 
 
 
@@ -96,7 +95,7 @@
 
 
                             <!-- Submit button -->
-                            <button id ="registerSubmit" type="submit" class="btn btn-primary btn-block mb-4">
+                            <button id="registerSubmit" type="submit" class="btn btn-primary btn-block mb-4">
                                 Sign up
                             </button>
 
@@ -150,7 +149,7 @@
 <!-- Section: Design Block -->
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
     <script>
         function validateInput() {
             const userNameval = document.getElementById("userName").value;
@@ -184,10 +183,10 @@
             }
             return valid;
         }
-        function validateTerm(){
+        function validateTerm() {
             const TermVal = document.getElementById("Term").checked;
-            if (!TermVal){
-                document.getElementById("TermErr").innerHTMl = "You must agree to the Terms of Service.";  
+            if (!TermVal) {
+                document.getElementById("TermErr").innerHTMl = "You must agree to the Terms of Service.";
             }
         }
 
@@ -197,7 +196,7 @@
                 document.getElementById("phoneErr").innerHTML = "Please enter valid phone number which is max 13 and min 10 digits include 0 at start";
             }
         }
-        
+
         function validateUsername(username) {
             // Regular expression to match any whitespace character
             var regex = /\s/;
@@ -214,5 +213,54 @@
             const pattern = /^0(?!.*(\d)\1{8})\d{9,12}$/;
             return pattern.test(number);
         }
+        $(document).ready(function () {
+            $("#registerForm").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                if (validateInput() == true) {
+                    // Perform AJAX call
+                    $.ajax({
+                        url: $(this).attr("action"), // Get the form action URL
+                        type: $(this).attr("method"), // Get the form method (POST)
+                        data: $(this).serialize(), // Serialize form data
+                        success: function (data) {
+                            console.log(data);
+                            debugger;
+                            if (data.includes("Success")) {
+                                // Success case: show SweetAlert2 success message
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Registration Successful',
+                                    text: 'You have successfully registered. Please check your email to confirm this account',
+                                    confirmButtonText: 'OK',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Redirect to home page
+                                        window.location.href = '/';
+                                    };
+                                });
+                            } else {
+                                // Failure case: show SweetAlert2 error message
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Registration Failed',
+                                    text: 'An error occurred during registration. Please try again.',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function () {
+                            // Error case: show generic SweetAlert2 error message
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Registration Error',
+                                text: 'An error occurred during registration. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 }

@@ -20,10 +20,10 @@
   </style>
 
     <div class="breadcrumb_content">
-        <h3>My Account</h3>
+        <h3>Sign in</h3>
         <ul>
-            <li><a href="index.html">home</a></li>
-            <li>My account</li>
+            <li><a asp-controller="Home" asp-action="Index">home</a></li>
+            <li>Sign in</li>
         </ul>
     </div>
   <!-- Jumbotron -->
@@ -41,15 +41,15 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
               <!-- Email input -->
               <div class="form-outline mb-4">
-                                <input asp-for="Input.UserNameOrEmail" class="form-control" autocomplete="username" aria-required="true" />
                                 <label asp-for="Input.UserNameOrEmail" class="form-label"></label>
+                                <input asp-for="Input.UserNameOrEmail" class="form-control" autocomplete="username" aria-required="true" />
                                 <span asp-validation-for="Input.UserNameOrEmail" class="text-danger"></span>
               </div>
 
               <!-- Password input -->
               <div class="form-outline mb-4">
-                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                                 <label asp-for="Input.Password" class="form-label"></label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
               </div>
 

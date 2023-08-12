@@ -5,44 +5,73 @@
     Layout = "_AdminLayout";
 }
 
-<h1>Create</h1>
-
-<h4>Discount</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Percent" class="control-label"></label>
-                <input asp-for="Percent" class="form-control" />
-                <span asp-validation-for="Percent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateBegin" class="control-label"></label>
-                <input asp-for="DateBegin" class="form-control"  />
-                <span asp-validation-for="DateBegin" class="text-danger" id="errdb"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateEnd" class="control-label"></label>
-                <input asp-for="DateEnd" class="form-control" />
-                <span asp-validation-for="DateEnd" class="text-danger" id="errde"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+			  <div class="col-12">
+				<div class="box">
+					<div class="box-header with-border">
+					  <h4 class="box-title">Create Discounts</h4>
+					</div>
+				  <div class="box-body">
+					  <form asp-action="Create" method="post">
+						  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						  <div class="form-body">
+							  <div class="row">
+								  <div class="col-md-6">
+									  <div class="form-group">
+										  <label class="fw-700 fs-16 form-label" asp-for="Name"></label>
+										  <input asp-for="Name" class="form-control">
+										  <span asp-validation-for="Name" class="text-danger"></span>
+									  </div>
+								  </div>
+								  <!--/span-->
+							  </div>
+							  <!--/row-->
+							  <!--/row-->
+							  <div class="row">
+								  <div class="col-md-6">
+									  <div class="form-group">
+										  <label class="fw-700 fs-16 form-label" asp-for="Percent"></label>
+										  <input asp-for="Percent" class="form-control"/>
+										  <span asp-validation-for="Percent" class="text-danger"></span>
+									  </div>
+								  </div>
+							  </div>
+							  <!--/row-->
+							  <div class="row">
+								  <div class="col-md-6">
+									  <div class="form-group">
+										  <label class="fw-700 fs-16 form-label" asp-for="DateBegin"></label>
+										  <div class="input-group">
+											  <div class="input-group-addon"><i class="ti-money"></i></div>
+											  <input asp-for="DateBegin" class="form-control"/>
+											  <span asp-validation-for="DateBegin" class="text-danger" id="errdb"></span>
+										  </div>
+									  </div>
+								  </div>
+							  </div>
+							  <div class="row">
+								  <div class="col-md-6">
+									  <div class="form-group">
+										  <label class="fw-700 fs-16 form-label" asp-for="DateEnd"></label>
+										  <input asp-for="DateEnd" class="form-control"/>
+										  <span asp-validation-for="DateEnd" class="text-danger" id="errde"></span>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+						  <div class="form-actions mt-10">
+							  <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i>Create</button>
+						  </div>
+					  </form>
+				  </div>
+				</div>
+			  </div>		  
+		  </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 
 @section Scripts {

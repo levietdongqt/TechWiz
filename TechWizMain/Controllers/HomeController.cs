@@ -38,6 +38,11 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
+            var newestProductsAccessories = await _context.Products
+                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(8)
+                .ToListAsync();
 
             // Lấy danh sách sản phẩm best seller
             var bestSellerProducts = await _context.Products
@@ -48,12 +53,22 @@ namespace TechWizMain.Controllers
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
-
+            ViewData["newestAccessories"] = newestProductsAccessories;
             return View();
         }
 
-        public IActionResult ShopList()
+        public IActionResult Details()
         {
+            return View();
+        }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ShopList()
+        {
+            var Product = await _context.Products.ToListAsync();
+            ViewData["Products"] = Product;
             return View();
         }
 
@@ -73,7 +88,7 @@ namespace TechWizMain.Controllers
                 feedback.Email = currentUser.Email;
                      return View(feedback);
             }
-                return View();
+            return View();
         }
         [HttpPost]
         [AllowAnonymous]
