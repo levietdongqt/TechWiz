@@ -28,11 +28,7 @@ namespace TechWizMain.Controllers
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
-<<<<<<< HEAD
 
-
-=======
->>>>>>> master
         private readonly string SubjectEmail;
 
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,

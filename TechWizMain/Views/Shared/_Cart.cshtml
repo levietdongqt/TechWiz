@@ -4,13 +4,12 @@ var cart = ViewBag.Cart as List<Product>;
 if(cart == null) {
 cart = new List<Product>(); 
 }
-=======
 
 
 @{
     var cart = ViewData["listCart"] as List<ProductBill>;
     Console.WriteLine("");
->>>>>>> master
+
 }
 <div class="mini_cart">
     <form asp-action="Index" asp-controller="Home">
@@ -31,7 +30,8 @@ cart = new List<Product>();
                     <div class="cart_item">
                         <div class="cart_img">
                             <a href="#"><img src="@x.Product.ImageUrl" alt="@x.Product.Name" width="100px" height="100px"></a>
-                        </div><div class="cart_info">
+                        </div>
+                        <div class="cart_info">
                             <a asp-controller="Home" asp-action="Details">@x.Product</a>
                             <input type="number" value="@x.SalePrice"><span> @x.SalePrice</span>
                         </div>
