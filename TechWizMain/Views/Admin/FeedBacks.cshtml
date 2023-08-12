@@ -39,11 +39,11 @@
 			<tr>
 				<th class="border-top-0 pt-0 pb-2"></th>
 				<th class="border-top-0 pt-0 pb-2"></th>
-				<th class="border-top-0 pt-0 pb-2 text-center">Feed Back Date</th>
-				<th class="border-top-0 pt-0 pb-2 text-center">User Name</th>
-				<th class="border-top-0 pt-0 pb-2 text-center">Email</th>
-				<th class="border-top-0 pt-0 pb-2 text-center">Subject</th>
-				<th class="border-top-0 pt-0 pb-2 text-center">Content</th>
+				<th class="border-top-0 pt-0 pb-2">Feed Back Date</th>
+				<th class="border-top-0 pt-0 pb-2">User Name</th>
+				<th class="border-top-0 pt-0 pb-2">Email</th>
+				<th class="border-top-0 pt-0 pb-2">Subject</th>
+				<th class="border-top-0 pt-0 pb-2">Details</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -69,8 +69,8 @@
 					<td class="align-middle">
 						@x.Subject
 					</td>
-					<td class="align-middle text-center">
-						@x.Message
+					<td class="align-middle">
+						<button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
 					</td>
 				</tr>
 			}
@@ -78,3 +78,38 @@
 	</table>
 </div>
 
+<div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog  modal-lg" role="document">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header text-center">
+				<img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+
+			<div class="modal-body">
+				<div id="modal-content"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+	//js xem detail
+	$(document).ready(function () {
+		$(".open-modal-button").click(function () {
+			var id = $(this).data("id");
+			$.ajax({
+				url: "Details", // Đường dẫn đến action Details
+				type: "GET",
+				data: { id: id },
+				success: function (data) {
+					$("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+					$("#myModal").modal("show"); // Mở cửa sổ popup
+				}
+			});
+		});
+	});
+</script>

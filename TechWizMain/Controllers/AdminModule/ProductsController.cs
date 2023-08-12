@@ -20,6 +20,13 @@ namespace TechWizMain.Controllers.AdminModule
         private readonly IProductService _productService;
         [TempData]
         public string StatusMessage { get; set; }
+
+        private const int ITEM_PER_PAGE = 5;
+
+
+        [BindProperty(SupportsGet = true, Name = "p")]
+        public int currentPage { get; set; }
+        public int countPages { get; set; }
         public ProductsController(TechWizContext context, IProductService productService)
         {
             _context = context;
@@ -29,11 +36,34 @@ namespace TechWizMain.Controllers.AdminModule
 
         // GET: Products
         [Route("Products")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? p)
         {
+            if (p == null)
+            {
+                p = 1;
+
+            }
+            currentPage = p.Value;
+            int totalPages = await _context.Products.CountAsync();
+            countPages = (int)Math.Ceiling((double)totalPages / ITEM_PER_PAGE);
+
+            if (currentPage < 1)
+            {
+                currentPage = 1;
+            }
+            if (currentPage > totalPages)
+            {
+                currentPage = totalPages;
+            }
+            ViewBag.currentPage = currentPage;
+            ViewBag.countPages = countPages;
+
             var productActive = await _productService.GetProductListByStatus(true);
-			var productDeleted = await _productService.GetProductListByStatus(false);
-			ViewBag.Active = productActive;
+            
+
+            var productDeleted = await _productService.GetProductListByStatus(false);
+            var listActive = productActive.Skip((currentPage - 1) * 5).Take(ITEM_PER_PAGE).ToList();
+            ViewBag.Active = listActive;
 			ViewBag.Deleted = productDeleted;
 			return View(ViewBag.productActive);
 		}
@@ -79,7 +109,8 @@ namespace TechWizMain.Controllers.AdminModule
                 var result = _productService.AddProduct( product,formFile);
                 if (result)
                 {
-                    return RedirectToAction(nameof(Index));
+                    //return RedirectToAction(nameof(Index));
+                    return Json(new { success = true });
                 }
                 else
                 {
@@ -96,6 +127,7 @@ namespace TechWizMain.Controllers.AdminModule
                     {
                         var errorMessage = error.ErrorMessage;
                         // Xử lý thông báo lỗi
+                        return Json(new { success = false });
                     }
                 }
             }
@@ -141,7 +173,9 @@ namespace TechWizMain.Controllers.AdminModule
                 var discount = _context.Discounts.Where(t => t.Name.Equals(DiscountName)).First();
                 product.DiscountId = discount.Id;
                 var result = _productService.UpdateProduct(product, formFile);
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+
+                return Json(new { success = true });
             }
             ViewData["TypeProduct"] = new SelectList(_productService.getTypeProduct(), "Value", "Text");
             ViewData["DiscountId"] = new SelectList(_context.Discounts, "Name", "Name");
@@ -167,17 +201,20 @@ namespace TechWizMain.Controllers.AdminModule
         [Route("Discounts/Delete")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+            if (id == null || _context.Products == null)
+            { 
+                //return Problem("Entity set 'TechWizContext.Discounts'  is null.");
+                return Json(new { success = false });
             }
             else
             {
                 _productService.changeStatus(id, false);
             }
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true });
+            ////return RedirectToAction(nameof(Index));
+
         }
 
 

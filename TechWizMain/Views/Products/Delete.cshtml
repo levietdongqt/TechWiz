@@ -56,7 +56,7 @@
                     </dd>
                 </dl>
 
-                <form asp-action="Delete" method="post">
+                <form asp-action="Delete" method="post" id="deleteForm">
                     <input type="hidden" asp-for="Id" />
                     <button type="submit" class="btn btn-danger">
                         <i class="fas fa-trash"></i> Delete
@@ -67,3 +67,43 @@
         </div>
     </div>
 </div>
+<script>
+    // Use jQuery to handle the form submission via AJAX
+    $(document).ready(function () {
+        $('#deleteForm').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        // Display SweetAlert2 success message with confirmation
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Deleted successfully!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: false // Prevent closing on backdrop click
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to home page
+                                window.location.href = '/Admin/Products';
+                            }
+                        });
+                    } else {
+                        // Display SweetAlert2 error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Deleted failed. Please try again later.'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
