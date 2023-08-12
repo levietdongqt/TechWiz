@@ -18,7 +18,7 @@
                             <ul role="tablist" class="nav flex-column dashboard-list">
                                 <li><a href="#account-details" data-bs-toggle="tab" class="nav-link " active>Account details</a></li>
                                 <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                                <li><a class="nav-link"><form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <li><a class="nav-link text-decoration-none" ><form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                                     <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                                                 </form></a></li>
                             </ul>
@@ -42,7 +42,7 @@
                                                                         @Model.FullName
                                                                     </h3>
                                                                     <p class="proile-rating">RANKINGS : <strong class="fs-3">VIP</strong></p>
-                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                                 <li class="nav-item">
                                                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                                                 </li>
@@ -50,7 +50,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <button class="profile-edit-btn"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="nav-link underline fs-6" style="">Edit</a></button>
+                                                        <button class="btn btn-primary profile-edit-btn"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="py-2 px-1 fs-6" style="">Edit</a></button>
                                                     </div>
                                                 </div>
                                                 <div class="row">
