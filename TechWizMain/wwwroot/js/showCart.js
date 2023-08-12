@@ -37,8 +37,10 @@ $(document).ready(function () {
                         +               '<a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">' + item.product.name + '</a>'
                         +                  '<input type="number" value="' + item.quantity +'"><span> x $'+ item.product.price + '</span>'
                         +            '</div>'
+                        +             '<div className="cart_remove">'
+                        +             '<a href="#"><i class="fa-solid fa-xmark" style="color: #000000;"></i></a>'
+                        +              '</div>'
                         +       '</div>'
-
                 }
                 //var html = '<div>' + data.Quantity + 'sdfdsf' + '</div>';
                 $('#targetElement').append(html);

@@ -11202,7 +11202,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     padding-bottom: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao dựa trên chiều ngang */
     object-fit: cover; /* Đảm bảo ảnh không bị biến dạng khi điều chỉnh kích thước */
 }
-=======
+
         
 .emp-profile{
   padding: 3%;

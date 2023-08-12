@@ -142,7 +142,6 @@
                                         Plant families
                                     </a>
                                 </li>
-
                                 <li>
                                     <a data-bs-toggle="tab" href="#plant2" role="tab" aria-controls="plant2"
                                         aria-selected="false">
@@ -163,23 +162,23 @@
                                 var displayedProductNames = new HashSet<string>();
                             }
 
-                            @foreach (var x in ViewData["NewestProducts"] as List<Product>)
+                            @foreach (var x in ViewData["NewestProducts"] as List<ProductResult>)
                             {
-                                if (!displayedProductNames.Contains(x.Name))
+                                if (!displayedProductNames.Contains(x.Product.Name))
                                 {
-                                    displayedProductNames.Add(x.Name);
+                                    displayedProductNames.Add(x.Product.Name);
                                     <div class="col-lg-3">
                                         <div class="product_items">
                                             <article class="single_product">
                                                 <figure>
                                                     <div class="product_thumb">
-                                                    <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">
-                                                            @if(!string.IsNullOrEmpty(x.ImageUrl)){
-                                                                <img src="@x.ImageUrl" alt="@x.Name">
+                                                    <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">
+                                                            @if(!string.IsNullOrEmpty(x.Product.ImageUrl)){
+                                                                <img src="@x.Product.ImageUrl" alt="@x.Product.Name">
                                                             }
                                                         </a>
                                                         <div class="label_product">
-                                                            <span class="label_sale"></span>
+                                                            <span class="label_sale">-@x.Discount.Name</span>
                                                         </div>
                                                         <div class="action_links">
                                                             <ul>
@@ -189,8 +188,7 @@
                                                                     <a href="#" title="Add to Wishlist"><i class="fa-regular fa-heart" style="color: #0a0c10;"></i></a>
                                                                 </li>
                                                                 <li class="quick_button">
-                                                                <a  class="open-modal-button" data-id="@x.Id" title="quick view"> <i class="fa-regular fa-eye" style="color: #060b13;"></i></a>
-                                                            </li>
+                                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="fa-regular fa-eye" style="color: #060b13;"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -205,11 +203,11 @@
                                                             </ul>
                                                         </div>
                                                         <h4 class="product_name">
-                                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">@x.Name</a>
+                                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">@x.Product.Name</a>
                                                     </h4>
                                                         <div class="price_box">
-                                                            <span class="current_price">$@x.Price</span>
-                                                            <span class="old_price">$@x.BasePrice</span>
+                                                            <span class="current_price">$@x.Product.Price</span>
+                                                            <span class="old_price">$@x.Product.BasePrice</span>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
@@ -221,24 +219,23 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="plant2" role="tabpanel">
                     <div class="row">
                         <div class="product_carousel product_column4 owl-carousel">
-                            @foreach (var x in ViewData["newestAccessories"] as List<Product>)
+                            @foreach (var x in ViewData["newestAccessories"] as List<ProductResult>)
                             {
                                 <div class="col-lg-3">
                                     <div class="product_items">
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                                <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">
-                                                @if(!string.IsNullOrEmpty(@x.ImageUrl)){
-                                                    <img src="@x.ImageUrl" alt="@x.Name">
+                                                <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">
+                                                @if(!string.IsNullOrEmpty(@x.Product.ImageUrl)){
+                                                    <img src="@x.Product.ImageUrl" alt="@x.Product.Name">
                                                 }
                                             </a>
                                             <div class="label_product">
-                                                <span class="label_sale"></span>
+                                                <span class="label_sale">-@x.Discount.Name</span>
                                             </div>
                                             <div class="action_links">
                                                 <ul>
@@ -248,8 +245,7 @@
                                                         <a href="#" title="Add to Wishlist"><i class="fa-regular fa-heart" style="color: #0a0c10;"></i></a>
                                                     </li>
                                                     <li class="quick_button">
-                                                        <a class="open-modal-button" data-id="@x.Id" title="quick view"> <i class="fa-regular fa-eye" style="color: #060b13;"></i></a>
-
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="fa-regular fa-eye" style="color: #060b13;"></i></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -264,10 +260,10 @@
                                                 </ul>
                                             </div>
                                             <h4 class="product_name">
-                                                <a>@x.Name</a></h4>
+                                                <a>@x.Product.Name</a></h4>
                                             <div class="price_box">
-                                                <span class="current_price">$@x.Price</span>
-                                                <span class="old_price">$@x.BasePrice</span>
+                                                <span class="current_price">$@x.Product.Price</span>
+                                                <span class="old_price">$@x.Product.BasePrice</span>
                                             </div>
                                         </figcaption>
                                     </figure>
@@ -297,39 +293,45 @@
             <div class="product_deals_container">
                 <div class="row">
                     <div class="product_carousel product_column5 owl-carousel">
-                        <div class="col-lg-3">
+                        @foreach (var x in ViewData["BestSellerProducts"] as List<ProductResult>)
+                        {
+                            <div class="col-lg-3">
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img
-                                                src="assets/img/product/product1.jpg" alt=""></a>
+                                        <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">
+                                            @if (!string.IsNullOrEmpty(@x.Product.ImageUrl))
+                                            {
+                                                <img src="@x.Product.ImageUrl" alt="@x.Product.Name">
+                                            }
+                                        </a>
                                         <div class="label_product">
-                                            <span class="label_sale">-7%</span>
-                                        </div>
-                                        <div class="product_timing">
-                                            <div data-countdown="2022/12/15"></div>
+                                            <span class="label_sale">-@x.Discount.Name</span>
                                         </div>
                                     </div>
                                     <figcaption class="product_content">
                                         <div class="product_rating">
                                             <ul>
-                                                <li><a href="#"><i class="icon-star"></i></a></li>
-                                                <li><a href="#"><i class="icon-star"></i></a></li>
-                                                <li><a href="#"><i class="icon-star"></i></a></li>
-                                                <li><a href="#"><i class="icon-star"></i></a></li>
-                                                <li><a href="#"><i class="icon-star"></i></a></li>
+                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
                                             </ul>
                                         </div>
-                                        <h4 class="product_name"><a href="product-details.html">commodo augue nisi</a>
+                                        <h4 class="product_name"><a asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">@x.Product.Name</a>
                                         </h4>
                                         <div class="price_box">
-                                            <span class="current_price">£69.00</span>
-                                            <span class="old_price">£74.00</span>
+                                            <span class="current_price">$@x.Product.Price</span>
+                                            <span class="old_price">$@x.Product.BasePrice</span>
                                         </div>
                                     </figcaption>
                                 </figure>
                             </article>
                         </div>
+                        }
+                        
+
                     </div>
                 </div>
             </div>
@@ -337,6 +339,7 @@
     </div>
     <!--product area end-->
 
+<<<<<<< HEAD
 
 
 
@@ -377,3 +380,5 @@
     });
 
 </script>
+=======
+>>>>>>> master
