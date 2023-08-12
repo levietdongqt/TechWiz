@@ -148,6 +148,12 @@ namespace TechWizMain.Controllers
 
             return View(feedback);
         }
+        [HttpGet]
+        [Route("ProcessBill")]
+        public async Task<IActionResult> ProcessBill(int? Id)
+        {
+            return View();
+        }   
 
   }
 

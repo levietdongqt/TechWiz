@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using TechWizMain.Areas.Identity.Data;
+using TechWizMain.Models;
+using TechWizMain.Repository.BillRepository;
 using TechWizMain.Repository.UserRepository;
 
 namespace TechWizMain.Services.AdminService
@@ -10,11 +12,13 @@ namespace TechWizMain.Services.AdminService
     {
         private readonly IUserRepository _adminReposity;
 		private readonly UserManager<UserManager> _userManager;
+        private readonly IBillRepository _billRepository;
 		private readonly string userRole = "customer";
-        public AdminService(IUserRepository adminReposity, UserManager<UserManager> userManager)
+        public AdminService(IUserRepository adminReposity, UserManager<UserManager> userManager, IBillRepository billRepository)
         {
             this._adminReposity = adminReposity;
             this._userManager = userManager;
+            this._billRepository = billRepository;
         }
 
 		public async Task BannedUsers(string id)
@@ -40,7 +44,18 @@ namespace TechWizMain.Services.AdminService
             }
             return ListUsers;
         }
-        public async Task<IEnumerable<UserManager>> GetByUserName(string UserName)
+
+		public async Task<IEnumerable<Bill>> GetAllBillAsync(string Status)
+		{
+			List<Bill> ListBill = new List<Bill>();
+            var list = await _billRepository.GetAll();
+            foreach (var bill in (List<Bill>)list)
+            {
+                
+            }
+		}
+
+		public async Task<IEnumerable<UserManager>> GetByUserName(string UserName)
         {
             List<UserManager> ListUsers = new List<UserManager>();
             var list = await GetAllAsync(true);
