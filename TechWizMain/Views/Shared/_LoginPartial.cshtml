@@ -19,7 +19,7 @@
                 Hi! @fullName
             </p>
         </li>
-        <li class="mb-0"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="nav-link underline fs-6" style="">My Account </a></li>
+        <li class="mb-0"><a asp-controller="Home" asp-action="Account"  title="Manage" class="nav-link underline fs-6">My Account</a></li>
         @if (isAdmin)
         {
             <li class="border-bottom mb-1 fs-1"><a asp-controller="Admin" asp-action="Index" class="nav-link fs-6">Admin Control</a></li>

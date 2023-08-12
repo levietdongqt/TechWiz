@@ -1,0 +1,154 @@
+﻿@model TechWizMain.Models.Product
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+    
+}
+
+<div class="container">
+    <div class="card bg-transparent border-0 shadow-lg">
+        <div class="card-body p-5">
+            <div class="text-center">
+                <h2 class="fw-bold mb-4 text-primary">@Html.DisplayFor(model => model.Name)</h2>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@Model.ImageUrl" class="img-fluid mb-4 img-thumbnail" alt="IMG" />
+                </div>
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-4 fs-6 text-muted">
+                            Price:
+                        </dt>
+                        <dd class="col-sm-8 fs-5 ">
+                            <span class="text-decoration-line-through">$@Html.DisplayFor(model => model.BasePrice)</span>
+                            <span class="ms-2">$@Html.DisplayFor(model => model.Price)</span>
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted">
+                            TypeProduct:
+                        </dt>
+                        <dd class="col-sm-8 fs-5 ">
+                            @Html.DisplayFor(model => model.TypeProduct)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">InventoryQuantity:</dt>
+
+                        <dd class="col-sm-8 fs-5 ">
+                            @Html.DisplayFor(model => model.InventoryQuantity)
+                        </dd>
+
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
+                            DiscountName:
+                        </dt>
+                        <dd class="col-sm-8 fs-5 ">
+                            @Html.DisplayFor(model => model.Discount.Name)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
+                            Description:
+                        </dt>
+
+                        <dd class="col-sm-8 fs-5 ">
+                            @{
+                                var description = Model.Description.ToString(); // Chuyển đối tượng StringHtmlContent thành chuỗi
+                                var shortDescription = description.Length > 50 ? description.Substring(0, 50) + "..." : description;
+                            }
+
+                            <div id="descriptionContainer">
+                                @if (description.Length > 50)
+                                {
+                                    <span id="shortDescription">@Html.Raw(shortDescription)</span>
+                                    <span id="fullDescription" style="display: none;">@Html.Raw(description)</span>
+                                    <a href="#" id="showFullDescription">See more</a>
+                                }
+                                else
+                                {
+                                    @Html.Raw(description)
+                                }
+                            </div>
+
+                            <a href="#" id="hideFullDescription" style="display: none;">Collapse</a>
+                        </dd>
+
+                        <dt class="col-sm-4 fs-6 text-muted">
+                            Quantity:
+                        </dt>
+                        <dd class="col-sm-8 fs-5">
+                            <input type="number" id="quantityInput" class="form-control" min="1" value="1">
+                        </dd>
+
+                        <dt class="col-sm-4 fs-6 text-muted">
+                        </dt>
+                        <dd class="col-sm-8 fs-5">
+                            <button class="btn btn-primary" id="addToCartButton">Add to Cart</button>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#addToCartButton").click(function () {
+            var quantity = $("#quantityInput").val();
+            var productId = "@Model.Id"; // Lấy Id sản phẩm từ mô hình
+
+            // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
+            $.ajax({
+                type: "POST",
+                url: "/Cart/AddToCart", // Đường dẫn đến action xử lý thêm vào giỏ hàng
+                data: { productId: productId, quantity: quantity },
+                success: function (response) {
+                    // Xử lý khi yêu cầu thành công
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Product added to cart!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to add product to cart. Please try again.',
+                        });
+                    }
+                },
+                error: function () {
+                    // Xử lý khi yêu cầu thất bại
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred. Please try again later.',
+                    });
+                }
+            });
+        });
+    });
+</script>
+    
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#showFullDescription").click(function () {
+            $("#shortDescription").hide();
+            $("#fullDescription").show();
+            $("#showFullDescription").hide();
+            $("#hideFullDescription").show();
+        });
+
+        $("#hideFullDescription").click(function () {
+            $("#fullDescription").hide();
+            $("#shortDescription").show();
+            $("#hideFullDescription").hide();
+            $("#showFullDescription").show();
+        });
+    });
+</script>

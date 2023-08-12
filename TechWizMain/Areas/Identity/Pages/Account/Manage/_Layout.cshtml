@@ -15,22 +15,36 @@
     }
 </style>
 
-<div class="container">
-    <div class="margin">
-    <h1 class="text-center">Manage your account</h1>
-    <h2 class="text-center">Change your account settings</h2>
 
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+    <!--breadcrumbs area start-->
+        <div class="breadcrumbs_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb_content">
+                            <h3>Change Account</h3>
+                            <ul>
+                                <li><a href="index.html">home</a></li>
+                                <li>My account</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+<!--breadcrumbs area end-->
+<div class="container">
+    <div class="row mt-5">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
         </div>
-    </div>
 </div>
+    
+
 
 @section Scripts {
     @RenderSection("Scripts", required: false)
