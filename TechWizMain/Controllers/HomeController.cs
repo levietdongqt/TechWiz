@@ -58,7 +58,12 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
                 .Take(8) // Lấy 8 sản phẩm best seller
                 .ToListAsync();
-
+            var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(8)
+                .ToListAsync();
+            ViewBag.Cart = cart;
+            
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
@@ -66,11 +71,15 @@ namespace TechWizMain.Controllers
             return View();
         }
 
-        public async Task<IActionResult> _Cart()
+        
+        public async Task<IActionResult> Cart()
         {
-            var cart = await _context.Products.ToListAsync();
+            var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(8)
+                .ToListAsync();
             ViewBag.Cart = cart;
-            return RedirectToAction("Index");
+            return View();
         }
 
         public IActionResult Details()
@@ -79,15 +88,7 @@ namespace TechWizMain.Controllers
         }
         public IActionResult Checkout()
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                var currentUser = _userManager.GetUserAsync(User).Result;
-                Feedback feedback = new Feedback();
-                feedback.UserID = currentUser.Id;
-                feedback.Name = currentUser.UserName;
-                feedback.Email = currentUser.Email;
-                return View(feedback);
-            }
+            
             return View();
         }
         public async Task<IActionResult> ShopList()
