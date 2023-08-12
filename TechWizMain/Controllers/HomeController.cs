@@ -229,10 +229,22 @@ namespace TechWizMain.Controllers
             var product = await _context.Products
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var list = await _context.Reviews.Include(r => r.Product).ToListAsync();
+            int countReview = _context.Reviews.Count();
+            int? number = 0;
+            foreach(var e in list)
+            {
+                number += e.Rating;
+            }
+
             if (product == null)
             {
                 return NotFound();
             }
+            ViewBag.Reviews = list;
+            ViewBag.CountReviews = list.Count;
+            ViewBag.Number = number / countReview;
+            
 
             return View(product);
         }
@@ -331,6 +343,22 @@ namespace TechWizMain.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [Route("InsertReview")]
+        public IActionResult InsertReview(List<int>? vehicle1,string? content,int? ProductId,string UserId)
+        {
+            int rating = vehicle1.Count();
+            Review review = new Review();
+            review.Rating = rating;
+            review.Content = content;
+            review.ProductId = ProductId; 
+            review.UserId = UserId;
+            review.ReviewDate = DateTime.Now;
+            _context.Reviews.Add(review);
+            _context.SaveChanges();
+            return Redirect("/");
         }
     }
 }
