@@ -67,25 +67,61 @@ namespace TechWizMain.Controllers
         }
 
 
-        public async Task<IActionResult> ProductByCategory (int id, int page)
-        {
-            ViewBag.cateID = id;
+        public async Task<IActionResult> ProductByCategory (int id, int page, int? minPrice, int? maxPrice, string? orderSort)
+        {       
             int pagesize = 3;
+            ViewBag.cateID = id;
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+            ViewBag.OrderSort = orderSort;
+
+            int pageIndex = 1;
+
+
             var result = _context.Categories.
                     Include(p => p.CategoryProducts).
                     ThenInclude(pc => pc.Product).
                     ThenInclude(dc => dc.Discount).
-                    FirstOrDefault(t => t.Id == id);
+                    FirstOrDefault(t => t.Id == id) ;
             var CategoryProductsList = result.CategoryProducts;
 
             var productList = new List<Product>();
+            var productListFilter = new List<Product>();
+            var productListFilterSort = new List<Product>();
             foreach (var item in CategoryProductsList)
             {
                 var product = item.Product;
                 productList.Add(product);
             }
-            
-            return View(productList.ToPagedList(page, pagesize));
+
+            productListFilter = productList.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+
+            if(minPrice == null && maxPrice == null)
+            {
+                switch (orderSort)
+                {
+                    case "price-asc":
+                        productListFilterSort = productList.OrderBy(o => o.Price).ToList();
+                        break;
+                    case "price-desc":
+                        productListFilterSort = productList.OrderByDescending(o => o.Price).ToList();
+                        break;
+                }
+                return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
+            }
+            else
+            {
+                switch (orderSort)
+                {
+                    case "price-asc":
+                        productListFilterSort = productListFilter.OrderBy(o => o.Price).ToList();
+                        break;
+                    case "price-desc":
+                        productListFilterSort = productListFilter.OrderByDescending(o => o.Price).ToList();
+                        break;
+                }
+                return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
+            }          
         }
 
         public async Task<IActionResult> Search(string searchString)
