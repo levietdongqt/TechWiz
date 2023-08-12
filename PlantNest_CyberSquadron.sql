@@ -428,6 +428,8 @@ insert into [dbo].[Discount] ([Id], [Name], [Percent],[DateBegin],[DateEnd])
 VALUES (2, N'20% OFF', 0.2,CAST(N'2023-08-10T00:00:00.000' AS DateTime),CAST(N'2024-06-24T00:00:00.000'AS DateTime ) )
 insert into [dbo].[Discount] ([Id], [Name], [Percent],[DateBegin],[DateEnd]) 
 VALUES (3, N'30 % OFF', 0.3,CAST(N'2023-08-10T00:00:00.000' AS DateTime),CAST(N'2024-06-24T00:00:00.000' AS DateTime))
+insert into [dbo].[Discount] ([Id], [Name], [Percent],[DateBegin],[DateEnd]) 
+VALUES (4, NO DISCOUNT, 0,CAST(N'2023-08-10T00:00:00.000' AS DateTime),CAST(N'9999-06-24T00:00:00.000' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Discount] OFF
 GO
 
