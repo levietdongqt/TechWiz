@@ -264,7 +264,6 @@ namespace TechWizMain.Controllers
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var list = await _context.Reviews.Include(r => r.Product).Where(m=>m.ProductId == id).ToListAsync();
-            int countReview = _context.Reviews.Count();
             int? number = 0;
             if(list != null)
             {
@@ -279,9 +278,18 @@ namespace TechWizMain.Controllers
             }
             ViewBag.Reviews = list;
             ViewBag.CountReviews = list.Count();
-            ViewBag.Number = number / countReview;
+            if (list.Count() == 0)
+            {
+                ViewBag.Number = 0;
 
+            }
+            else
+            {
+				ViewBag.Number = number / list.Count();
+			}
 
+            //Lay danh sach product moi nhat
+           
             return View(product);
         }
         public IActionResult Checkout()
