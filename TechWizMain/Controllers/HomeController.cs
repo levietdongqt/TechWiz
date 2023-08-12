@@ -28,7 +28,6 @@ namespace TechWizMain.Controllers
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
-
         private readonly string SubjectEmail;
 
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,
@@ -229,8 +228,6 @@ namespace TechWizMain.Controllers
             }
         }
 
-
-
         [Route("showCart")]
         public async Task<IActionResult> Cart()
         {
@@ -279,28 +276,35 @@ namespace TechWizMain.Controllers
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
         public async Task<IActionResult> AddToCart(int? id, int quantity, Decimal salePrice)
         {
-            ProductBill productBill = null;
-            var currentUser = await _userManager.GetUserAsync(User);
-            var bill = await _homeService.getBills(currentUser);
-            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
-            if (productBill == null)
+            try
             {
-                productBill = new ProductBill();
-                productBill.BillId = bill.Id;
-                productBill.ProductId = id;
-                productBill.Quantity = quantity;
-                productBill.SalePrice = salePrice;
-                await _context.ProductBills.AddAsync(productBill);
-                await _context.SaveChangesAsync();
-            }
-            else
+                ProductBill productBill = null;
+                var currentUser = await _userManager.GetUserAsync(User);
+                var bill = await _homeService.getBills(currentUser);
+                productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
+                if (productBill == null)
+                {
+                    productBill = new ProductBill();
+                    productBill.BillId = bill.Id;
+                    productBill.ProductId = id;
+                    productBill.Quantity = quantity;
+                    productBill.SalePrice = salePrice;
+                    await _context.ProductBills.AddAsync(productBill);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    productBill.Quantity += quantity;
+                    productBill.SalePrice = salePrice;
+                    _context.ProductBills.Update(productBill);
+                    await _context.SaveChangesAsync();
+                }
+            }catch(Exception ex)
             {
-                productBill.Quantity = quantity;
-                productBill.SalePrice = salePrice;
-                _context.ProductBills.Update(productBill);
-                await _context.SaveChangesAsync();
+                return Json(new { success = false });
             }
-            return RedirectToAction("Index");
+            
+            return Json(new { success = true });
         }
         [Route("UpdateCart/{id}/{quantity}/{salePrice}")]
         public async Task<IActionResult> UpdateCart(int? id, int quantity, Decimal salePrice)

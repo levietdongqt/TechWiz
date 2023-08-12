@@ -100,43 +100,43 @@
     </form>
 </div>
 
-    <script>
-        // Use jQuery to handle the form submission via AJAX
-        $(document).ready(function () {
-            $('#editForm').submit(function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function (data) {
-                        console.log(data);
-                        if (data.success) {
-                            // Display SweetAlert2 success message with confirmation
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: 'Edit product successfully!',
-                                showConfirmButton: true,
-                                confirmButtonText: 'OK',
-                                allowOutsideClick: false // Prevent closing on backdrop click
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Redirect to home page
-                                    window.location.href = '/Admin/Products';
-                                }
-                            });
-                        } else {
-                            // Display SweetAlert2 error message
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Edit failed failed. Please try again later.'
-                            });
-                        }
+<script>
+    // Use jQuery to handle the form submission via AJAX
+    $(document).ready(function () {
+        $('#editForm').submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: formData,
+                success: function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        // Display SweetAlert2 success message with confirmation
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Edit product successfully!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: false // Prevent closing on backdrop click
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to home page
+                                window.location.href = '/Admin/Products';
+                            }
+                        });
+                    } else {
+                        // Display SweetAlert2 error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Edit failed failed. Please try again later.'
+                        });
                     }
-                });
+                }
             });
         });
-    </script>
+    });
+</script>
