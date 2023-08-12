@@ -20,10 +20,7 @@ namespace TechWizMain.Controllers.AdminModule
         private readonly IProductService _productService;
         [TempData]
         public string StatusMessage { get; set; }
-
         private const int ITEM_PER_PAGE = 5;
-
-
         [BindProperty(SupportsGet = true, Name = "p")]
         public int currentPage { get; set; }
         public int countPages { get; set; }

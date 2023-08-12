@@ -143,11 +143,11 @@
 		$(document).ready(function () {
 			$('#createForm').submit(function (e) {
 				e.preventDefault();
-
+				var formData = new FormData(this);
 				$.ajax({
 					type: "POST",
 					url: $(this).attr('action'),
-					data: $(this).serialize(),
+					data: formData,
 					success: function (data) {
 						if (data.success) {
 							// Display SweetAlert2 success message with confirmation

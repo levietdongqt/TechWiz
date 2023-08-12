@@ -92,9 +92,8 @@
 
                         <div class="product_variant quantity">
                             <label>quantity</label>
-                            <input min="1" max="100" value="1" type="number">
+                            <input id="quantityInput" min="1" max="100" value="1" type="number">
                             <button class="button" type="submit" id="addToCartButton">add to cart</button>
-
                         </div>
 
                     </form>
@@ -258,12 +257,12 @@
         $("#addToCartButton").click(function () {
             var quantity = $("#quantityInput").val();
             var productId = "@Model.Id"; // Lấy Id sản phẩm từ mô hình
-
+            var salePrice = "@Model.BasePrice";
+            var url2 = "/addToCart/" + productId + "/" + quantity + "/" + salePrice;
             // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
             $.ajax({
-                type: "POST",
-                url: "/Cart/AddToCart", // Đường dẫn đến action xử lý thêm vào giỏ hàng
-                data: { productId: productId, quantity: quantity },
+                type: "get",
+                url: url2, // Đường dẫn đến action xử lý thêm vào giỏ hàng
                 success: function (response) {
                     // Xử lý khi yêu cầu thành công
                     if (response.success) {
