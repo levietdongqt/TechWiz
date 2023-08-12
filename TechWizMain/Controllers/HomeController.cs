@@ -16,8 +16,10 @@ using X.PagedList;
 
 namespace TechWizMain.Controllers
 {
+
     public class HomeController : Controller
     {
+        private static List<ProductBill> _billList;
         private readonly ILogger<HomeController> _logger;
         private readonly IFeedbackService _feedbackService;
         private readonly SignInManager<UserManager> _signInManager;
@@ -26,8 +28,11 @@ namespace TechWizMain.Controllers
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
         private readonly string SubjectEmail;
 
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,
@@ -64,12 +69,7 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
                 .Take(8) // Lấy 8 sản phẩm best seller
                 .ToListAsync();
-            var cart = await _context.Products.Where(p =>
-                    p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
-                .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
-                .ToListAsync();
-            ViewBag.Cart = cart;
+
 
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
@@ -81,6 +81,7 @@ namespace TechWizMain.Controllers
             ViewData["CategoryList"] = CategoryList;
             return View();
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Account()
@@ -101,115 +102,126 @@ namespace TechWizMain.Controllers
 
                 return View("Account", accountModel);
             }
-        
 
-        return View();
-    }
 
-            
-        
+            return View();
+        }
+
+
+
 
         public async Task<IActionResult> Search(string searchString)
+        {
+
+            //int pagesize = 3;
+            var list = await _context.Products.Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString))
+                .ToListAsync();
+
+
+
+            return View(list);
+        }
+
+        public async Task<IActionResult> ProductByCategory1(int id, int page)
+        {
+            int pagesize = 3;
+            ViewBag.cateID = id;
+            int pageIndex = 1;
+            var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
+                .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
+            var CategoryProductsList = result.CategoryProducts;
+
+            var productList = new List<Product>();
+            var productListFilter = new List<Product>();
+            var productListFilterSort = new List<Product>();
+            foreach (var item in CategoryProductsList)
             {
-
-                //int pagesize = 3;
-                var list = await _context.Products.Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString))
-                    .ToListAsync();
-
-
-
-                return View(list);
+                var product = item.Product;
+                productList.Add(product);
             }
 
-            public async Task<IActionResult> ProductByCategory1(int id, int page)
+            return View(productList.ToPagedList(pageIndex, pagesize));
+        }
+
+        public async Task<IActionResult> ProductByCategory(int id, int page, string orderSort, int? minPrice,
+            int? maxPrice)
+        {
+            int pagesize = 3;
+            ViewBag.cateID = id;
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+            ViewBag.OrderSort = orderSort;
+
+            int pageIndex = 1;
+
+
+            var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
+                .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
+            var CategoryProductsList = result.CategoryProducts;
+
+            var productList = new List<Product>();
+            var productListFilter = new List<Product>();
+            var productListFilterSort = new List<Product>();
+            foreach (var item in CategoryProductsList)
             {
-                int pagesize = 3;
-                ViewBag.cateID = id;
-                int pageIndex = 1;
-                var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
-                    .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
-                var CategoryProductsList = result.CategoryProducts;
-
-                var productList = new List<Product>();
-                var productListFilter = new List<Product>();
-                var productListFilterSort = new List<Product>();
-                foreach (var item in CategoryProductsList)
-                {
-                    var product = item.Product;
-                    productList.Add(product);
-                }
-
-                return View(productList.ToPagedList(pageIndex, pagesize));
+                var product = item.Product;
+                productList.Add(product);
             }
 
-            public async Task<IActionResult> ProductByCategory(int id, int page, string orderSort, int? minPrice,
-                int? maxPrice)
+            productListFilter = productList.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+
+            if (minPrice == null || maxPrice == null)
             {
-                int pagesize = 3;
-                ViewBag.cateID = id;
-                ViewBag.MinPrice = minPrice;
-                ViewBag.MaxPrice = maxPrice;
-                ViewBag.OrderSort = orderSort;
-
-                int pageIndex = 1;
-
-
-                var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
-                    .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
-                var CategoryProductsList = result.CategoryProducts;
-
-                var productList = new List<Product>();
-                var productListFilter = new List<Product>();
-                var productListFilterSort = new List<Product>();
-                foreach (var item in CategoryProductsList)
+                switch (orderSort)
                 {
-                    var product = item.Product;
-                    productList.Add(product);
+                    case "price-asc":
+                        productListFilterSort = productList.OrderBy(o => o.Price).ToList();
+                        break;
+                    case "price-desc":
+                        productListFilterSort = productList.OrderByDescending(o => o.Price).ToList();
+                        break;
                 }
 
-                productListFilter = productList.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
-
-                if (minPrice == null || maxPrice == null)
-                {
-                    switch (orderSort)
-                    {
-                        case "price-asc":
-                            productListFilterSort = productList.OrderBy(o => o.Price).ToList();
-                            break;
-                        case "price-desc":
-                            productListFilterSort = productList.OrderByDescending(o => o.Price).ToList();
-                            break;
-                    }
-
-                    return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
-                }
-                else
-                {
-                    switch (orderSort)
-                    {
-                        case "price-asc":
-                            productListFilterSort = productListFilter.OrderBy(o => o.Price).ToList();
-                            break;
-                        case "price-desc":
-                            productListFilterSort = productListFilter.OrderByDescending(o => o.Price).ToList();
-                            break;
-                    }
-
-                    return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
-                }
+                return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
             }
-            
+            else
+            {
+                switch (orderSort)
+                {
+                    case "price-asc":
+                        productListFilterSort = productListFilter.OrderBy(o => o.Price).ToList();
+                        break;
+                    case "price-desc":
+                        productListFilterSort = productListFilter.OrderByDescending(o => o.Price).ToList();
+                        break;
+                }
 
-          
+                return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
+            }
+        }
 
+
+
+        [Route("showCart")]
         public async Task<IActionResult> Cart()
         {
-            var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
-                .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
-                .ToListAsync();
-            ViewBag.Cart = cart;
-            return View();
+            IEnumerable<ProductBill> listCart = null;
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser != null)
+            {
+                var tempBill = await _context.Bills.Include(t => t.ProductBills).ThenInclude(t => t.Product).FirstOrDefaultAsync(b => b.UserId.Equals(currentUser.Id) && b.Status.Equals(ProcessBill.Temporary.ToString()));
+                if (tempBill != null)
+                {
+                    listCart = tempBill.ProductBills;
+                    foreach (var item in listCart)
+                    {
+                        item.Bill = null;
+                        item.Product.ProductBills = null;
+                    }
+
+                }
+            }
+            return Json(listCart);
 
         }
 
@@ -233,7 +245,7 @@ namespace TechWizMain.Controllers
         }
         public IActionResult Checkout()
         {
-            
+
             return View();
         }
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
@@ -242,7 +254,7 @@ namespace TechWizMain.Controllers
             ProductBill productBill = null;
             var currentUser = await _userManager.GetUserAsync(User);
             var bill = await _homeService.getBills(currentUser);
-            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId==id);
+            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
             if (productBill == null)
             {
                 productBill = new ProductBill();
@@ -317,8 +329,8 @@ namespace TechWizMain.Controllers
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-					MailBuilder mailBuilder = new MailBuilder();
-					await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail,mailBuilder.BuilderMailContact(feedback.Name));
+                    MailBuilder mailBuilder = new MailBuilder();
+                    await _emailSender.SendEmailAsync(feedback.Email, SubjectEmail, mailBuilder.BuilderMailContact(feedback.Name));
                     // Return a JSON response indicating success
                     return Json(new { success = true });
                 }
