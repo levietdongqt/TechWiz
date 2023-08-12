@@ -11,7 +11,7 @@
                         <div class="col-lg-9 col-md-6 col-6">
                             <div class="header_right_info">
                                 <div class="search_container">
-                                    <form action="#">
+                                    <form asp-action="Search" asp-controller="Home">
                                         <div class="hover_category">
                                             <select class="select_option" name="select" id="categori1">
                                                 <option selected value="1">All Categories</option>
@@ -22,8 +22,8 @@
                                             </select>
                                         </div>
                                         <div class="search_box">
-                                            <input placeholder="Search product..." type="text">
-                                            <button type="button"><i class="icon-search"></i></button>
+                                            <input placeholder="Search product..." type="text" name="searchString">
+                                            <button type="submit"><i class="icon-search"></i></button>
                                         </div>
                                     </form>
                                 </div>
