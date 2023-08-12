@@ -51,7 +51,6 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
-
             // Lấy danh sách sản phẩm best seller
             var bestSellerProducts = await _context.Products
                 .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
@@ -69,8 +68,28 @@ namespace TechWizMain.Controllers
             ViewData["newestAccessories"] = newestProductsAccessories;
             return View();
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Account()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var currentUser = await _userManager.GetUserAsync(User);
+                var accountModel = new UserManager()
+                {
+                    UserName = currentUser.UserName,
+                    FullName = currentUser.FullName,
+                    Address = currentUser.Address,
+                    Email = currentUser.Email,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    DateOfBirth = currentUser.DateOfBirth,
+                };
         
+                // Định dạng ngày tháng theo chuẩn MM/dd/yyyy
+
+                return View("Account", accountModel);
+            }
+            return View();
+        }
         public async Task<IActionResult> Cart()
         {
             var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
