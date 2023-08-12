@@ -11191,3 +11191,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
             top: 0;
         }
 
+
+
+
+
+.square-image {
+    width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều ngang */
+    height: 0;
+    padding-bottom: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao dựa trên chiều ngang */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng khi điều chỉnh kích thước */
+}
