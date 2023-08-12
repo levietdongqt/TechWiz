@@ -9,5 +9,18 @@
         margin-bottom: 20px;
     }
 </style>
-<h1 class="text-center margin-top-bottom">@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+            <!-- Thêm nút Login -->
+            <div class="text-center mt-4">
+                <a href="https://localhost:5000/Identity/Account/Login" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
