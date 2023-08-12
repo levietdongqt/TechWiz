@@ -6,112 +6,113 @@
 }
 
 <div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
-				<li class="breadcrumb-item active">PRODUCTS</li>
-			</ul>
-			<h1 class="page-header mb-0">Create new Product</h1>
-		</div>
-		<div class="ms-auto">
-			<a asp-action="Index" asp-controller="Products" class="btn btn-theme"><i class="fa-solid fa-backward" style="color: #ffffff;"></i> Back to list</a>
-		</div>
-	</div>
+    <div>
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Admin">PAGES</a></li>
+            <li class="breadcrumb-item active">PRODUCTS</li>
+        </ul>
+        <h1 class="page-header mb-0">Create new Product</h1>
+    </div>
+    <div class="ms-auto">
+        <a asp-action="Index" asp-controller="Products" class="btn btn-theme"><i class="fa-solid fa-backward" style="color: #ffffff;"></i> Back to list</a>
+    </div>
+</div>
 
 <div class="row">
-	<div class="col-12">
-		<div class="box">
-			<div class="box-body">
-				<form asp-action="Create" method="post" enctype="multipart/form-data" id="createForm">
-					 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-					<div class="form-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="Name"></label>
-									<input asp-for="Name" class="form-control" />
-									<span asp-validation-for="Name" class="text-danger"></span>
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="CreatedDate"></label>
-									<input asp-for="CreatedDate" class="form-control" id="createdate">
-									<span asp-validation-for="CreatedDate" class="text-danger" id="errcreateddate"></span>
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<!--/row-->
-						<!--/row-->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="InventoryQuantity"></label>
-									<input asp-for="InventoryQuantity" class="form-control" />
-									<span asp-validation-for="InventoryQuantity" class="text-danger"></span>
-								</div>
-							</div>
-							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="TypeProduct"></label>
-									<select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<!--/row-->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="Price"></label>
-									<input asp-for="Price" class="form-control" type="number" min="0" />
-									<span asp-validation-for="Price" class="text-danger"></span>
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="BasePrice"></label>
-									<input asp-for="BasePrice" class="form-control" type="number" min="0"/>
-									<span asp-validation-for="BasePrice" class="text-danger"></span>
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="DiscountId"></label>
-									<select  id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId" ></select>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="fw-700 fs-16 form-label" asp-for="Description"></label>
-									<textarea asp-for="Description" class="form-control p-15" rows="4"></textarea>
-									<span asp-validation-for="Description" class="text-danger"></span>
-								</div>
-							</div>
-						</div>
-						<div class="product-img text-start">
-							<div class="input-group my-3">
-								<label class="input-group-text btn-primary fw-700 fs-16 form-label" for="formFile"></label>
-								<input type="file" class="form-control" id="formFile" name="formFile" required>
-							</div>
-						</div>
-					</div>
-					<div class="form-actions mt-15px">
-						<button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i>Create</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>		  
+
+    <div class="col-12">
+        <div class="box">
+            <div class="box-body">
+                <form method="post" enctype="multipart/form-data" id="createForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="Name"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="CreatedDate"></label>
+                                    <input asp-for="CreatedDate" class="form-control" id="createdate">
+                                    <span asp-validation-for="CreatedDate" class="text-danger" id="errcreateddate"></span>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <!--/row-->
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="InventoryQuantity"></label>
+                                    <input asp-for="InventoryQuantity" class="form-control" />
+                                    <span asp-validation-for="InventoryQuantity" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="TypeProduct"></label>
+                                    <select asp-for="TypeProduct" class="form-control" asp-items="ViewBag.TypeProduct"></select>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="Price"></label>
+                                    <input asp-for="Price" class="form-control" type="number" min="0" />
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="BasePrice"></label>
+                                    <input asp-for="BasePrice" class="form-control" type="number" min="0" />
+                                    <span asp-validation-for="BasePrice" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="DiscountId"></label>
+                                    <select id="DiscountName" name="DiscountName" class="form-control" asp-items="ViewBag.DiscountId"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="fw-700 fs-16 form-label" asp-for="Description"></label>
+                                    <textarea asp-for="Description" class="form-control p-15" rows="4"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-img text-start">
+                            <div class="input-group my-3">
+                                <label class="input-group-text btn-primary fw-700 fs-16 form-label" for="formFile">Image</label>
+                                <input type="file" class="form-control" id="formFile" name="formFile" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions mt-15px">
+                        <button type="submit" class="btn btn-primary" id="submitBtn"> <i class="fa fa-check"></i>Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -121,61 +122,62 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            $('#createdate').blur(function () {
+                var currentDate = new Date();
+                var createdDate = new Date($('#createdate').val());
 
-	<script>
-		$(document).ready(function () {
-			$('#createdate').blur(function () {
-				var currentDate = new Date();
-				var createdDate = new Date($('#createdate').val());
-
-				if (createdDate < currentDate) {
-					// Display error message
-					$('#errcreateddate').text('The date and time must not be less than the current date and time.');
-				} else {
-					$('#errcreateddate').text('');
-				}
-			});
-		});
-	</script>
+                if (createdDate < currentDate) {
+                    // Display error message
+                    $('#errcreateddate').text('The date and time must not be less than the current date and time.');
+                } else {
+                    $('#errcreateddate').text('');
+                }
+            });
+        });
+    </script>
 
 
-	<script>
-		$(document).ready(function () {
-			$('#createForm').submit(function (e) {
-				e.preventDefault();
-				var formData = new FormData(this);
-				$.ajax({
-					type: "POST",
-					url: $(this).attr('action'),
-					data: formData,
-					success: function (data) {
-						if (data.success) {
-							// Display SweetAlert2 success message with confirmation
-							Swal.fire({
-								icon: 'success',
-								title: 'Success',
-								text: 'Add new product successfully!',
-								showConfirmButton: true,
-								confirmButtonText: 'OK',
-								allowOutsideClick: false // Prevent closing on backdrop click
-							}).then((result) => {
-								if (result.isConfirmed) {
-									// Redirect to home page
-									window.location.href = '/Admin/Products';
-								}
-							});
-						} else {
-							// Display SweetAlert2 error message
-							Swal.fire({
-								icon: 'error',
-								title: 'Error',
-								text: 'Add new product failed. Please try again later.'
-							});
-						}
-						
-					}
-				});
-			});
-		});
-	</script>
+    <script>
+        $(document).ready(function () {
+            $('#createForm').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/Products/create",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data.success) {
+                            // Display SweetAlert2 success message with confirmation
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Add new product successfully!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK',
+                                allowOutsideClick: false // Prevent closing on backdrop click
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Redirect to home page
+                                    window.location.href = '/Admin/Products';
+                                }
+                            });
+                        } else {
+                            // Display SweetAlert2 error message
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Add new product failed. Please try again later.'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 }
