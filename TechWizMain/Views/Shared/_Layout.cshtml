@@ -73,7 +73,7 @@
                             </ul>
                         </div>
                         <div class="search_container">
-                            <form action="#">
+                            <form asp-action="Search" asp-controller="Home">
                                 <div class="hover_category">
                                     <select class="select_option" name="select" id="categori2">
                                         <option selected value="1">All Categories</option>
@@ -95,7 +95,7 @@
                                     </select>
                                 </div>
                                 <div class="search_box">
-                                    <input placeholder="Search product..." type="text">
+                                    <input placeholder="Search product..." type="text" name="searchString">
                                     <button type="submit"><i class="icon-search"></i></button>
                                 </div>
                             </form>

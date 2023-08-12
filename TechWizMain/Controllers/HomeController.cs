@@ -10,7 +10,7 @@ using TechWizMain.Services.FeedbackService;
 using TechWizMain.Services.ProductsService;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Cryptography;
-
+using X.PagedList;
 namespace TechWizMain.Controllers
 {
     public class HomeController : Controller
@@ -64,6 +64,40 @@ namespace TechWizMain.Controllers
             ViewData["BestSellerProducts"] = bestSellerProducts;
             ViewData["newestAccessories"] = newestProductsAccessories;
             return View();
+        }
+
+
+        public async Task<IActionResult> ProductByCategory (int id, int page)
+        {
+            ViewBag.cateID = id;
+            int pagesize = 3;
+            var result = _context.Categories.
+                    Include(p => p.CategoryProducts).
+                    ThenInclude(pc => pc.Product).
+                    ThenInclude(dc => dc.Discount).
+                    FirstOrDefault(t => t.Id == id);
+            var CategoryProductsList = result.CategoryProducts;
+
+            var productList = new List<Product>();
+            foreach (var item in CategoryProductsList)
+            {
+                var product = item.Product;
+                productList.Add(product);
+            }
+            
+            return View(productList.ToPagedList(page, pagesize));
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            
+            //int pagesize = 3;
+            var list =await _context.Products.
+                    Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString)).ToListAsync();
+                   
+           
+
+            return View(list);
         }
 
         public IActionResult Details()
