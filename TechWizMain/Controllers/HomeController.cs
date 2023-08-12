@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using TechWizMain.Services.HomeService;
 using TechWizMain.Services;
 using X.PagedList;
+using NuGet.Protocol;
 
 namespace TechWizMain.Controllers
 {
@@ -262,22 +263,24 @@ namespace TechWizMain.Controllers
             var product = await _context.Products
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var list = await _context.Reviews.Include(r => r.Product).ToListAsync();
+            var list = await _context.Reviews.Include(r => r.Product).Where(m=>m.ProductId == id).ToListAsync();
             int countReview = _context.Reviews.Count();
             int? number = 0;
-            foreach(var e in list)
+            if(list != null)
             {
-                number += e.Rating;
-            }
-
+				foreach (var e in list)
+				{
+					number += e.Rating;
+				}
+			}
             if (product == null)
             {
                 return NotFound();
             }
             ViewBag.Reviews = list;
-            ViewBag.CountReviews = list.Count;
+            ViewBag.CountReviews = list.Count();
             ViewBag.Number = number / countReview;
-            
+
 
             return View(product);
         }
