@@ -10,7 +10,9 @@ using TechWizMain.Services.FeedbackService;
 using TechWizMain.Services.ProductsService;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Security.Cryptography;
+using TechWizMain.Services;
 using X.PagedList;
+
 namespace TechWizMain.Controllers
 {
     public class HomeController : Controller
@@ -24,7 +26,6 @@ namespace TechWizMain.Controllers
 		private readonly IEmailSender _emailSender;
 
         private readonly string SubjectEmail;
-        private readonly string BodyEmail;
 		public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,IProductService productService,TechWizContext context, IEmailSender emailSender)
         {
             _logger = logger;
@@ -35,7 +36,6 @@ namespace TechWizMain.Controllers
             _context = context;
             _emailSender = emailSender;
             SubjectEmail = "Thank You for Your Feedback,";
-			BodyEmail = "<p>I hope this email finds you well. I wanted to take a moment to express my sincere appreciation for the feedback you provided. Your insights and thoughts are incredibly valuable to me, and I'm grateful for your time and effort in sharing your perspective.</p>\r\n    <p>Your feedback will help me improve and grow, and I truly value your honesty. Please know that your input matters to me, and I'm committed to using it constructively.</p>\r\n    <p>Once again, thank you for taking the time to provide your feedback. I'm looking forward to implementing the suggested improvements and working towards delivering a better experience.</p>\r\n    <p>Best regards";
 		}
         [HttpGet]
 
@@ -63,11 +63,49 @@ namespace TechWizMain.Controllers
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
             ViewData["newestAccessories"] = newestProductsAccessories;
+
+
+            var CategoryList = await _context.Categories.ToListAsync();
+            ViewData["CategoryList"] = CategoryList;
             return View();
         }
+                   
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+
+            //int pagesize = 3;
+            var list = await _context.Products.
+                    Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString)).ToListAsync();
 
 
-        public async Task<IActionResult> ProductByCategory (int id, int page, int? minPrice, int? maxPrice, string? orderSort)
+
+            return View(list);
+        }
+
+        public async Task<IActionResult> ProductByCategory1(int id, int page)
+        {
+            int pagesize = 3;
+            ViewBag.cateID = id;           
+            int pageIndex = 1;
+            var result = _context.Categories.
+                    Include(p => p.CategoryProducts).
+                    ThenInclude(pc => pc.Product).
+                    ThenInclude(dc => dc.Discount).
+                    FirstOrDefault(t => t.Id == id);
+            var CategoryProductsList = result.CategoryProducts;
+
+            var productList = new List<Product>();
+            var productListFilter = new List<Product>();
+            var productListFilterSort = new List<Product>();
+            foreach (var item in CategoryProductsList)
+            {
+                var product = item.Product;
+                productList.Add(product);
+            }
+            return View(productList.ToPagedList(pageIndex, pagesize));
+        }
+        public async Task<IActionResult> ProductByCategory(int id, int page, string orderSort, int? minPrice, int? maxPrice)
         {       
             int pagesize = 3;
             ViewBag.cateID = id;
@@ -96,7 +134,7 @@ namespace TechWizMain.Controllers
 
             productListFilter = productList.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
 
-            if(minPrice == null && maxPrice == null)
+            if(minPrice == null || maxPrice == null)
             {
                 switch (orderSort)
                 {
@@ -121,19 +159,8 @@ namespace TechWizMain.Controllers
                         break;
                 }
                 return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
-            }          
-        }
-
-        public async Task<IActionResult> Search(string searchString)
-        {
+            }
             
-            //int pagesize = 3;
-            var list =await _context.Products.
-                    Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString)).ToListAsync();
-                   
-           
-
-            return View(list);
         }
 
         public IActionResult Details()
@@ -142,6 +169,15 @@ namespace TechWizMain.Controllers
         }
         public IActionResult Checkout()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+                Feedback feedback = new Feedback();
+                feedback.UserID = currentUser.Id;
+                feedback.Name = currentUser.UserName;
+                feedback.Email = currentUser.Email;
+                return View(feedback);
+            }
             return View();
         }
         public async Task<IActionResult> ShopList()
@@ -153,6 +189,9 @@ namespace TechWizMain.Controllers
 
         public IActionResult Privacy()
         {
+            MailBuilder mailBuilder = new MailBuilder();
+            decimal a = 10000;
+            _emailSender.SendEmailAsync("huy.tran9510@gmail.com", "ABC", mailBuilder.BuildMailOrders("HuyTran", new DateTime(), a, "abc"));
             return View();
         }
 
@@ -175,11 +214,13 @@ namespace TechWizMain.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 feedback.FeedbackDate = DateTime.Now;
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-                    await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail, "<p>Dear, " +feedback.Name+"</p>\r\n"+BodyEmail);
+					MailBuilder mailBuilder = new MailBuilder();
+					await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail,mailBuilder.BuilderMailContact(feedback.Name));
                     // Return a JSON response indicating success
                     return Json(new { success = true });
                 }

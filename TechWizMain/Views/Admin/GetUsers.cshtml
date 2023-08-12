@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TechWizMain.Areas.Identity.Data.UserManager>
+﻿@using TechWizMain.Services
+@model IEnumerable<TechWizMain.Areas.Identity.Data.UserManager>
 
 @{
 	ViewBag.Title = "User Management";
@@ -14,6 +15,15 @@
 					<h1 class="page-header mb-0">Users Management</h1>
 				</div>
 			</div>
+			@{
+					var pagingModel = new PagingModel()
+							{
+								currentPage = ViewBag.currentPage,
+								countPages = ViewBag.countPages,
+								generateUrl = (int? p) => @Url.Page("", new { p = p })
+							};
+			}
+			<partial name="_Paging" model="@pagingModel" />
 			
 			<div class="card">
 				<ul class="nav nav-tabs nav-tabs-v2 px-4">
@@ -84,7 +94,7 @@
 												</span>
 										</td>
 										<td class="align-middle">
-											<form method="post" asp-action="Banned" asp-controller="Admin">
+											<form method="post" asp-action="Banned" id="" asp-controller="Admin">
 												<input type="hidden" name="Id" value="@x.Id" />
 												<input type="submit" value="Banned" class="btn btn-danger" />
 											</form>
@@ -95,21 +105,7 @@
 							</table>
 						</div>
 
-						<div class="d-md-flex align-items-center">
-							<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-								Showing 1 to 10 of 57 entries
-							</div>
-							<ul class="pagination mb-0 justify-content-center">
-								<li class="page-item disabled"><a class="page-link">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item active"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item"><a class="page-link" href="#">6</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</div>
+						
 					</div>
 				</div>
 				<div class="tab-content" style="padding: 1.1rem!important;">
@@ -169,27 +165,10 @@
 						}
 					</tbody>
 				</table>
-			</div>
-
-			<div class="d-md-flex align-items-center">
-				<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-					Showing 1 to 10 of 57 entries
-				</div>
-				<ul class="pagination mb-0 justify-content-center">
-					<li class="page-item disabled"><a class="page-link">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item active"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">6</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</div>
+			</div>		
 		</div>
 	</div>
 </div>
 			
 
-		
 

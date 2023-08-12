@@ -34,16 +34,13 @@
                        
                             <h3>Filter by price</h3>
                             <form asp-action="ProductByCategory" asp-controller="Home" method="get">
-                            <label>Min:</label> <input type="number" name="minPrice" /></br>
+                            <label>Min:</label> <input type="number" value=0 name="minPrice" /></br>
                             <label>Max:</label> <input type="number" name="maxPrice" /></br>
 
                             <select name="orderSort" id="short">
-
-                                <option value="rate-asc">Sort by average rating: low to high</option>
-                                <option value="rate-desc">Sort by average rating: low to high</option>
-                                <option value="price-asc">Sort by price: low to high</option>
+                               <option value="price-asc">Sort by price: low to high</option>
                                 <option value="price-desc">Sort by price: high to low</option>
-                                <option value="atoz">Product Name: A - Z</option>
+                               
                             </select>
                             <button type="submit">Filter</button>
 

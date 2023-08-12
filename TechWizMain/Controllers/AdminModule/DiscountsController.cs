@@ -72,7 +72,8 @@ namespace TechWizMain.Controllers.AdminModule
                 var result = _discountService.AddDiscount(discount);
                 if (result)
                 {
-                    return Redirect("/Admins/Discounts");
+
+                    return Json(new { success = true });
                 }
             }
             return View(discount);
@@ -108,12 +109,13 @@ namespace TechWizMain.Controllers.AdminModule
             {
                 return NotFound();
             }
+            string editMessage = "Discounts Edit successfully.";
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                   _discountService.UpdateDiscount(discount);
+                    _discountService.UpdateDiscount(discount);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,11 +128,13 @@ namespace TechWizMain.Controllers.AdminModule
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = true });
             }
+
             return View(discount);
         }
-        
+
+
         // GET: Discounts/Delete/5
         [Route("Discounts/Delete")]
         public async Task<IActionResult> Delete(int? id)
@@ -164,7 +168,8 @@ namespace TechWizMain.Controllers.AdminModule
             {
                 _discountService.DeleteDiscount(id);
             }
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = true });
+
         }
 
         public bool DiscountExists(int id)
