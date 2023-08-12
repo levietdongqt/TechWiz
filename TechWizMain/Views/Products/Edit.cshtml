@@ -108,8 +108,10 @@
             var formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: $(this).attr('action'),
+                url: "/admin/Products/edit",
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success) {
