@@ -37,8 +37,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="fw-700 fs-16 form-label" asp-for="CreatedDate"></label>
-									<input asp-for="CreatedDate" class="form-control">
-									<span asp-validation-for="CreatedDate" class="text-danger"></span>
+									<input asp-for="CreatedDate" class="form-control" id="createdate">
+									<span asp-validation-for="CreatedDate" class="text-danger" id="errcreateddate"></span>
 								</div>
 							</div>
 							<!--/span-->
@@ -121,6 +121,24 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+	<script>
+		$(document).ready(function () {
+			$('#createdate').blur(function () {
+				var currentDate = new Date();
+				var createdDate = new Date($('#createdate').val());
+
+				if (createdDate < currentDate) {
+					// Display error message
+					$('#errcreateddate').text('The date and time must not be less than the current date and time.');
+				} else {
+					$('#errcreateddate').text('');
+				}
+			});
+		});
+	</script>
+
+
 	<script>
 		$(document).ready(function () {
 			$('#createForm').submit(function (e) {
