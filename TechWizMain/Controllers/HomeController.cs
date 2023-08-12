@@ -195,8 +195,6 @@ namespace TechWizMain.Controllers
             }
         }
 
-
-
         [Route("showCart")]
         public async Task<IActionResult> Cart()
         {
