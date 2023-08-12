@@ -8,6 +8,13 @@ using TechWizMain.Areas.Identity.Data;
 
 namespace TechWizMain.Models
 {
+    public enum ProcessBill
+    {
+       Cancel,
+       Pending,
+       Success,
+       Temporary
+    }
     [Table("Bill")]
     public partial class Bill
     {
@@ -17,11 +24,12 @@ namespace TechWizMain.Models
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime OrderDate { get; set; }
         [Column(TypeName = "decimal(18, 0)")]
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
         [StringLength(1)]
         [Unicode(false)]
         public string? Status { get; set; }

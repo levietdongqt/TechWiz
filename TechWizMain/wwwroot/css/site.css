@@ -11144,6 +11144,19 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin-bottom: 1rem;
 }
 
+.cart_item input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Chrome, Safari, Edge */
+  border: 1px solid #ccc; /* Thêm viền */
+  width: 40px; /* Điều chỉnh kích thước theo mong muốn */
+  max-width: 100%; /* Giới hạn chiều rộng tối đa */
+  height: 25px; /* Điều chỉnh kích thước theo mong muốn */
+  text-align: center;
+  font-size: 14px; /* Điều chỉnh kích thước chữ theo mong muốn */
+  background-color: #f5f5f5; /* Màu nền */
+}
+
+
 .product-img {
     text-align: center;
     position: relative;
@@ -11177,3 +11190,4 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
             right: 0;
             top: 0;
         }
+
