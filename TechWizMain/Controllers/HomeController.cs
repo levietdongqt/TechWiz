@@ -14,8 +14,10 @@ using TechWizMain.Services.HomeService;
 using TechWizMain.Services;
 namespace TechWizMain.Controllers
 {
+
     public class HomeController : Controller
     {
+        private static List<ProductBill> _billList;
         private readonly ILogger<HomeController> _logger;
         private readonly IFeedbackService _feedbackService;
         private readonly SignInManager<UserManager> _signInManager;
@@ -24,7 +26,6 @@ namespace TechWizMain.Controllers
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
-
         private readonly string SubjectEmail;
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService, SignInManager<UserManager> signInManager, UserManager<UserManager> userManager, IProductService productService, TechWizContext context, IEmailSender emailSender, IHomeService homeService)
         {
@@ -37,7 +38,7 @@ namespace TechWizMain.Controllers
             _context = context;
             _emailSender = emailSender;
             SubjectEmail = "Thank You for Your Feedback,";
-		}
+        }
         [HttpGet]
 
         public async Task<IActionResult> Index()
@@ -59,12 +60,12 @@ namespace TechWizMain.Controllers
                 .OrderByDescending(p => p.Discount) // Sắp xếp theo số lượng bán hàng giảm dần
                 .Take(8) // Lấy 8 sản phẩm best seller
                 .ToListAsync();
+
             var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .ToListAsync();
-            ViewBag.Cart = cart;
-            
+
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
             ViewData["BestSellerProducts"] = bestSellerProducts;
@@ -72,15 +73,26 @@ namespace TechWizMain.Controllers
             return View();
         }
 
-        
+        [Route("showCart")]
         public async Task<IActionResult> Cart()
         {
-            var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
-                .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
-                .ToListAsync();
-            ViewBag.Cart = cart;
-            return View();
+            IEnumerable<ProductBill> listCart = null;
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser != null)
+            {
+                var tempBill = await _context.Bills.Include(t => t.ProductBills).ThenInclude(t => t.Product).FirstOrDefaultAsync(b => b.UserId.Equals(currentUser.Id) && b.Status.Equals(ProcessBill.Temporary.ToString()));
+                if (tempBill != null)
+                {
+                    listCart = tempBill.ProductBills;
+                    foreach(var item in listCart)
+                    {
+                        item.Bill = null;
+                        item.Product.ProductBills = null;
+                    }
+                    
+                }
+            }
+            return Json(listCart);
         }
 
         public IActionResult Details()
@@ -89,7 +101,7 @@ namespace TechWizMain.Controllers
         }
         public IActionResult Checkout()
         {
-            
+
             return View();
         }
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
@@ -98,7 +110,7 @@ namespace TechWizMain.Controllers
             ProductBill productBill = null;
             var currentUser = await _userManager.GetUserAsync(User);
             var bill = await _homeService.getBills(currentUser);
-            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId==id);
+            productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.BillId == bill.Id && t.ProductId == id);
             if (productBill == null)
             {
                 productBill = new ProductBill();
@@ -173,8 +185,8 @@ namespace TechWizMain.Controllers
                 var result = _feedbackService.InsertFeedback(feedback);
                 if (result)
                 {
-					MailBuilder mailBuilder = new MailBuilder();
-					await _emailSender.SendEmailAsync(feedback.Email,SubjectEmail,mailBuilder.BuilderMailContact(feedback.Name));
+                    MailBuilder mailBuilder = new MailBuilder();
+                    await _emailSender.SendEmailAsync(feedback.Email, SubjectEmail, mailBuilder.BuilderMailContact(feedback.Name));
                     // Return a JSON response indicating success
                     return Json(new { success = true });
                 }
