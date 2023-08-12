@@ -197,10 +197,10 @@ namespace TechWizMain.Controllers
                     return View(productListFilterSort.ToPagedList(pageIndex, pagesize));
                 }
             }
-            
 
-          
 
+
+        [Route("showCart")]
         public async Task<IActionResult> Cart()
         {
             var cart = await _context.Products.Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
@@ -210,7 +210,7 @@ namespace TechWizMain.Controllers
             ViewBag.Cart = cart;
             return View();
 
-        }
+                }
 
         public IActionResult Details()
         {
@@ -272,10 +272,6 @@ namespace TechWizMain.Controllers
             MailBuilder mailBuilder = new MailBuilder();
             decimal a = 10000;
             _emailSender.SendEmailAsync("huy.tran9510@gmail.com", "ABC", mailBuilder.BuildMailOrders("HuyTran", new DateTime(), a, "abc"));
-            return View();
-        }
-        public IActionResult AddToCart()
-        {
             return View();
         }
         public IActionResult Contact()
