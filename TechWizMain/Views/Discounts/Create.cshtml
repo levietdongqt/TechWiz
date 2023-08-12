@@ -5,77 +5,55 @@
     Layout = "_AdminLayout";
 }
 
-<div class="row">
-			  <div class="col-12">
-				<div class="box">
-					<div class="box-header with-border">
-					  <h4 class="box-title">Create Discounts</h4>
-					</div>
-				  <div class="box-body">
-					  <form asp-action="Create" method="post">
-						  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-						  <div class="form-body">
-							  <div class="row">
-								  <div class="col-md-6">
-									  <div class="form-group">
-										  <label class="fw-700 fs-16 form-label" asp-for="Name"></label>
-										  <input asp-for="Name" class="form-control">
-										  <span asp-validation-for="Name" class="text-danger"></span>
-									  </div>
-								  </div>
-								  <!--/span-->
-							  </div>
-							  <!--/row-->
-							  <!--/row-->
-							  <div class="row">
-								  <div class="col-md-6">
-									  <div class="form-group">
-										  <label class="fw-700 fs-16 form-label" asp-for="Percent"></label>
-										  <input asp-for="Percent" class="form-control"/>
-										  <span asp-validation-for="Percent" class="text-danger"></span>
-									  </div>
-								  </div>
-							  </div>
-							  <!--/row-->
-							  <div class="row">
-								  <div class="col-md-6">
-									  <div class="form-group">
-										  <label class="fw-700 fs-16 form-label" asp-for="DateBegin"></label>
-										  <div class="input-group">
-											  <div class="input-group-addon"><i class="ti-money"></i></div>
-											  <input asp-for="DateBegin" class="form-control"/>
-											  <span asp-validation-for="DateBegin" class="text-danger" id="errdb"></span>
-										  </div>
-									  </div>
-								  </div>
-							  </div>
-							  <div class="row">
-								  <div class="col-md-6">
-									  <div class="form-group">
-										  <label class="fw-700 fs-16 form-label" asp-for="DateEnd"></label>
-										  <input asp-for="DateEnd" class="form-control"/>
-										  <span asp-validation-for="DateEnd" class="text-danger" id="errde"></span>
-									  </div>
-								  </div>
-							  </div>
-						  </div>
-						  <div class="form-actions mt-10">
-							  <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i>Create</button>
-						  </div>
-					  </form>
-				  </div>
-				</div>
-			  </div>		  
-		  </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="container">
+    <div class="card bg-light border-0 shadow-lg">
+        <div class="card-body p-5 text-center">
+            <h4 class="fw-bold mb-4">Create Discounts</h4>
+            <form asp-action="Create" method="post" id="contact-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold fs-16 form-label" asp-for="Percent">Percent</label>
+                    <input asp-for="Percent" class="form-control" />
+                    <span asp-validation-for="Percent" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold fs-16 form-label" asp-for="DateBegin">DateBegin</label>
+                    <input type="date" asp-for="DateBegin" class="form-control" />
+                    <span asp-validation-for="DateBegin" class="text-danger" id="errdb"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold fs-16 form-label" asp-for="DateEnd">DateEnd</label>
+                    <input type="date" asp-for="DateEnd" class="form-control" />
+                    <span asp-validation-for="DateEnd" class="text-danger" id="errde"></span>
+                </div>
+
+                <div class="form-actions mt-4">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Create</button>
+                    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back To List</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 
 
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -120,7 +98,45 @@
         });
     </script>
 
+    <script>
+        // Use jQuery to handle the form submission via AJAX
+        $(document).ready(function () {
+            $('#contact-form').submit(function (e) {
+                e.preventDefault();
 
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            // Display SweetAlert2 success message with confirmation
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Discount Create successfully!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'OK',
+                                allowOutsideClick: false // Prevent closing on backdrop click
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Redirect to home page
+                                    window.location.href = '/Admins/Discounts';
+                                }
+                            });
+                        } else {
+                            // Display SweetAlert2 error message
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Discount Create failed. Please try again later.'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
 
 }

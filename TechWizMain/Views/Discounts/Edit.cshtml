@@ -9,7 +9,7 @@
     <div class="card bg-transparent border-0 shadow-lg">
         <div class="card-body p-5 text-center">
             <h2 class="fw-bold mb-5 text-primary">Discount Edit</h2>
-            <form asp-action="Edit">
+            <form asp-action="Edit" id="contact-form">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="mb-3">
@@ -46,8 +46,44 @@
     </div>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+
+<script>
+    // Use jQuery to handle the form submission via AJAX
+    $(document).ready(function () {
+        $('#contact-form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        // Display SweetAlert2 success message with confirmation
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Discounts Edit successfully!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: false // Prevent closing on backdrop click
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to home page
+                                window.location.href = '/Admins/Discounts';
+                            }
+                        });
+                    } else {
+                        // Display SweetAlert2 error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Discounts Edit failed. Please try again later.'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
