@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -111,7 +113,7 @@
                                 <li class="menu-item-has-children">
                                     <a asp-action="ShopList" asp-controller="Home">Shop</a>
                                     <ul class="sub-menu">
-                                        <li class="menu-item-has-children">
+                                        <li class="menu-item-has-children"> 
                                             <a href="#">Shop Layouts</a>
                                             <ul class="sub-menu">
                                                 <li><a href="shop.html">shop</a></li>
@@ -219,67 +221,7 @@
                                                 <a href="javascript:void(0)" ><i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span
                                                         class="item_count">2</span></a>
                                                 <!--mini cart-->
-                                                <div class="mini_cart" >
-                                                    <div class="cart_gallery">
-                                                        <div class="cart_close">
-                                                            <div class="cart_text">
-                                                                <h3>cart</h3>
-                                                            </div>
-                                                            <div class="mini_cart_close">
-                                                                <a href="javascript:void(0)"><i class="icon-x"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cart_item">
-                                                            <div class="cart_img">
-                                                                <a href="#"><img src="assets/img/s-product/product.jpg"
-                                                                        alt=""></a>
-                                                            </div>
-                                                            <div class="cart_info">
-                                                                <a href="#">Primis In Faucibus</a>
-                                                                <p>1 x <span> $65.00 </span></p>
-                                                            </div>
-                                                            <div class="cart_remove">
-                                                                <a href="#"><i class="icon-x"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="cart_item">
-                                                            <div class="cart_img">
-                                                                <a href="#"><img src="assets/img/s-product/product2.jpg"
-                                                                        alt=""></a>
-                                                            </div>
-                                                            <div class="cart_info">
-                                                                <a href="#">Letraset Sheets</a>
-                                                                <p>1 x <span> $60.00 </span></p>
-                                                            </div>
-                                                            <div class="cart_remove">
-                                                                <a href="#"><i class="icon-x"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mini_cart_table">
-                                                        <div class="cart_table_border">
-                                                            <div class="cart_total">
-                                                                <span>Sub total:</span>
-                                                                <span class="price">$125.00</span>
-                                                            </div>
-                                                            <div class="cart_total mt-10">
-                                                                <span>total:</span>
-                                                                <span class="price">$125.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mini_cart_footer">
-                                                        <div class="cart_button">
-                                                            <a href="cart.html"><i class="fa fa-shopping-cart"></i> View
-                                                                cart</a>
-                                                        </div>
-                                                        <div class="cart_button">
-                                                            <a class="active" href="checkout.html"><i class="fa fa-sign-in"></i>
-                                                                Checkout</a>
-                                                        </div>
-        
-                                                    </div>
-                                                </div>
+                                                <partial name="_Cart"/>
                                                 <!--mini cart end-->
                                             </div>
                                         </div>
@@ -299,123 +241,33 @@
                                         </div>
                                         <div class="categories_menu_toggle">
                                             <ul>
-                                                <li class="menu_item_children"><a href="#">Flowering<i
-                                                            class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu">
-                                                        <li class="menu_item_children"><a href="#">Dresses</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Sweater</a></li>
-                                                                <li><a href="#">Evening</a></li>
-                                                                <li><a href="#">Day</a></li>
-                                                                <li><a href="#">Sports</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Handbags</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Shoulder</a></li>
-                                                                <li><a href="#">Satchels</a></li>
-                                                                <li><a href="#">kids</a></li>
-                                                                <li><a href="#">coats</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">shoes</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Ankle Boots</a></li>
-                                                                <li><a href="#">Clog sandals </a></li>
-                                                                <li><a href="#">run</a></li>
-                                                                <li><a href="#">Books</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Clothing</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Coats Jackets </a></li>
-                                                                <li><a href="#">Raincoats</a></li>
-                                                                <li><a href="#">Jackets</a></li>
-                                                                <li><a href="#">T-shirts</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#"> Wheels & Tires <i
-                                                            class="fa fa-angle-right"></i></a>
-                                                    <ul class="categories_mega_menu column_3">
-                                                        <li class="menu_item_children"><a href="#">Chair</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Dining room</a></li>
-                                                                <li><a href="#">bedroom</a></li>
-                                                                <li><a href="#"> Home & Office</a></li>
-                                                                <li><a href="#">living room</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Lighting</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Ceiling Lighting</a></li>
-                                                                <li><a href="#">Wall Lighting</a></li>
-                                                                <li><a href="#">Outdoor Lighting</a></li>
-                                                                <li><a href="#">Smart Lighting</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Sofa</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Fabric Sofas</a></li>
-                                                                <li><a href="#">Leather Sofas</a></li>
-                                                                <li><a href="#">Corner Sofas</a></li>
-                                                                <li><a href="#">Sofa Beds</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#"> Furnitured & Decor <i
-                                                            class="fa fa-angle-right"></i></a>
+                                                <li class="menu_item_children"><a href="#"> Plant Nest<i class="fa fa-angle-right"></i></a>
                                                     <ul class="categories_mega_menu column_2">
-                                                        <li class="menu_item_children"><a href="#">Brake Tools</a>
+                                                        <li class="menu_item_children"><a href="#">Plants</a>
                                                             <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Driveshafts</a></li>
-                                                                <li><a href="#">Spools</a></li>
-                                                                <li><a href="#">Diesel </a></li>
-                                                                <li><a href="#">Gasoline</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Emergency Brake</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Dolls for Girls</a></li>
-                                                                <li><a href="#">Girls' Learning Toys</a></li>
-                                                                <li><a href="#">Arts and Crafts for Girls</a></li>
-                                                                <li><a href="#">Video Games for Girls</a></li>
+                                                                <li><a href="#">Flowering</a></li>
+                                                                <li><a href="#">Non-flowering</a></li>
+                                                                <li><a href="#">Indoor</a></li>
+                                                                <li><a href="#">Outdoor</a></li>
+                                                                <li><a href="">Succulents</a></li>
+                                                                <li><a href="">Medicinal and so on</a></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="menu_item_children"><a href="#"> Turbo System <i
-                                                            class="fa fa-angle-right"></i></a>
+                                                
+                                                <li class="menu_item_children"><a href="#"> Accessories<i class="fa fa-angle-right"></i></a>
                                                     <ul class="categories_mega_menu column_2">
-                                                        <li class="menu_item_children"><a href="#">Check Trousers</a>
+                                                        <li class="menu_item_children"><a href="#">Accessories </a>
                                                             <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Building</a></li>
-                                                                <li><a href="#">Electronics</a></li>
-                                                                <li><a href="#">action figures </a></li>
-                                                                <li><a href="#">specialty & boutique toy</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="menu_item_children"><a href="#">Calculators</a>
-                                                            <ul class="categorie_sub_menu">
-                                                                <li><a href="#">Dolls for Girls</a></li>
-                                                                <li><a href="#">Girls' Learning Toys</a></li>
-                                                                <li><a href="#">Arts and Crafts for Girls</a></li>
-                                                                <li><a href="#">Video Games for Girls</a></li>
+                                                                <li><a href="#">Tools</a></li>
+                                                                <li><a href="#">fertilizers</a></li>
+                                                                <li><a href="#">spades</a></li>
+                                                                <li><a href="#">pesticides</a></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#"> Lighting</a></li>
-                                                <li><a href="#"> Accessories</a></li>
-                                                <li><a href="#">Body Parts</a></li>
-                                                <li><a href="#">Perfomance Filters</a></li>
-                                                <li><a href="#"> Engine Parts</a></li>
-                                                <li class="hidden"><a href="shop-left-sidebar.html">New Sofas</a></li>
-                                                <li class="hidden"><a href="shop-left-sidebar.html">Sleight Sofas</a></li>
-                                                <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More
-                                                        Categories</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -426,44 +278,7 @@
                                         <nav>
                                             <ul>
                                                 <li><a class="active" asp-action="Index" asp-controller="Home">home</a></li>
-                                                <li class="mega_items"><a asp-controller="Home" asp-action="ShopList">shop<i
-                                                            class="fa fa-angle-down"></i></a>
-                                                    <div class="mega_menu">
-                                                        <ul class="mega_menu_inner">
-                                                            <li><h4>Shop Layouts</h4>
-                                                                <ul>
-                                                                    <li><a href="shop-fullwidth.html">Full Width</a></li>
-                                                                    <li><a href="shop-fullwidth-list.html">Full Width list</a>
-                                                                    </li>
-                                                                    <li><a href="shop-right-sidebar.html">Right Sidebar </a>
-                                                                    </li>
-                                                                    <li><a href="shop-right-sidebar-list.html"> Right Sidebar
-                                                                            list</a></li>
-                                                                    <li><a href="shop-list.html">List View</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li><h4>other Pages</h4>
-                                                                <ul>
-                                                                    <li><a href="cart.html">cart</a></li>
-                                                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                                    <li><a href="my-account.html">my account</a></li>
-                                                                    <li><a href="404.html">Error 404</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li><h4>Product Types</h4>
-                                                                <ul>
-                                                                    <li><a href="product-details.html">product details</a></li>
-                                                                    <li><a href="product-sidebar.html">product sidebar</a></li>
-                                                                    <li><a href="product-grouped.html">product grouped</a></li>
-                                                                    <li><a href="variable-product.html">product variable</a>
-                                                                    </li>
-        
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+                                                <li class="mega_items"><a asp-controller="Home" asp-action="ShopList">shop</a></li>
                                                 <li><a asp-action="Contact" asp-controller="Home" > Contact Us</a></li>
                                             </ul>
                                         </nav>

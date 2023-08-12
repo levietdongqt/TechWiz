@@ -66,12 +66,28 @@ namespace TechWizMain.Controllers
             return View();
         }
 
+        public async Task<IActionResult> _Cart()
+        {
+            var cart = await _context.Products.ToListAsync();
+            ViewBag.Cart = cart;
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Details()
         {
             return View();
         }
         public IActionResult Checkout()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+                Feedback feedback = new Feedback();
+                feedback.UserID = currentUser.Id;
+                feedback.Name = currentUser.UserName;
+                feedback.Email = currentUser.Email;
+                return View(feedback);
+            }
             return View();
         }
         public async Task<IActionResult> ShopList()
