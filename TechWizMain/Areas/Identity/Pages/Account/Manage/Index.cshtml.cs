@@ -59,18 +59,31 @@ namespace TechWizMain.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [StringLength(100)]
+            public string FullName { get; set; }
+
+            [StringLength(200)]
+            public string Address { get; set; }
+            [EmailAddress]
+            public string Email { get; set; }
+            
+            [DataType(DataType.Date)]
+            public DateTime DateOfBirth { get; set; }
         }
 
         private async Task LoadAsync(UserManager user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            
-            Username = userName;
-
+            var fullName = user.FullName;
+            var address = user.Address;
+            var dateOfBirth = user.DateOfBirth;
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FullName = fullName,
+                Address = address,
+                
             };
         }
 
@@ -101,6 +114,8 @@ namespace TechWizMain.Areas.Identity.Pages.Account.Manage
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            user.FullName = Input.FullName;
+            user.Address = Input.Address;
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
@@ -110,7 +125,26 @@ namespace TechWizMain.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (string.IsNullOrEmpty(Input.FullName)) 
+            {
+                ModelState.AddModelError("FullName", "Full name is required");
+            }
 
+            if (string.IsNullOrEmpty(Input.Email))
+            {
+                ModelState.AddModelError("Email", "Email is required");
+            }
+            if (Input.DateOfBirth > DateTime.Today) 
+            {
+                ModelState.AddModelError("DateOfBirth", "Date of birth must be in the past"); 
+            }
+            if (Input.Address?.Length > 200)
+            {
+                ModelState.AddModelError("Address", "Address cannot exceed 100 characters");
+            }
+           
+            await _userManager.UpdateAsync(user);
+            
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
