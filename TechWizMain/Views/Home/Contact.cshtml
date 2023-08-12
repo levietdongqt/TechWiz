@@ -55,6 +55,9 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
                             <h3>Contact Us</h3>
                         <form id="contact-form" method="post" asp-action="Contact" asp-controller="Home">
                             <p>
+                                <input asp-for="UserID" name="UserID" placeholder="UserID *" type="hidden">
+                            </p>
+                            <p>
                                 <label asp-for="Name"> Your Name</label>
                                 <input asp-for="Name" name="Name" placeholder="Name *" type="text">
                             </p>

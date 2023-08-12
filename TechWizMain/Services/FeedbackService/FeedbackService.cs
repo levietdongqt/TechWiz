@@ -14,7 +14,17 @@ namespace TechWizMain.Services.FeedbackService
             this._FeedbackRepository = FeedbackRepository;
         }
 
-        public bool InsertFeedback(Feedback feedback)
+		public async Task<IEnumerable<Feedback>> GetAllAsync()
+		{
+            var result = await _FeedbackRepository.GetAll();
+            if(result != null)
+            {
+				return result.OrderByDescending(x => x.FeedbackDate).ToList();           
+			}     
+            return null;
+		}
+
+		public bool InsertFeedback(Feedback feedback)
         {
             try
             {

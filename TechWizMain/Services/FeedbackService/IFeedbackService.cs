@@ -6,6 +6,8 @@ namespace TechWizMain.Services.FeedbackService
     public interface IFeedbackService
     {
         public bool InsertFeedback(Feedback feedback);
-    }
+
+		public Task<IEnumerable<Feedback>> GetAllAsync();
+	}
 }
 

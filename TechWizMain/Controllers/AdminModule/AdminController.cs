@@ -1,42 +1,99 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TechWizMain.Areas.Identity.Data;  
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TechWizMain.Areas.Identity.Data;
+using TechWizMain.Models;
 using TechWizMain.Repository.UserRepository;
 using TechWizMain.Services.AdminService;
+using TechWizMain.Services.FeedbackService;
 
 namespace TechWizMain.Controllers
 {
-
-  [Route("Admin")]
+    [Authorize(Roles = "admin")]
+    [Route("Admin")]
   public class AdminController : Controller
   {
 
     private readonly IAdminService _adminService;
+    private readonly IFeedbackService _feedbackService;
+    private readonly TechWizContext _context;
+    private const int ITEM_PER_PAGE = 5;
 
-    public AdminController(IAdminService adminService)
+
+    [BindProperty(SupportsGet = true,Name = "p")]
+    public int currentPage { get; set; }
+	public int countPages { get; set; }
+
+    
+    public AdminController(IAdminService adminService, IFeedbackService feedbackService, TechWizContext context)
     {
 
       _adminService = adminService;
+      _feedbackService = feedbackService;
+       _context = context;
 
     }
 
     [Route("")]
     public async Task<IActionResult> Index()
     {
-      var users = await _adminService.GetAllAsync(true);
-      return View(users);
+      return View();
     }
 
     [Route("Users")]
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> GetUsers(string? UserName)
     {
-      var usersActive = await _adminService.GetAllAsync(true);
+        
+	    if (UserName == null)
+       {
+		    ViewBag.Active = await _adminService.GetAllAsync(true);
+       }
+       else
+       {
+			ViewBag.Active = await _adminService.GetByUserName(UserName);
+	    }
+     
 	  var usersBanned = await _adminService.GetAllAsync(false);
-	  ViewBag.Active = usersActive;
       ViewBag.Banned = usersBanned;
-      return View(ViewBag.active);
+      return View();
     }
 
-    [HttpPost]
+
+
+
+		[Route("FeedBacks")]
+		public async Task<IActionResult> FeedBacks(int? p)
+        {
+            if(p == null)
+            {
+                p = 1;
+                
+            }
+			currentPage = p.Value;
+			int totalPages = await _context.Feedbacks.CountAsync();
+            countPages = (int) Math.Ceiling((double)totalPages / ITEM_PER_PAGE);
+
+            if(currentPage < 1)
+            {
+                currentPage = 1;
+            }
+            if(currentPage > totalPages)
+            {
+                currentPage = totalPages;
+            }
+            ViewBag.currentPage = currentPage;
+            ViewBag.countPages = countPages;
+
+            var list = await _feedbackService.GetAllAsync();
+            var list2 = list.Skip((currentPage-1) * 5).Take(ITEM_PER_PAGE).ToList();
+            ViewBag.List = list2;
+            return View();
+        }
+
+
+
+
+	[HttpPost]
     [Route("Banned")]
     public async Task<IActionResult> Banned(string Id)
     {

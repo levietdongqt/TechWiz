@@ -7,6 +7,10 @@ namespace TechWizMain.Services.AdminService
         public Task<IEnumerable<UserManager>> GetAllAsync(bool status);
 
         public Task BannedUsers(string id);
-    }
+
+        public Task<IEnumerable<UserManager>> GetByUserName(string UserName);
+
+
+	}
 }
 

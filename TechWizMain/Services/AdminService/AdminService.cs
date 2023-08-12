@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Repository.UserRepository;
 
 namespace TechWizMain.Services.AdminService
 {
+    
     public class AdminService : IAdminService
     {
         private readonly IUserRepository _adminReposity;
@@ -34,6 +36,19 @@ namespace TechWizMain.Services.AdminService
                 if (user.status == status)
                 {
                     ListUsers.Add(user);
+                }
+            }
+            return ListUsers;
+        }
+        public async Task<IEnumerable<UserManager>> GetByUserName(string UserName)
+        {
+            List<UserManager> ListUsers = new List<UserManager>();
+            var list = await GetAllAsync(true);
+            foreach (var user in list)
+            {
+                if (user.UserName.Contains(UserName))
+                {
+                    ListUsers.Add(user);    
                 }
             }
             return ListUsers;
