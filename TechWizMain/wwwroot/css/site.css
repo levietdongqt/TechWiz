@@ -11295,4 +11295,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   font-weight: 600;
   color: #0062cc;
 }
->>>>>>> master
+
+#targetElement {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#targetElement.scrolled {
+  overflow-y: scroll;
+}
