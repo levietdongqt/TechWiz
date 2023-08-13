@@ -183,7 +183,8 @@
                                                         <div class="action_links">
                                                             <ul>
                                                                 <li class="add_to_cart">
-                                                                    <a href="#" title="Add to cart"><i class="fa-solid fa-cart-plus" style="color: #0d0f12;"></i></a></li>
+                                                                <a class="addToCartButton" data-product-id="@x.Product.Id" data-product-Price="@x.Product.Price" data-product-Discount="@x.Product.Discount.Percent" href="#" title="Add to cart"><i class="fa-solid fa-cart-plus" style="color: #0d0f12;"></i></a>
+                                                            </li>
                                                                 <li class="wishlist">
                                                                     <a href="#" title="Add to Wishlist"><i class="fa-regular fa-heart" style="color: #0a0c10;"></i></a>
                                                                 </li>
@@ -240,7 +241,8 @@
                                             <div class="action_links">
                                                 <ul>
                                                     <li class="add_to_cart">
-                                                        <a href="#" title="Add to cart"><i class="fa-solid fa-cart-plus" style="color: #0d0f12;"></i></a></li>
+                                                            <a class="addToCartButton" data-product-id="@x.Product.Id" data-product-Price="@x.Product.Price" href="#" title="Add to cart"><i class="fa-solid fa-cart-plus" style="color: #0d0f12;"></i></a>
+                                                        </li>
                                                     <li class="wishlist">
                                                         <a href="#" title="Add to Wishlist"><i class="fa-regular fa-heart" style="color: #0a0c10;"></i></a>
                                                     </li>
@@ -338,4 +340,6 @@
         </div>
     </div>
     <!--product area end-->
+<script src="~/js/addCart.js">
 
+</script>

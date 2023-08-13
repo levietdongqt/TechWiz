@@ -93,7 +93,7 @@ namespace TechWizMain.Controllers
                     Discount = discount
                 })
                 .ToListAsync();
-            
+
 
             // Truyền cả hai danh sách vào View
             ViewData["NewestProducts"] = newestProducts;
@@ -236,7 +236,7 @@ namespace TechWizMain.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser != null)
             {
-                var tempBill = await _context.Bills.Include(t => t.ProductBills).ThenInclude(t => t.Product).FirstOrDefaultAsync(b => b.UserId.Equals(currentUser.Id) && b.Status.Equals(ProcessBill.Temporary.ToString()));
+                var tempBill = await _context.Bills.Include(t => t.ProductBills).ThenInclude(t => t.Product).ThenInclude(t => t.Discount).FirstOrDefaultAsync(b => b.UserId.Equals(currentUser.Id) && b.Status.Equals(ProcessBill.Temporary.ToString()));
                 if (tempBill != null)
                 {
                     listCart = tempBill.ProductBills;
@@ -244,15 +244,16 @@ namespace TechWizMain.Controllers
                     {
                         item.Bill = null;
                         item.Product.ProductBills = null;
+                        item.Product.Discount.Products = null;
                     }
 
                 }
             }
             return Json(listCart);
 
-                }
+        }
 
-       
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Products == null)
@@ -263,15 +264,15 @@ namespace TechWizMain.Controllers
             var product = await _context.Products
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var list = await _context.Reviews.Include(r => r.Product).Where(m=>m.ProductId == id).ToListAsync();
+            var list = await _context.Reviews.Include(r => r.Product).Where(m => m.ProductId == id).ToListAsync();
             int? number = 0;
-            if(list != null)
+            if (list != null)
             {
-				foreach (var e in list)
-				{
-					number += e.Rating;
-				}
-			}
+                foreach (var e in list)
+                {
+                    number += e.Rating;
+                }
+            }
             if (product == null)
             {
                 return NotFound();
@@ -285,11 +286,11 @@ namespace TechWizMain.Controllers
             }
             else
             {
-				ViewBag.Number = number / list.Count();
-			}
+                ViewBag.Number = number / list.Count();
+            }
 
             //Lay danh sach product moi nhat
-           
+
             return View(product);
         }
         public IActionResult Checkout()
@@ -322,11 +323,12 @@ namespace TechWizMain.Controllers
                     _context.ProductBills.Update(productBill);
                     await _context.SaveChangesAsync();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return Json(new { success = false });
             }
-            
+
             return Json(new { success = true });
         }
         [Route("UpdateCart/{id}/{quantity}/{salePrice}")]
@@ -341,6 +343,23 @@ namespace TechWizMain.Controllers
             _context.ProductBills.Update(productBill);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+        [Route("DeleteFromCart/{productBillID}")]
+        public async Task<IActionResult> DeleteFromCart(int? productBillID)
+        {
+            try
+            {
+                var productBill = await _context.ProductBills.FirstOrDefaultAsync(t => t.Id == productBillID);
+                _context.ProductBills.Remove(productBill);
+                await _context.SaveChangesAsync();
+
+            }
+            catch
+            {
+                return Json(new { success = false });
+            }
+
+            return Json(new { success = true });
         }
         public async Task<IActionResult> ShopList()
         {
@@ -397,13 +416,13 @@ namespace TechWizMain.Controllers
 
         [HttpPost]
         [Route("InsertReview")]
-        public IActionResult InsertReview(List<int>? vehicle1,string? content,int? ProductId,string UserId)
+        public IActionResult InsertReview(List<int>? vehicle1, string? content, int? ProductId, string UserId)
         {
             int rating = vehicle1.Count();
             Review review = new Review();
             review.Rating = rating;
             review.Content = content;
-            review.ProductId = ProductId; 
+            review.ProductId = ProductId;
             review.UserId = UserId;
             review.ReviewDate = DateTime.Now;
             _context.Reviews.Add(review);
