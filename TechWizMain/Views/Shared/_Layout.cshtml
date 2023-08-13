@@ -75,27 +75,8 @@
                             </ul>
                         </div>
                         <div class="search_container">
-                            <form asp-action="ProductByCategory" asp-controller="Home">
-                                <div class="hover_category">
-                                    <select class="select_option" name="select" id="categori2">
-                                        <option selected value="1">All Categories</option>
-                                        <option value="2">Accessories</option>
-                                        <option value="3">Accessories & More</option>
-                                        <option value="4">Butters & Eggs</option>
-                                        <option value="5">Camera & Video </option>
-                                        <option value="6">Mornitors</option>
-                                        <option value="7">Tablets</option>
-                                        <option value="8">Laptops</option>
-                                        <option value="9">Handbags</option>
-                                        <option value="10">Headphone & Speaker</option>
-                                        <option value="11">Herbs & botanicals</option>
-                                        <option value="12">Vegetables</option>
-                                        <option value="13">Shop</option>
-                                        <option value="14">Laptops & Desktops</option>
-                                        <option value="15">Watchs</option>
-                                        <option value="16">Electronic</option>
-                                    </select>
-                                </div>
+                            <form asp-action="ProductList" asp-controller="Home" method="GET" asp-action="Search" asp-route-searchString="" asp-route-minPrice="" asp-route-maxPrice=""
+                                  asp-route-orderSort="price-asc">
                                 <div class="search_box">
                                     <input placeholder="Search product..." type="text" name="searchString">
                                     <button type="submit"><i class="icon-search"></i></button>
@@ -123,58 +104,9 @@
                                                 <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
                                                 <li><a href="shop-list.html">List View</a></li>
                                             </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="#">other Pages</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="cart.html">cart</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="my-account.html">my account</a></li>
-                                                <li><a href="404.html">Error 404</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="#">Product Types</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="product-details.html">product details</a></li>
-                                                <li><a href="product-sidebar.html">product sidebar</a></li>
-                                                <li><a href="product-grouped.html">product grouped</a></li>
-                                                <li><a href="variable-product.html">product variable</a></li>
-                                            </ul>
-                                        </li>
+                                        </li>                                                                         
                                     </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog.html">blog</a></li>
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                        <li><a href="blog-fullwidth.html">blog fullwidth</a></li>
-                                        <li><a href="blog-sidebar.html">blog sidebar</a></li>
-                                    </ul>
-
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">pages </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="services.html">services</a></li>
-                                        <li><a href="faq.html">Frequently Questions</a></li>
-                                        <li><a href="contact.html">contact</a></li>
-                                        <li><a href="login.html">login</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="my-account.html">my account</a>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="about.html">about Us</a>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="contact.html"> Contact Us</a>
-                                </li>
+                                </li>                               
                             </ul>
                         </div>
 
@@ -206,10 +138,11 @@
                                 <div class="col-lg-9 col-md-6 col-6">
                                     <div class="header_right_info">
                                         <div class="search_container">
-                                            <form asp-controller="Home" asp-action="Search">
+                                    <form method="GET" asp-controller="Home" asp-action="Search" asp-route-searchString="" asp-route-minPrice="" asp-route-maxPrice=""
+                                          asp-route-orderSort="price-asc" >
                                                 <div class="search_box">
                                                     <input placeholder="Search product..." type="text" name="searchString">
-                                                    <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                                 </div>
                                             </form>
                                         </div>
@@ -284,11 +217,20 @@
                                                     <ul class="categories_mega_menu column_2">
                                                         <li class="menu_item_children"><a href="#">Plants</a>
                                                             <ul class="categorie_sub_menu">                                                        
-                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=1 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Flowering</a></li>
-                                                         <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=2 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Non-flowering</a></li>
-                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=3 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Indoor</a></li>
-                                                           <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=4 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Outdoor</a></li>
-                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=5 asp-route-minPrice=0 asp-route-maxPrice="" asp-route-orderSort="price-asc">Succulents</a></li>
+                                                        <li>
+                                                            <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=1 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Flowering</a>
+                                                        </li>
+                                                         <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=2 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Non-flowering</a></li>
+                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=3 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Indoor</a></li>
+                                                        <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=4 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Outdoor</a></li>
+                                                        <li>
+                                                            <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=5 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Succulents</a>
+                                                        </li>                                                       
                                                                                                                       
                                                             </ul>
                                                         </li>
@@ -299,7 +241,10 @@
                                                     <ul class="categories_mega_menu column_2">
                                                         <li class="menu_item_children"><a href="#">Accessories </a>
                                                             <ul class="categorie_sub_menu">
-                                                               <li><a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=6>Medicinal and so on</a></li>
+                                                        <li>
+                                                            <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=6 asp-route-minPrice="" asp-route-maxPrice=""
+                                                               asp-route-orderSort="price-asc">Medicinal and so on</a>
+                                                        </li>
                                                             </ul>
                                                         </li>
                                                     </ul>
