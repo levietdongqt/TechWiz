@@ -307,9 +307,27 @@ namespace TechWizMain.Controllers
 
             return View(product);
         }
+        [HttpGet]
         public IActionResult Checkout()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckoutHandler(string txtName,string txtEmail,string txtAddress,string txtPhone,string Id,string txtNameProduct)
+        {
+            MailBuilder mail = new MailBuilder();
+            Bill bill = new Bill();
+            bill.OrderDate = DateTime.Now;
+            bill.Total = 150000;
+            bill.Status = "Pending";
+            bill.DeliveryPhone = txtPhone;
+            bill.DeliveryAddress = txtAddress;
+            bill.User = await _userManager.FindByIdAsync(Id);
+            await _context.Bills.AddAsync(bill);
+            await _emailSender.SendEmailAsync(txtEmail, "Thanks for your Order", mail.BuildMailOrders(txtName, DateTime.Now, 150000, txtAddress));
+            return Redirect("/");
+
         }
         [Route("addToCart/{id}/{quantity}/{salePrice}")]
         public async Task<IActionResult> AddToCart(int? id, int quantity, Decimal salePrice)
