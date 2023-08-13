@@ -395,11 +395,11 @@ namespace TechWizMain.Controllers
 
         [HttpPost]
         [Route("InsertReview")]
-        public IActionResult InsertReview(List<int>? vehicle1,string? content,int? ProductId,string UserId)
+        public IActionResult InsertReview(List<int>? rating, string? content,int? ProductId,string UserId)
         {
-            int rating = vehicle1.Count();
+            int rating1 = rating.Count();
             Review review = new Review();
-            review.Rating = rating;
+            review.Rating = rating1;
             review.Content = content;
             review.ProductId = ProductId; 
             review.UserId = UserId;

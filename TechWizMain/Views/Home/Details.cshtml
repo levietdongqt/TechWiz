@@ -188,21 +188,22 @@
                                                     <label class="star-label" for="star5">&#9733;</label>
                                                 </div>
 
-@*                                                <script>
+                                                <script>
                                                     const starCheckboxes = document.querySelectorAll('.star-checkbox');
-                                                    const starLabels = document.querySelectorAll('.star-label');
+                                                    const ratingInput = document.querySelector('input[name="rating"]');
 
                                                     starCheckboxes.forEach((checkbox, index) => {
-                                                        checkbox.addEventListener('click', () => {
+                                                        checkbox.addEventListener('change', () => {
+                                                            ratingInput.value = index + 1;
                                                             for (let i = 0; i <= index; i++) {
-                                                                starLabels[i].classList.add('checked');
+                                                                starCheckboxes[i].checked = true;
                                                             }
-                                                            for (let i = index + 1; i < starLabels.length; i++) {
-                                                                starLabels[i].classList.remove('checked');
+                                                            for (let i = index + 1; i < starCheckboxes.length; i++) {
+                                                                starCheckboxes[i].checked = false;
                                                             }
                                                         });
                                                     });
-                                                </script>*@
+                                                </script>
 
 
 
@@ -240,6 +241,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -247,78 +249,6 @@
 
 
 
-
-@*BEST SALER*@
-<section class="product_area upsell_products">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_title">
-                    <h2>Best Seller </h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="product_carousel product_column4 owl-carousel">
-                <div class="col-lg-3">
-                    <article class="single_product">
-                        <figure>
-                            <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html">
-                                    <img src="assets/img/product/product7.jpg" alt="">
-                                </a>
-                                <div class="label_product">
-                                    <span class="label_sale">-4%</span>
-                                </div>
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">
-                                                <i class="icon-shopping-bag"></i>
-                                            </a>
-                                        </li>
-                                        <li class="compare">
-                                            <a href="#" title="Add to Compare">
-                                                <i class="icon-sliders"></i>
-                                            </a>
-                                        </li>
-                                        <li class="wishlist">
-                                            <a href="wishlist.html" title="Add to Wishlist">
-                                                <i class="icon-heart"></i>
-                                            </a>
-                                        </li>
-                                        <li class="quick_button">
-                                            <a href="#" data-bs-toggle="modal"
-                                               data-bs-target="#modal_box" title="quick view">
-                                                <i class="icon-eye"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <figcaption class="product_content">
-                                <div class="product_rating">
-                                    <ul>
-                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <h4 class="product_name"><a href="product-details.html">sapien libero</a></h4>
-                                <div class="price_box">
-                                    <span class="current_price">£69.00</span>
-                                    <span class="old_price">£74.00</span>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @*ajax add card*@
 <script>
