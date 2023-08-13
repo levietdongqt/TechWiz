@@ -138,46 +138,45 @@
         });
     </script>
 
-
-    <script>
-        $(document).ready(function () {
-            $('#createForm').submit(function (e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/Products/create",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        if (data.success) {
-                            // Display SweetAlert2 success message with confirmation
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: 'Add new product successfully!',
-                                showConfirmButton: true,
-                                confirmButtonText: 'OK',
-                                allowOutsideClick: false // Prevent closing on backdrop click
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Redirect to home page
-                                    window.location.href = '/Admin/Products';
-                                }
-                            });
-                        } else {
-                            // Display SweetAlert2 error message
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Add new product failed. Please try again later.'
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
+	<script>
+		$(document).ready(function () {
+			$('#createForm').submit(function (e) {
+				e.preventDefault();
+				var formData = new FormData(this);
+				$.ajax({
+					type: "POST",
+					url: $(this).attr('action'),
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: function (data) {
+						if (data.success) {
+							// Display SweetAlert2 success message with confirmation
+							Swal.fire({
+								icon: 'success',
+								title: 'Success',
+								text: 'Add new product successfully!',
+								showConfirmButton: true,
+								confirmButtonText: 'OK',
+								allowOutsideClick: false // Prevent closing on backdrop click
+							}).then((result) => {
+								if (result.isConfirmed) {
+									// Redirect to home page
+									window.location.href = '/Admin/Products';
+								}
+							});
+						} else {
+							// Display SweetAlert2 error message
+							Swal.fire({
+								icon: 'error',
+								title: 'Error',
+								text: 'Add new product failed. Please try again later.'
+							});
+						}
+						
+					}
+				});
+			});
+		});
+	</script>
 }

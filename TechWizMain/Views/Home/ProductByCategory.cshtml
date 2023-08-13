@@ -4,7 +4,6 @@
 @*@model List<TechWizMain.Models.Product>*@
 @{
     ViewData["Title"] = "Products List";
-
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
@@ -15,7 +14,7 @@
                     <h3>Shop</h3>
                     <ul>
                         <li><a href="index.html">home</a></li>
-                        <li>   Category Name</li>
+                        <li>Category</li>
                     </ul>
                 </div>
             </div>
@@ -29,38 +28,35 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                 <!--sidebar widget start-->
-                
-                    <!--sidebar widget start-->
-                    <aside class="niceselect_option">
-                        <div class="widget_inner">
-                            <h4 class="mb-4">FILTER BY PRICE</h4>
-                            <form asp-action="ProductByCategory" asp-controller="Home" method="get" class="filter-form">
-                                <div class="form-group">
-                                    <label for="minPrice">Min:</label>
-                                    <input type="number" value="0" name="minPrice" id="minPrice" class="form-control form-control-sm">
+                <aside class="niceselect_option">
+                    <div class="widget_inner">
+                       
+                            <h3>Filter by price</h3>
+                        <form asp-action="ProductByCategory" asp-controller="Home" asp-route-minPrice="" asp-route-maxPrice=""
+                              asp-route-orderSort="" method="get">
+                               <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Min Price: </span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="maxPrice">Max:</label>
-                                    <input type="number" name="maxPrice" id="maxPrice" class="form-control form-control-sm">
+                                <input class="form-control" type="number" name="minPrice">
+                              </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Max Price: </span>
                                 </div>
+                                <input class="form-control" type="number" name="maxPrice">
+                            </div>                         
+                            <select name="orderSort" id="short" class="form-select mt-3">
+                               <option value="price-asc">Sort by price: low to high</option>
+                                <option value="price-desc">Sort by price: high to low</option>                               
+                            </select>
+                            <div style="margin-top:16px">
+                                <button type="submit" class="btn btn-success">Filter</button>
+                            </div>
+                            </form>                     
 
-                                <div class="form-group">
-                                    <label for="orderSort">Sort by:</label>
-                                    <select name="orderSort" id="orderSort" class="form-control form-control-sm">
-                                        <option value="price-asc">Price: Low to High</option>
-                                        <option value="price-desc">Price: High to Low</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-                            </form>
-
-
-                        </div>
-                    </aside>
-                    <!--sidebar widget end-->
-                
-
+                    </div>
+                </aside>
                 <!--sidebar widget end-->
             </div>
             <div class="col-lg-9 col-md-12">
@@ -70,29 +66,17 @@
                     <div class="shop_toolbar_btn">
 
                         <button data-role="grid_3" type="button" class=" btn-grid-3" data-bs-toggle="tooltip"
-                                title="3">
-                          
+                                title="3">                          
                         </button>
 
                         <button data-role="grid_4" type="button" class=" btn-grid-4" data-bs-toggle="tooltip"
-                                title="4">
-                          
+                                title="4">                          
                         </button>
 
                         <button data-role="grid_list" type="button" class="active btn-list" data-bs-toggle="tooltip"
-                                title="List">
-                          
+                                title="List">                          
                         </button>
-                    </div>
-                    <div class=" niceselect_option">
-                        <form class="select_option" asp-action="ProductByCategory" asp-controller="Home" method="get">
-                            <select name="orderby" id="short">                       
-                                <option value="price-asc">Sort by price: low to high</option>
-                                <option value="price-desc">Sort by price: high to low</option>
-                                <option value="atoz">Product Name: A - Z</option>
-                            </select>
-                        </form>
-                    </div>                   
+                    </div>                                
                 </div>
                 <!--shop toolbar end-->
                 <div class="row shop_wrapper grid_list">
@@ -115,8 +99,6 @@
                                                         <i class="fa-solid fa-cart-shopping"></i>
                                                     </a>
                                                 </li>
-
-
                                             </ul>
                                         </div>
                                         <div class="action_links list_action">
@@ -132,7 +114,7 @@
                                     </div>
                                     <div class="product_content grid_content">
                                         <div class="product_price_rating">
-                                            <div class="product_rating">
+                                          @*  <div class="product_rating">
                                                 <ul>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
@@ -140,10 +122,10 @@
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 </ul>
-                                            </div>
+                                            </div>*@
                                             <h4 class="product_name">
                                                 <a href="product-details.html">
-
+                                                    @item.Name
                                                 </a>
                                             </h4>
                                             <div class="price_box">
@@ -156,7 +138,7 @@
                                         </div>
                                     </div>
                                     <div class="product_content list_content">
-                                        <div class="product_rating">
+                                       @* <div class="product_rating">
                                             <ul>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
@@ -164,13 +146,13 @@
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                             </ul>
-                                        </div>
+                                        </div>*@
                                         <h4 class="product_name">
-                                            <a href="product-details.html">@item.Name</a>
+                                            <a href="#">@item.Name</a>
                                         </h4>
                                         <div class="price_box">
                                             @{
-                //var current_price = item.Price * (1 - Convert.ToDecimal(item.Discount.Percent));
+                                                //var current_price = item.Price * (1 - Convert.ToDecimal(item.Discount.Percent));
                                                 <span class="current_price">@current_price</span>
                                             }
 
@@ -198,11 +180,9 @@
                         </div>
                     }
                 </div>
-
-                <div class="shop_toolbar t_bottom">
-                  
+                <div class="shop_toolbar t_bottom">                  
                         <div>
-                        @Html.PagedListPager(Model, page=>Url.Action("ProductByCategory", "Home", new { page = page, @id = ViewBag.cateID, @minPrice= ViewBag.MinPrice, @maxPrice=ViewBag.MaxPrice, @orderSort = ViewBag.OrderSort }),  new PagedListRenderOptions()
+                        @Html.PagedListPager(Model, page=>Url.Action("ProductByCategory", "Home", new { @id = ViewBag.cateID, @minPrice= ViewBag.MinPrice, @maxPrice=ViewBag.MaxPrice, @orderSort = ViewBag.OrderSort, page = page }),  new PagedListRenderOptions()
                             {
                             ActiveLiElementClass = "active",
                             PageClasses = new[]{ "page-link"},
@@ -214,11 +194,8 @@
                             DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
                             DisplayLinkToNextPage = PagedListDisplayMode.Always
                             } )
-                        </div>
-                   
-                </div>
-                <!--shop toolbar end-->
-                <!--shop wrapper end-->
+                        </div>                   
+                </div>              
             </div>
         </div>
     </div>
