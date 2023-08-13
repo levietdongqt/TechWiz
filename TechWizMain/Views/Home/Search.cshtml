@@ -1,11 +1,9 @@
-﻿@*@model X.PagedList.IPagedList<TechWizMain.Models.Product>*@
+﻿@model X.PagedList.IPagedList<TechWizMain.Models.Product>
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
-@model List<TechWizMain.Models.Product>
+@*@model List<TechWizMain.Models.Product>*@
 @{
-    ViewData["Title"] = "Search";
-
-}
+    ViewData["Title"] = "Search";}
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
     <div class="container">
@@ -14,7 +12,7 @@
                 <div class="breadcrumb_content">
                     <h3>Shop</h3>
                     <ul>
-                        <li><a href="index.html">home</a></li>
+                        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                         <li>Search</li>
                     </ul>
                 </div>
@@ -31,16 +29,31 @@
                 <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_inner">
-                        <div class="widget_list widget_filter">
-                            <h3>Filter by price</h3>
-                            <form action="#">
-                                <div id="slider-range"></div>
-                                <button type="submit">Filter</button>
-                                <input type="text" name="text" id="amount" />
-
-                            </form>
-                        </div>
-
+                        @*/Home/Search?searchString=oo&minPrice=0&maxPrice=&orderSort=price-asc*@
+                        <h3>Filter by price</h3>
+                        <form asp-action="Search" asp-controller="Home" asp-route-minPrice="" asp-route-maxPrice=""
+                              asp-route-orderSort="price-asc" method="get">
+                            <input type="hidden" value="@ViewBag.searchString" name="searchString" />
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Min Price: </span>
+                                </div>
+                                <input class="form-control" type="number" name="minPrice">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Max Price: </span>
+                                </div>
+                                <input class="form-control" type="number" name="maxPrice">
+                            </div>
+                            <select name="orderSort" id="short" class="form-select mt-3">
+                                <option value="price-asc">Sort by price: low to high</option>
+                                <option value="price-desc">Sort by price: high to low</option>
+                            </select>
+                            <div style="margin-top:16px">
+                                <button type="submit" class="btn btn-success">Filter</button>
+                            </div>                           
+                        </form>
                     </div>
                 </aside>
                 <!--sidebar widget end-->
@@ -50,30 +63,16 @@
                 <!--shop toolbar start-->
                 <div class="shop_toolbar_wrapper">
                     <div class="shop_toolbar_btn">
-
                         <button data-role="grid_3" type="button" class=" btn-grid-3" data-bs-toggle="tooltip"
                                 title="3">
                         </button>
-
                         <button data-role="grid_4" type="button" class=" btn-grid-4" data-bs-toggle="tooltip"
                                 title="4">
                         </button>
-
                         <button data-role="grid_list" type="button" class="active btn-list" data-bs-toggle="tooltip"
                                 title="List">
                         </button>
-                    </div>
-                    <div class=" niceselect_option">
-                        <form class="select_option" action="#">
-                            <select name="orderby" id="short">                              
-                                <option value="4">Sort by price: low to high</option>
-                                <option value="5">Sort by price: high to low</option>                               
-                            </select>
-                        </form>
-                    </div>
-                    <div class="page_amount">
-                        <p>Showing 1–9 of 21 results</p>
-                    </div>
+                    </div>                                  
                 </div>
                 <!--shop toolbar end-->
                 <div class="row shop_wrapper grid_list">
@@ -113,7 +112,7 @@
                                     </div>
                                     <div class="product_content grid_content">
                                         <div class="product_price_rating">
-                                            <div class="product_rating">
+                                        @*    <div class="product_rating">
                                                 <ul>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
@@ -121,7 +120,7 @@
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                     <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 </ul>
-                                            </div>
+                                            </div>*@
                                             <h4 class="product_name">
                                                 <a href="product-details.html">
 
@@ -137,7 +136,7 @@
                                         </div>
                                     </div>
                                     <div class="product_content list_content">
-                                        <div class="product_rating">
+                                      @*  <div class="product_rating">
                                             <ul>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
@@ -145,7 +144,7 @@
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                                 <li><a href="#"><i style="color:orange" class="fa-solid fa-star"></i></a></li>
                                             </ul>
-                                        </div>
+                                        </div>*@
                                         <h4 class="product_name">
                                             <a href="product-details.html">@item.Name</a>
                                         </h4>
@@ -179,9 +178,23 @@
                     }
                 </div>
 
-          
-                <!--shop toolbar end-->
-                <!--shop wrapper end-->
+                <div class="shop_toolbar t_bottom">
+
+                    <div>
+                        @Html.PagedListPager(Model, page=>Url.Action("Search", "Home", new {@searchString = ViewBag.searchString, @minPrice= ViewBag.MinPrice, @maxPrice=ViewBag.MaxPrice, @orderSort = ViewBag.OrderSort , page = page,}),  new PagedListRenderOptions()
+                        {
+                        ActiveLiElementClass = "active",
+                        PageClasses = new[]{ "page-link"},
+                        LiElementClasses=new[] { "page-item" },
+                        UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+                        LinkToNextPageFormat = "Next",
+                        LinkToPreviousPageFormat = "Previous",
+                        MaximumPageNumbersToDisplay = 5,
+                        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                        DisplayLinkToNextPage = PagedListDisplayMode.Always
+                        } )
+                    </div>
+                </div>              
             </div>
         </div>
     </div>
