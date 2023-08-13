@@ -20,11 +20,11 @@
     </div>
 </div>
 <div class="card">
-    
+
 
     <div class="tab-content p-4">
         <div class="tab-pane fade show active" id="allTab">
-            
+
 
             <div class="d-flex align-items-center mb-3">
                 <div>
@@ -32,13 +32,13 @@
                 </div>
                 @{
                     var pagingModel = new PagingModel()
-                    {
-                        currentPage = ViewBag.currentPage,
-                        countPages = ViewBag.countPages,
-                        generateUrl = (int? p) => @Url.Page("", new { p = p })
-                    };
+            {
+                currentPage = ViewBag.currentPage,
+                countPages = ViewBag.countPages,
+                generateUrl = (int? p) => @Url.Page("", new { p = p })
+            };
                 }
-                
+
             </div>
             <partial name="_Paging" model="@pagingModel" />
 
@@ -59,196 +59,193 @@
                     <div style=" padding: 0.5rem!important;" class="tab-content ">
                         <div class="tab-pane fade show active mx-3" id="ActiveTab" style="margin-top:30px;">
                             <div class="input-group mb-4">
-                               
                             </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Name)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    Type
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Price)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.BasePrice)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    Inventory
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Discount)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Description)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.ImageUrl)
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
+                            <div class="table-responsive">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.Name)
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                Type
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.Price)
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.BasePrice)
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                Inventory
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.Discount)
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.Description)
+                                            </th>
+                                            <th class="border-top-0 pt-0 pb-2">
+                                                @Html.DisplayNameFor(model => model.ImageUrl)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
                                             var count1 = 1;
-                                            }
-                                            @foreach (var x in ViewBag.Active)
-                                            {
-                                                <tr>
-                                                    @if (x.Id != null)
-                                                    {
-                                                        <td class="align-middle">@(count1++)</td>
-                                                    }
-                                                    <td class="align-middle">@x.Name</td>
-                                                    <td class="align-middle">@x.TypeProduct</td>
-                                                    <td class="align-middle">@x.Price</td>
-                                                    <td class="align-middle">@x.BasePrice</td>
-                                                    <td class="align-middle">@x.InventoryQuantity</td>
-                                                    <td class="align-middle">
-                                                        @x.Discount.Name
-                                                    </td>
-                                                    <td class="align-middle">
-                                                       <button class="btn btn-info btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
-                                                    </td>
-                                                    <td>
-                                                        <img src="@x.ImageUrl" width="100px">
-                                                    </td>
-                                                    <td class="align-middle">
-                                                        <button class="btn btn-warning btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a></button>
-                                                        <button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a></button>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        }
+                                        @foreach (var x in ViewBag.Active)
+                                        {
+                                            <tr>
+                                                @if (x.Id != null)
+                                                {
+                                                    <td class="align-middle">@(count1++)</td>
+                                                }
+                                                <td class="align-middle">@x.Name</td>
+                                                <td class="align-middle">@x.TypeProduct</td>
+                                                <td class="align-middle">@x.Price</td>
+                                                <td class="align-middle">@x.BasePrice</td>
+                                                <td class="align-middle">@x.InventoryQuantity</td>
+                                                <td class="align-middle">
+                                                    @x.Discount.Name
+                                                </td>
+                                                <td class="align-middle">
+                                                    <button class="btn btn-info btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
+                                                </td>
+                                                <td>
+                                                    <img src="@x.ImageUrl" width="100px">
+                                                </td>
+                                                <td class="align-middle">
+                                                    <button class="btn btn-warning btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-edit text-white text-decoration-none">Edit</a></button>
+                                                    <button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="modal-delete text-white text-decoration-none">Delete</a></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <div class="d-md-flex align-items-center">
-                                
-                                   
-                                </div>
+                            <div class="d-md-flex align-items-center">
                             </div>
                         </div>
-                        </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="tab-content p-4">
-                    <div class="tab-pane fade" id="BannedTab">
-            <div class="input-group mb-4">
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div role="separator" class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-                <div class="flex-fill position-relative z-1">                  
-                </div>
-                </div>
-                        <div class="tab-pane fade show active" id="BannedTab">
-                                <div class="table-responsive">
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Name)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    Type
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Price)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.BasePrice)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    Inventory
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Discount)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.Description)
-                                                </th>
-                                                <th class="border-top-0 pt-0 pb-2">
-                                                    @Html.DisplayNameFor(model => model.ImageUrl)
-                                                </th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+            <div class="tab-content p-4">
+                <div class="tab-pane fade" id="BannedTab">
+                    <div class="input-group mb-4">
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                        <div class="flex-fill position-relative z-1">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show active" id="BannedTab">
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Name)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            Type
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Price)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.BasePrice)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            Inventory
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Discount)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.Description)
+                                        </th>
+                                        <th class="border-top-0 pt-0 pb-2">
+                                            @Html.DisplayNameFor(model => model.ImageUrl)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     @{
                                         var count2 = 1;
                                     }
-                                            @foreach (var x in ViewBag.Deleted)
+                                    @foreach (var x in ViewBag.Deleted)
+                                    {
+                                        <tr>
+                                            @if (x.Id != null)
                                             {
-                                                <tr>
-                                                    @if (x.Id != null)
-                                                    {
-                                                        var count = 1;
-                                                        <td class="align-middle">@(count2++)</td>
-                                                    }
-                                                    <td class="align-middle">@x.Name</td>
-                                                    <td class="align-middle">@x.TypeProduct</td>
-                                                    <td class="align-middle">@x.Price</td>
-                                                    <td class="align-middle">@x.BasePrice</td>
-                                                    <td class="align-middle">@x.InventoryQuantity</td>
-                                                    <td class="align-middle">
-                                                        @x.Discount.Name
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
-
-                                                    </td>
-                                                    <td>
-                                                        <img src="@x.ImageUrl" width="100px">
-                                                    </td>
-                                                    <td>
-                                                    <button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3"><a asp-action="Active" asp-route-id="@x.Id">Active</a></button>
-                                                    </td>
-                                                </tr>
+                                                var count = 1;
+                                                <td class="align-middle">@(count2++)</td>
                                             }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            <td class="align-middle">@x.Name</td>
+                                            <td class="align-middle">@x.TypeProduct</td>
+                                            <td class="align-middle">@x.Price</td>
+                                            <td class="align-middle">@x.BasePrice</td>
+                                            <td class="align-middle">@x.InventoryQuantity</td>
+                                            <td class="align-middle">
+                                                @x.Discount.Name
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3" type="button"><a data-id="@x.Id" class="open-modal-button text-white text-decoration-none">Details</a></button>
 
-                                <div class="d-md-flex align-items-center">
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-
-
-
-                        <div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog  modal-lg" role="document">
-                                <div class="modal-content">
-                                    <!-- Modal Header -->
-                                    <div class="modal-header text-center">
-                                        <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div id="modal-content"></div>
-                                    </div>
+                                            </td>
+                                            <td>
+                                                <img src="@x.ImageUrl" width="100px">
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger btn-sm btn-rounded buttonDelete waves-effect waves-light py-2 px-3"><a asp-action="Active" asp-route-id="@x.Id">Active</a></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
 
-
-                            </div>
+                        <div class="d-md-flex align-items-center">
                         </div>
-
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class=" modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <img src="/images/logo/Logo.png" class="img-fluid" style="max-width: 200px;" />
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
 
 
                 </div>
@@ -256,54 +253,57 @@
             </div>
 
 
-            <script>
-                //js xem detail
-                $(document).ready(function () {
-                    $(".open-modal-button").click(function () {
-                        var id = $(this).data("id");
-                        $.ajax({
-                            url: "Products/Details", // Đường dẫn đến action Details
-                            type: "GET",
-                            data: { id: id },
-                            success: function (data) {
-                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                                $("#myModal").modal("show"); // Mở cửa sổ popup
-                            }
-                        });
-                    });
-                });
+<script>
+    //js xem detail
+    $(document).ready(function () {
+        $(".open-modal-button").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Products/Details", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
 
-                //js edit
-                $(document).ready(function () {
-                    $(".modal-edit").click(function () {
-                        var id = $(this).data("id");
-                        $.ajax({
-                            url: "Products/Edit", // Đường dẫn đến action Details
-                            type: "GET",
-                            data: { id: id },
-                            success: function (data) {
-                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                                $("#myModal").modal("show"); // Mở cửa sổ popup
-                            }
-                        });
-                    });
-                });
+    //js edit
+    $(document).ready(function () {
+        $(".modal-edit").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Products/Edit", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
 
-                //js delete
-                $(document).ready(function () {
-                    $(".modal-delete").click(function () {
-                        var id = $(this).data("id");
-                        $.ajax({
-                            url: "Products/Delete", // Đường dẫn đến action Details
-                            type: "GET",
-                            data: { id: id },
-                            success: function (data) {
-                                $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
-                                $("#myModal").modal("show"); // Mở cửa sổ popup
-                            }
-                        });
-                    });
-                });
+    //js delete
+    $(document).ready(function () {
+        $(".modal-delete").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                url: "Products/Delete", // Đường dẫn đến action Details
+                type: "GET",
+                data: { id: id },
+                success: function (data) {
+                    $("#modal-content").html(data); // Hiển thị nội dung trong cửa sổ popup
+                    $("#myModal").modal("show"); // Mở cửa sổ popup
+                }
+            });
+        });
+    });
 
-            </script>
+</script>
+
+
+
 

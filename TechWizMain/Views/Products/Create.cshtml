@@ -37,8 +37,8 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="fw-700 fs-16 form-label" asp-for="CreatedDate"></label>
-									<input asp-for="CreatedDate" class="form-control">
-									<span asp-validation-for="CreatedDate" class="text-danger"></span>
+									<input asp-for="CreatedDate" class="form-control" id="createdate">
+									<span asp-validation-for="CreatedDate" class="text-danger" id="errcreateddate"></span>
 								</div>
 							</div>
 							<!--/span-->
@@ -100,7 +100,7 @@
 						</div>
 						<div class="product-img text-start">
 							<div class="input-group my-3">
-								<label class="input-group-text btn-primary fw-700 fs-16 form-label" for="formFile">Image</label>
+								<label class="input-group-text btn-primary fw-700 fs-16 form-label" for="formFile"></label>
 								<input type="file" class="form-control" id="formFile" name="formFile" required>
 							</div>
 						</div>
@@ -121,15 +121,33 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+	<script>
+		$(document).ready(function () {
+			$('#createdate').blur(function () {
+				var currentDate = new Date();
+				var createdDate = new Date($('#createdate').val());
+
+				if (createdDate < currentDate) {
+					// Display error message
+					$('#errcreateddate').text('The date and time must not be less than the current date and time.');
+				} else {
+					$('#errcreateddate').text('');
+				}
+			});
+		});
+	</script>
+
+
 	<script>
 		$(document).ready(function () {
 			$('#createForm').submit(function (e) {
 				e.preventDefault();
-
+				var formData = new FormData(this);
 				$.ajax({
 					type: "POST",
 					url: $(this).attr('action'),
-					data: $(this).serialize(),
+					data: formData,
 					success: function (data) {
 						if (data.success) {
 							// Display SweetAlert2 success message with confirmation
@@ -154,6 +172,7 @@
 								text: 'Add new product failed. Please try again later.'
 							});
 						}
+						
 					}
 				});
 			});

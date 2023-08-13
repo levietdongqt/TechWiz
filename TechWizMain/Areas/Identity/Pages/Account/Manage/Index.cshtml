@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "My Account";
+    ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 <style>
@@ -9,27 +9,10 @@
         margin-bottom: 12px;
     }
 </style>
-<!--breadcrumbs area start-->
-    <div class="breadcrumbs_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content">
-                        <h3>@ViewData["Title"]</h3>
-                        <ul>
-                            <li><a asp-controller="Home" asp-action="Index">home</a></li>
-                            <li>My account</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--breadcrumbs area end-->
-
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <h3 class="text-center">@ViewData["Title"]</h3>
             <partial class="text-center" name="_StatusMessage" for="StatusMessage" />
             <form id="profile-form" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,171 +21,26 @@
                     <label asp-for="Username" class="form-label"></label>
                 </div>
                 <div class="form-floating">
+                    <input asp-for="Input.FullName" class="form-control margin-bottom">
+                  <label asp-for="Input.FullName" class="form-label" ></label>
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
                     <input asp-for="Input.PhoneNumber" class="form-control margin-bottom" />
                     <label asp-for="Input.PhoneNumber" class="form-label"></label>
                     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Address" class="form-control margin-bottom" />
+                    <label asp-for="Input.Address" class="form-label"></label>
+                    <span asp-validation-for="Input.Address" class="text-danger"></span>
                 </div>
                 <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
             </form>
         </div>
     </div>
+
 </div>
-
- <section class="main_content_area">
-        <div class="container">
-            <div class="account_dashboard">
-                <div class="row">
-                    <div class="col-sm-12 col-md-3 col-lg-3">
-                        <!-- Nav tabs -->
-                        <div class="dashboard_tab_button">
-                            <ul role="tablist" class="nav flex-column dashboard-list">
-                                <li><a href="#account-details" data-bs-toggle="tab" class="nav-link active">Account details</a></li>
-                                <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                                <li><a href="#downloads" data-bs-toggle="tab" class="nav-link">Downloads</a></li>
-                                <li><a href="#address" data-bs-toggle="tab" class="nav-link">Addresses</a></li>
-                                <li><a href="login.html" class="nav-link">logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-9 col-lg-9">
-                        <!-- Tab panes -->
-                        <div class="tab-content dashboard_content">
-                            <div class="tab-pane fade show active" id="account-details">
-                                 <h3>Profile </h3>
-                                <div class="login">
-                                    <div class="login_form_container">
-                                        <div class="account_login_form">
-                                             <partial class="text-center" name="_StatusMessage" for="StatusMessage" />
-                                             <form id="profile-form" method="post">
-                                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                 <label>UserName</label>
-                                                 <input asp-for="Username" disabled="">
-                                                 <label>Full Name</label>
-                                                 <input type="text" name="last-name">
-                                                 <label>Email</label>
-                                                 <input type="text" name="email-name">
-                                                 <label>Password</label>
-                                                 <input type="password" name="user-password">
-                                                 <label>Birthdate</label>
-                                                 <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
-                                                 <span class="example">
-                                                     (E.g.: 05/31/1970)
-                                                 </span>
-                                                 <br>
-                                                 <span class="custom_checkbox">
-                                                     <input type="checkbox" value="1" name="optin">
-                                                     <label>Receive offers from our partners</label>
-                                                 </span>
-                                                 <br>
-                                                 <span class="custom_checkbox">
-                                                     <input type="checkbox" value="1" name="newsletter">
-                                                     <label>Sign up for our newsletter<br>
-                                                         <em>You may unsubscribe at any
-                                                             moment. For that purpose, please find our contact info in
-                                                             the legal notice.</em></label>
-                                                 </span>
-                                                 <div class="save_button primary_btn default_button">
-                                                     <button type="submit">Save</button>
-                                                 </div>
-                                             </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="orders">
-                                <h3>Orders</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Order</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>May 10, 2018</td>
-                                                <td><span class="success">Completed</span></td>
-                                                <td>$25.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>May 10, 2018</td>
-                                                <td>Processing</td>
-                                                <td>$17.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="downloads">
-                                <h3>Downloads</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Downloads</th>
-                                                <th>Expires</th>
-                                                <th>Download</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Shopnovilla - Free Real Estate PSD Template</td>
-                                                <td>May 10, 2018</td>
-                                                <td><span class="danger">Expired</span></td>
-                                                <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Organic - ecommerce html template</td>
-                                                <td>Sep 11, 2018</td>
-                                                <td>Never</td>
-                                                <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="address">
-                                <p>The following addresses will be used on the checkout page by default.</p>
-                                <h4 class="billing-address">Billing address</h4>
-                                <a href="#" class="view">Edit</a>
-                                <p><strong>Bobby Jackson</strong></p>
-                                <address>
-                                    <span><strong>City:</strong> Seattle</span>,
-                                    <br>
-                                    <span><strong>State:</strong> Washington(WA)</span>,
-                                    <br>
-                                    <span><strong>ZIP:</strong> 98101</span>,
-                                    <br>
-                                    <span><strong>Country:</strong> USA</span>
-                                </address>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- my account end   -->
-
-
-
-
-
-
-
-
-
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

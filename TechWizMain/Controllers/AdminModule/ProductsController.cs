@@ -20,10 +20,7 @@ namespace TechWizMain.Controllers.AdminModule
         private readonly IProductService _productService;
         [TempData]
         public string StatusMessage { get; set; }
-
         private const int ITEM_PER_PAGE = 5;
-
-
         [BindProperty(SupportsGet = true, Name = "p")]
         public int currentPage { get; set; }
         public int countPages { get; set; }
@@ -71,6 +68,27 @@ namespace TechWizMain.Controllers.AdminModule
         // GET: Products/Details/5
         [Route("Products/Details")]
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Products == null)
+            {
+                return NotFound();
+            }   
+
+            var product = await _context.Products
+                .Include(p => p.Discount)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        // GET: Products/Details/5
+        [Route("Products/ProductDetails")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ProductDetails(int? id)
         {
             if (id == null || _context.Products == null)
             {
@@ -161,7 +179,6 @@ namespace TechWizMain.Controllers.AdminModule
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Route("Products/Edit")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, Product product, IFormFile? formFile, string DiscountName)
         {
             if (id != product.Id)

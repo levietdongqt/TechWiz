@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace TechWizMain.Models
 {
     [Table("ProductBill")]
+    [Serializable]
     public partial class ProductBill
     {
         [Key]
