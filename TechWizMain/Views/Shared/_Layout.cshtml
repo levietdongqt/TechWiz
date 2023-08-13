@@ -47,39 +47,21 @@
             <div class="row">
                 <div class="col-12">
                     <div class="canvas_open">
-                        <a href="javascript:void(0)"><i class="icon-menu"></i></a>
+                        <a href="javascript:void(0)"><i class="fa-solid fa-bars"></i></a>
                     </div>
                     <div class="offcanvas_menu_wrapper">
                         <div class="canvas_close">
-                            <a href="javascript:void(0)"><i class="icon-x"></i></a>
+                            <a href="javascript:void(0)"><i class="fa-solid fa-x"></i></a>
                         </div>
                         <div class="welcome-text">
                             <p>Free Delivery: Take advantage of our time to save event</p>
-                        </div>
-                        <div class="language_currency text-center">
-                            <ul>
-                                <li class="currency"><a href="#"> USD <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">EUR</a></li>
-                                        <li><a href="#">GPB</a></li>
-                                        <li><a href="#">RUP</a></li>
-                                    </ul>
-                                </li>
-                                <li class="language"><a href="#"> English <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#">French</a></li>
-                                        <li><a href="#">Spanish</a></li>
-                                        <li><a href="#">Russian</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        </div>                        
                         <div class="search_container">
-                            <form asp-action="ProductList" asp-controller="Home" method="GET" asp-action="Search" asp-route-searchString="" asp-route-minPrice="" asp-route-maxPrice=""
+                            <form asp-action="Search" asp-controller="Home" method="GET" asp-route-searchString="" asp-route-minPrice="" asp-route-maxPrice=""
                                   asp-route-orderSort="price-asc">
                                 <div class="search_box">
                                     <input placeholder="Search product..." type="text" name="searchString">
-                                    <button type="submit"><i class="icon-search"></i></button>
+                                    <button type="submit"><i class="fas fa-search"></i></button>
                                 </div>
                             </form>
                         </div>
@@ -92,32 +74,44 @@
                                     <a asp-action="Index" asp-controller="Home">Home</a>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a asp-action="ShopList" asp-controller="Home">Shop</a>
+                                    <a >Shop</a>
                                     <ul class="sub-menu">
                                         <li class="menu-item-has-children"> 
-                                            <a href="#">Shop Layouts</a>
+                                            <a href="#">Plants</a>
                                             <ul class="sub-menu">
-                                                <li><a href="shop.html">shop</a></li>
-                                                <li><a href="shop-fullwidth.html">Full Width</a></li>
-                                                <li><a href="shop-fullwidth-list.html">Full Width list</a></li>
-                                                <li><a href="shop-right-sidebar.html">Right Sidebar </a></li>
-                                                <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
-                                                <li><a href="shop-list.html">List View</a></li>
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=1 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Flowering</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=2 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Non-flowering</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=3 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Indoor</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=4 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Outdoor</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=5 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Succulents</a>
+                                                </li>
                                             </ul>
-                                        </li>                                                                         
+                                        </li> 
+                                         <li class="menu-item-has-children"> 
+                                            <a href="#">Accessories</a>
+                                            <ul class="sub-menu">
+                                                <li>
+                                                    <a asp-action="ProductByCategory" asp-controller="Home" asp-route-id=6 asp-route-minPrice="" asp-route-maxPrice=""
+                                                       asp-route-orderSort="price-asc">Medicinal and so on</a>
+                                                </li>                                               
+                                            </ul>
+                                        </li> 
                                     </ul>
                                 </li>                               
-                            </ul>
-                        </div>
-
-                        <div class="offcanvas_footer">
-                            <span><a href="#"><i class="fa fa-envelope-o"></i> demo@example.com</a></span>
-                            <ul>
-                                <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li class="pinterest"><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                                <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -259,7 +253,7 @@
                                         <nav>
                                             <ul>
                                                 <li><a class="active" asp-action="Index" asp-controller="Home">home</a></li>
-                                                <li class="mega_items"><a asp-controller="Home" asp-action="ShopList">shop</a></li>
+                                               @* <li class="mega_items"><a asp-controller="Home" asp-action="ShopList">shop</a></li>*@
                                                 <li><a asp-action="Contact" asp-controller="Home" > Contact Us</a></li>
                                             </ul>
                                         </nav>
@@ -356,11 +350,10 @@
                             <h3>Customer Service</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a a asp-action="Contact" asp-controller="Home">Contact Us</a></li>
                                     <li><a href="#">Terms of use</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="contact.html">Site Map</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
+                                    <li><a href="contact.html">Site Map</a></li>                                    
                                     <li><a href="#">Returns</a></li>
                                 </ul>
                             </div>

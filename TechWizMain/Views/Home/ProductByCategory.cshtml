@@ -92,7 +92,7 @@
                                         <div class="label_product">
                                             <span class="label_sale">@item.Discount.Name</span>
                                         </div>
-                                        <div class="action_links">
+                                    @*    <div class="action_links">
                                             <ul>
                                                 <li class="add_to_cart">
                                                     <a href="cart.html" title="Add to cart">
@@ -100,17 +100,17 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <div class="action_links list_action">
+                                        </div>*@
+                                     @*   <div class="action_links list_action">
                                             <ul>
-                                                @* <li class="quick_button">
+                                                <li class="quick_button">
                                             <a href="#" data-bs-toggle="modal"
                                             data-bs-target="#modal_box" title="quick view">
                                             <i class="icon-eye"></i>
                                             </a>
-                                            </li>*@
+                                            </li>
                                             </ul>
-                                        </div>
+                                        </div>*@
                                     </div>
                                     <div class="product_content grid_content">
                                         <div class="product_price_rating">
@@ -124,7 +124,7 @@
                                                 </ul>
                                             </div>*@
                                             <h4 class="product_name">
-                                                <a href="product-details.html">
+                                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
                                                     @item.Name
                                                 </a>
                                             </h4>
@@ -148,7 +148,7 @@
                                             </ul>
                                         </div>*@
                                         <h4 class="product_name">
-                                            <a href="#">@item.Name</a>
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
                                         </h4>
                                         <div class="price_box">
                                             @{
@@ -163,7 +163,7 @@
                                                 @item.Description
                                             </p>
                                         </div>
-                                        <div class="action_links list_action_right">
+                                       @* <div class="action_links list_action_right">
                                             <ul>
                                                 <li class="add_to_cart">
                                                     <a href="#" title="Add to cart">
@@ -173,7 +173,7 @@
                                                 </li>
 
                                             </ul>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </figure>
                             </article>

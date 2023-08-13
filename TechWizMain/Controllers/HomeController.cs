@@ -378,8 +378,9 @@ namespace TechWizMain.Controllers
         public async Task<IActionResult> ShopList()
         {
             var Product = await _context.Products.ToListAsync();
+           
             ViewData["Products"] = Product;
-            return View();
+            return View(Product);
         }
 
         public IActionResult Privacy()
