@@ -1,7 +1,13 @@
 ﻿$(document).ready(function () {
     $(".addToCartButton").click(function () {
         var productId = $(this).data("product-id");
+<<<<<<< HEAD
         var salePrice = $(this).data("product-price");
+=======
+        var price = $(this).data("product-price");
+        var discount = $(this).data("product-discount");
+        var salePrice = price * (1 - discount);
+>>>>>>> master
         var url2 = "/addToCart/" + productId + "/" + 1 + "/" + salePrice;
         // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng Lấy Id sản phẩm từ mô hình
         // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng

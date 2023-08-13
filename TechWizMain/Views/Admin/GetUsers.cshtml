@@ -178,45 +178,7 @@
 				e.preventDefault();
 
 				// Hiển thị thông báo xác nhận
-				Swal.fire({
-					icon: 'warning',
-					title: 'Confirm',
-					text: 'Are you sure you want to be banned?',
-					showCancelButton: true,
-					confirmButtonText: 'Agree',
-					cancelButtonText: 'Cancel',
-					confirmButtonColor: '#d33',
-				}).then((result) => {
-					if (result.isConfirmed) {
-						// Nếu người dùng đồng ý, gửi yêu cầu AJAX
-						$.ajax({
-							type: 'POST',
-							url: $('#bannedForm').attr('action'),
-							data: $('#bannedForm').serialize(),
-							success: function (data) {
-								// Hiển thị thông báo thành công
-								Swal.fire({
-									icon: 'success',
-									title: 'Success',
-									text: 'Banned Success',
-									showConfirmButton: false,
-									timer: 1500
-								}).then(() => {
-									// Tải lại trang sau khi đóng thông báo
-									window.location.href = '/Admin/Users';
-								});
-							},
-							error: function () {
-								// Hiển thị thông báo lỗi
-								Swal.fire({
-									icon: 'error',
-									title: 'Error',
-									text: 'Banned failed. Please try again later.',
-								});
-							}
-						});
-					}
-				});
+				
 			});
 		});
 	</script>
