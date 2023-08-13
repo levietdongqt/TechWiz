@@ -1,4 +1,4 @@
-﻿
+﻿    
 // Select the cart container
 const cartContainer = document.getElementById('targetElement');
 
@@ -52,30 +52,37 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(document).on("click", ".deleteFromCart",function (e) {
         e.preventDefault();
+        console.log("skjhfkdsjhkfjdsh");
         var productBillId = $(this).data("product-id");
-        console.log("PDD:  " + productBillId);
-        var url2 = "/DeteleFromCart/" + productBillId;
-        console.log("Vô 333333333");
+        var url2 = "DeleteFromCart/" + productBillId;
         $.ajax({
             type: "Get",
             url: url2,
             contentType: false,
             processData: false,
             data: $(this).serialize(),
-            success: function (response) {
-                if (response.success) {
+            success: function (data) {
+                if (data.success) {
+                    // Display SweetAlert2 success message with confirmation
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Product added to cart!',
-                        showConfirmButton: false,
-                        timer: 1500
+                        text: 'Add new product successfully!',
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        allowOutsideClick: false // Prevent closing on backdrop click
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to home page
+                            window.location.href = '/Admin/Products';
+                        }
                     });
                 } else {
+                    // Display SweetAlert2 error message
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'Failed to add product to cart. Please try again.',
+                        text: 'Add new product failed. Please try again later.'
                     });
                 }
             }
