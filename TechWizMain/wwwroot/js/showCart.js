@@ -1,4 +1,4 @@
-﻿
+﻿    
 // Select the cart container
 const cartContainer = document.getElementById('targetElement');
 

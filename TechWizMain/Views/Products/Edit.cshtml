@@ -108,6 +108,8 @@
                 type: "POST",
                 url: $(this).attr('action'),
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function (data) {
                     console.log(data);
                     if (data.success) {

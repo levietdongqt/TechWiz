@@ -148,6 +148,8 @@
 					type: "POST",
 					url: $(this).attr('action'),
 					data: formData,
+					contentType: false,
+					processData: false,
 					success: function (data) {
 						if (data.success) {
 							// Display SweetAlert2 success message with confirmation
