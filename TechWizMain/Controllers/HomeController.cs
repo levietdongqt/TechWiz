@@ -137,18 +137,9 @@ namespace TechWizMain.Controllers
             return View();
         }
 
-
-
-
-        public async Task<IActionResult> Search(string searchString)
-        }        
-
-            public async Task<IActionResult> Search(string searchString, int? page, string? orderSort, int? minPrice, int? maxPrice)
+        public async Task<IActionResult> Search(string searchString, int? page, string? orderSort, int? minPrice, int? maxPrice)
         {
 
-            //int pagesize = 3;
-            var list = await _context.Products.Include(dc => dc.Discount).Where(p => p.Name.Contains(searchString))
-                .ToListAsync();
             int pagesize = 3;
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             ViewBag.searchString = searchString;
@@ -160,29 +151,13 @@ namespace TechWizMain.Controllers
             var productListFilterSort = new List<Product>();
             var productListSort = new List<Product>();
 
-            if(minPrice == null&&maxPrice == null&&orderSort==null)
+            if (minPrice == null && maxPrice == null && orderSort == null)
             {
                 return View(list.ToPagedList(pageIndex, pagesize));
             }
 
 
 
-        public async Task<IActionResult> ProductByCategory1(int id, int page)
-        {
-            int pagesize = 3;
-            ViewBag.cateID = id;
-            int pageIndex = 1;
-            var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
-                .ThenInclude(dc => dc.Discount).FirstOrDefault(t => t.Id == id);
-            var CategoryProductsList = result.CategoryProducts;
-
-            var productList = new List<Product>();
-            var productListFilter = new List<Product>();
-            var productListFilterSort = new List<Product>();
-            foreach (var item in CategoryProductsList)
-            {
-                var product = item.Product;
-                productList.Add(product);
             if (minPrice == null || maxPrice == null)
             {
                 switch (orderSort)
@@ -199,7 +174,7 @@ namespace TechWizMain.Controllers
             else
             {
                 minPrice = 0;
-                List<Product>  productListFilter = list.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+                List<Product> productListFilter = list.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
                 switch (orderSort)
                 {
                     case "price-asc":
@@ -213,17 +188,14 @@ namespace TechWizMain.Controllers
             }
         }
 
-        public async Task<IActionResult> ProductByCategory(int id, int page, string orderSort, int? minPrice,
-            int? maxPrice)
-
-        public async Task<IActionResult> ProductByCategory(int id, string? orderSort, int? minPrice,   int? maxPrice, int? page)
+        public async Task<IActionResult> ProductByCategory(int id, string? orderSort, int? minPrice, int? maxPrice, int? page)
         {
             int pagesize = 3;
             int pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             ViewBag.cateID = id;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;
-            ViewBag.OrderSort = orderSort;                 
+            ViewBag.OrderSort = orderSort;
 
 
             var result = _context.Categories.Include(p => p.CategoryProducts).ThenInclude(pc => pc.Product)
@@ -271,8 +243,7 @@ namespace TechWizMain.Controllers
             }
         }
 
-        [Route("showCart")]
-        }        
+        [Route("showCart")]                
         public async Task<IActionResult> Cart()
         {
             IEnumerable<ProductBill> listCart = null;
