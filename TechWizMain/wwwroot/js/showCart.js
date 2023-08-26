@@ -13,7 +13,6 @@ function checkScroll() {
 
 // Initialize
 checkScroll();
-
 // Check when new item added
 cartContainer.addEventListener('DOMNodeInserted', checkScroll);
 
@@ -42,6 +41,7 @@ $(document).ready(function () {
                         + '</div>'
                         + '</div>'
                 }
+                $('#targetElement').empty();
                 //var html = '<div>' + data.Quantity + 'sdfdsf' + '</div>';
                 $('#targetElement').append(html);
 
@@ -90,3 +90,4 @@ $(document).ready(function () {
     });
 
 });
+

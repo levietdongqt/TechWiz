@@ -3,6 +3,7 @@ using TechWizMain.Areas.Identity.Data;
 using TechWizMain.Models;
 using TechWizMain.Repository.BillRepository;
 using TechWizMain.Repository.CategoryRepository;
+using TechWizMain.Repository.ProductBillRepository;
 
 namespace TechWizMain.Services.HomeService
 {
@@ -11,6 +12,7 @@ namespace TechWizMain.Services.HomeService
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBillRepository _billRepository;
         private readonly TechWizContext _context;
+        private readonly IProductBillRepository productBillRepository;
 
         public HomeService(ICategoryRepository categoryRepository, IBillRepository billRepository, TechWizContext context)
         {
@@ -18,9 +20,57 @@ namespace TechWizMain.Services.HomeService
             _billRepository = billRepository;
             _context = context;
         }
+
+        public async Task<int> CountCart(UserManager currentUser)
+        {
+            var result =await _context.Bills.Include(t => t.ProductBills).FirstOrDefaultAsync(p => p.UserId.Equals(currentUser.Id));
+            var count = 0;
+            result.ProductBills.ToList().ForEach(t =>
+            {
+                count += t.Quantity;
+            });
+            return count;
+
+        }
+
         public async Task<IEnumerable<Category>> GetAllCate()
         {
             return await _categoryRepository.GetAll();
+        }
+
+        public async Task<List<ProductResult>> getBestSellerProducts()
+        {
+            using (var context = new TechWizContext())
+            {
+                return await context.ProductBills
+               .GroupBy(pb => pb.ProductId)
+               .Select(g => new
+               {
+                   ProductId = g.Key,
+                   TotalQuantitySold = g.Sum(pb => pb.Quantity)
+               })
+               .OrderByDescending(result => result.TotalQuantitySold)
+               .Take(8)
+               .Join(context.Products, result => result.ProductId, product => product.Id, (result, product) => new
+               {
+                   Product = product,
+                   TotalQuantitySold = result.TotalQuantitySold
+               })
+               .Join(context.Discounts, productResult => productResult.Product.DiscountId, discount => discount.Id, (productResult, discount) => new
+               {
+                   Product = productResult.Product,
+                   TotalQuantitySold = productResult.TotalQuantitySold,
+                   Discount = discount
+               }).Select(result => new ProductResult
+               {
+                   Product = result.Product,
+                   TotalQuantitySold = result.TotalQuantitySold,
+                   Discount = result.Discount
+               }).ToListAsync();
+
+
+            }
+
         }
 
         public async Task<Bill> getBills(UserManager currentUser)
@@ -51,6 +101,42 @@ namespace TechWizMain.Services.HomeService
             }
 
             return bill;
+        }
+
+        public async Task<List<ProductResult>> getNewestProducts()
+        {
+            using (var context = new TechWizContext())
+            {
+                return await context.Products
+                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Plant"))
+                .OrderByDescending(p => p.CreatedDate)
+                .Take(8)
+                .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
+                {
+                    Product = product,
+                    Discount = discount
+                })
+                .ToListAsync();
+            } ;
+            
+        }
+
+        public async Task<List<ProductResult>> getNewestProductsAccessories()
+        {
+            using (var context = new TechWizContext())
+            {
+                return await context.Products
+               .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Accessories"))
+               .OrderByDescending(p => p.CreatedDate)
+               .Take(8)
+               .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
+               {
+                   Product = product,
+                   Discount = discount
+               })
+               .ToListAsync();
+            }
+               
         }
     }
 }

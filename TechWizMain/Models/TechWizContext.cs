@@ -29,7 +29,7 @@ namespace TechWizMain.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=DESKTOP-3FQ63QJ;Database=TechWiz;User ID=sa;Password=thuhuy;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server=tcp:nsqlserver1122.database.windows.net,1433;Initial Catalog=sem2_demo;Persist Security Info=False;User ID=admin1;Password=Aa123456!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

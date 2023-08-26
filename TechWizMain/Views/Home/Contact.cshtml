@@ -93,7 +93,6 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
     $(document).ready(function () {
         $('#contact-form').submit(function (e) {
             e.preventDefault();
-
             $.ajax({
                 type: "POST",
                 url: $(this).attr('action'),

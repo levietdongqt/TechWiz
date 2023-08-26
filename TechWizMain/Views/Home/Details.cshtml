@@ -33,7 +33,7 @@
                 <div class="product-details-tab">
                     <div id="img-1" class="zoomWrapper single-zoom">
                         <a href="#">
-                            <img id="zoom1" src="@Model.ImageUrl" 
+                            <img id="zoom1" src="@Model.ImageUrl"
                                  data-zoom-image=" src="@Model.ImageUrl" alt="big-1">
                         </a>
                     </div>
@@ -75,24 +75,24 @@
                         </div>
                         <div class="product_desc">
                             <p>
-                                @{
-                                    var description = Model.Description.ToString(); // Chuyển đối tượng StringHtmlContent thành chuỗi
-                                    var shortDescription = description.Length > 50 ? description.Substring(0, 50) + "..." : description;
-                                }
+                            @{
+                                var description = Model.Description.ToString(); // Chuyển đối tượng StringHtmlContent thành chuỗi
+                                var shortDescription = description.Length > 50 ? description.Substring(0, 50) + "..." : description;
+                            }
 
                                 <div id="descriptionContainer">
-                                    @if (description.Length > 50)
-                                    {
+                            @if (description.Length > 50)
+                            {
                                         <span id="shortDescription">@Html.Raw(shortDescription)</span>
                                         <span id="fullDescription" style="display: none;">@Html.Raw(description)</span>
                                         <a href="#" id="showFullDescription">See more</a>
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(description)
-                                    }
+                            }
+                            else
+                            {
+                                @Html.Raw(description)
+                            }
 
-                                    <a  href="#" id="hideFullDescription" style="display: none;">Collapse</a>
+                                    <a href="#" id="hideFullDescription" style="display: none;">Collapse</a>
                             </p>
                         </div>
 
@@ -110,8 +110,7 @@
 </div>
 <!--product details end-->
 <!--product info start-->
-
-@*REVIEW*@
+                            @*REVIEW*@
 <div class="product_d_info mb-90">
     <div class="container">
         <div class="row">
@@ -135,85 +134,90 @@
                                         <img src="assets/img/blog/comment2.jpg" alt="">
                                     </div>
                                     <div class="comment_text">
-                                    @foreach(var x in ViewBag.Reviews)
-                                    {
-                            <div class="reviews_meta">
-                                <div class="star_rating">
-                                    <ul>
-                                        
-                                                @for (int i = 0; i < x.Rating; i++)
-                                                {
-                                                    <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                                }
+                        @foreach (var x in ViewBag.Reviews)
+                        {
+                                            <div class="reviews_meta">
+                                                <div class="star_rating">
+                                                    <ul>
+
+                                        @for (int i = 0; i < x.Rating; i++)
+                                        {
+                                                            <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                                        }
                                                     </ul>
                                                 </div>
-                                                @{
-                                                    var user = await _userManager.FindByIdAsync(x.UserId);
-                                                }
-                                                
-                                                <p><strong>@user.UserName </strong>
-                                                - @x.ReviewDate</p>
+                                @{
+                                    var user = await _userManager.FindByIdAsync(x.UserId);
+                                }
+
+                                                <p>
+                                                    <strong>@user.UserName </strong>
+                                                    - @x.ReviewDate
+                                                </p>
                                                 <span>@x.Content</span>
                                             </div>
-                                    }
-                        
+                        }
+
                                     </div>
                                 </div>
                                 <div class="comment_title text-center">
                                     <h2>Add a review</h2>
                                 </div>
                                 <div>
-                                @if (SignInManager.IsSignedIn(User))
-                                {
-                                    var currentUser = _userManager.GetUserAsync(User).Result;
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var currentUser = _userManager.GetUserAsync(User).Result;
 
-                                    <div class="product_ratting mb-10">
-                                        <h3>Your rating</h3>
-                                    </div>
-                                    <div class="product_review_form">
+                                        <div class="product_ratting mb-10">
+                                            <h3>Your rating</h3>
+                                        </div>
+                                        <div class="product_review_form">
                                             <form asp-controller="Home" asp-action="InsertReview">
-                                            <div class="checkbox-group">
                                                 <div class="checkbox-group">
-                                                    <input type="checkbox" id="star1" class="star-checkbox" name="vehicle1" value="1">
-                                                    <label class="star-label" for="star1">&#9733;</label>
+                                                    <div class="checkbox-group">
+                                                        <input type="checkbox" id="star1" class="star-checkbox" name="vehicle1" value="1">
+                                                        <label class="star-label" for="star1">&#9733;</label>
 
-                                                    <input type="checkbox" id="star2" class="star-checkbox" name="vehicle1" value="2">
-                                                    <label class="star-label" for="star2">&#9733;</label>
+                                                        <input type="checkbox" id="star2" class="star-checkbox" name="vehicle1" value="2">
+                                                        <label class="star-label" for="star2">&#9733;</label>
 
-                                                    <input type="checkbox" id="star3" class="star-checkbox" name="vehicle1" value="3">
-                                                    <label class="star-label" for="star3">&#9733;</label>
+                                                        <input type="checkbox" id="star3" class="star-checkbox" name="vehicle1" value="3">
+                                                        <label class="star-label" for="star3">&#9733;</label>
 
-                                                    <input type="checkbox" id="star4" class="star-checkbox" name="vehicle1" value="4">
-                                                    <label class="star-label" for="star4">&#9733;</label>
+                                                        <input type="checkbox" id="star4" class="star-checkbox" name="vehicle1" value="4">
+                                                        <label class="star-label" for="star4">&#9733;</label>
 
-                                                    <input type="checkbox" id="star5" class="star-checkbox" name="vehicle1" value="5">
-                                                    <label class="star-label" for="star5">&#9733;</label>
+                                                        <input type="checkbox" id="star5" class="star-checkbox" name="vehicle1" value="5">
+                                                        <label class="star-label" for="star5">&#9733;</label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                 <div class="col-12">
-                                                    <input name="ProductId" id="review_comment" value="@Model.Id" type="hidden" />
-                                                   <input name="UserId" id="review_comment" value="@currentUser.Id" type="hidden"/>
-                                                 </div>
-                                                <div class="col-12">
-                                                    <label for="review_comment">Your review</label>
-                                                    <textarea name="content" id="review_comment"></textarea>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="author">Name</label>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <input name="ProductId" id="review_comment" value="@Model.Id" type="hidden" />
+                                                        <input name="UserId" id="review_comment" value="@currentUser.Id" type="hidden" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="review_comment">Your review</label>
+                                                        <textarea name="content" id="review_comment"></textarea>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label for="author">Name</label>
                                                         <input id="author" type="text" value="@currentUser.FullName">
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label for="email">Email</label>
+                                                        <input id="email" type="text" value="@currentUser.Email">
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="email">Email</label>
-                                                    <input id="email" type="text" value="@currentUser.Email">
-                                                </div>
-                                            </div>
-                                            <button type="submit">Submit</button>
-                                        </form>
-                                    </div>
-                                    }else{
-                                    <h2 class="text-center"><a href="/Identity/Account/Login">Please Login to Review</a></h2>
-                                    }                            
+                                                <button type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                    }
+                    else
+                    {
+                                        <h2 class="text-center"><a href="/Identity/Account/Login">Please Login to Review</a></h2>
+                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -221,83 +225,93 @@
             </div>
         </div>
     </div>
-</div>
 
 
 @*ajax add card*@
-<script>
-    $(document).ready(function () {
-        $("#addToCartButton").click(function () {
-            var quantity = $("#quantityInput").val();
-            var productId = "@Model.Id"; // Lấy Id sản phẩm từ mô hình
-            var salePrice = "@Model.BasePrice";
-            var url2 = "/addToCart/" + productId + "/" + quantity + "/" + salePrice;
-            // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
-            $.ajax({
-                type: "get",
-                url: url2, // Đường dẫn đến action xử lý thêm vào giỏ hàng
-                success: function (response) {
-                    // Xử lý khi yêu cầu thành công
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Product added to cart!',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else {
+    <script>
+        $(document).ready(function () {
+            $("#addToCartButton").click(function () {
+                var quantity = $("#quantityInput").val();
+                var productId = "@Model.Id"; // Lấy Id sản phẩm từ mô hình
+                var salePrice = "@Model.BasePrice";
+                var url2 = "/addToCart/" + productId + "/" + quantity + "/" + salePrice;
+                // Gửi yêu cầu AJAX đến server để thêm sản phẩm vào giỏ hàng
+                $.ajax({
+                    type: "get",
+                    url: url2, // Đường dẫn đến action xử lý thêm vào giỏ hàng
+                    success: function (response) {
+                        // Xử lý khi yêu cầu thành công
+                        if (response.success) {
+                            countCart();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'Product added to cart!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to add product to cart. Please try again.',
+                            });
+                        }
+                    },
+                    error: function () {
+                        // Xử lý khi yêu cầu thất bại
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Failed to add product to cart. Please try again.',
+                            text: 'An error occurred. Please try again later.',
                         });
                     }
-                },
-                error: function () {
-                    // Xử lý khi yêu cầu thất bại
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred. Please try again later.',
-                    });
-                }
+                });
             });
         });
-    });
-</script>
+        const countCart = () => {
+            $.ajax({
+                type: "POST",
+                url: "/CountCart",
+                success: (response) => {
+                    var count = response.count;
+                    $("#item_count").text(count);
+                }
+            })
+        };
+    </script>
 
 @*
-ẩn mo ta*@
-<script>
-    $(document).ready(function () {
-        $("#showFullDescription").click(function () {
-            $("#shortDescription").hide();
-            $("#fullDescription").show();
-            $("#showFullDescription").hide();
-            $("#hideFullDescription").show();
-        });
+    ẩn mo ta*@
+    <script>
+        $(document).ready(function () {
+            $("#showFullDescription").click(function () {
+                $("#shortDescription").hide();
+                $("#fullDescription").show();
+                $("#showFullDescription").hide();
+                $("#hideFullDescription").show();
+            });
 
-        $("#hideFullDescription").click(function () {
-            $("#fullDescription").hide();
-            $("#shortDescription").show();
-            $("#hideFullDescription").hide();
-            $("#showFullDescription").show();
+            $("#hideFullDescription").click(function () {
+                $("#fullDescription").hide();
+                $("#shortDescription").show();
+                $("#hideFullDescription").hide();
+                $("#showFullDescription").show();
+            });
         });
-    });
 
 
         const ratingStars = document.querySelectorAll('#ratingStars li a');
 
-    ratingStars.forEach(star => {
-        star.addEventListener('click', function (event) {
-            event.preventDefault();
-            const selectedStar = parseInt(this.getAttribute('data-star'));
+        ratingStars.forEach(star => {
+            star.addEventListener('click', function (event) {
+                event.preventDefault();
+                const selectedStar = parseInt(this.getAttribute('data-star'));
 
-            // Xử lý logic khi người dùng đánh giá sao ở mức selectedStar
+                // Xử lý logic khi người dùng đánh giá sao ở mức selectedStar
 
-            // Ví dụ: Hiển thị thông báo
-            alert(`Bạn đã đánh giá ${selectedStar} sao`);
+                // Ví dụ: Hiển thị thông báo
+                alert(`Bạn đã đánh giá ${selectedStar} sao`);
+            });
         });
-    });
-</script>
+    </script>
