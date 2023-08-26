@@ -52,69 +52,20 @@ namespace TechWizMain.Controllers
             _categoryService = categoryService;
             SubjectEmail = "Thank You for Your Feedback,";
         }
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             // Lấy danh sách sản phẩm mới nhất
-            var newestProducts = await _context.Products
-                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Plant"))
-                .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
-                .Join(_context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
-                {
-                    Product = product,
-                    Discount = discount
-                })
-                .ToListAsync();
+            var newestProducts = _homeService.getNewestProducts();
+            var newestProductsAccessories = _homeService.getNewestProductsAccessories();
+            var bestSellerProducts = _homeService.getBestSellerProducts();
+            var CategoryList = _context.Categories.ToListAsync();
+            await Task.WhenAll(newestProducts, newestProductsAccessories,bestSellerProducts,CategoryList);
 
-            var newestProductsAccessories = await _context.Products
-                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-10) && p.TypeProduct.StartsWith("Accessories"))
-                .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
-                .Join(_context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
-                {
-                    Product = product,
-                    Discount = discount
-                })
-                .ToListAsync();
-            // Lấy danh sách sản phẩm best seller
-            var bestSellerProducts = await _context.ProductBills
-                .GroupBy(pb => pb.ProductId)
-                .Select(g => new
-                {
-                    ProductId = g.Key,
-                    TotalQuantitySold = g.Sum(pb => pb.Quantity)
-                })
-                .OrderByDescending(result => result.TotalQuantitySold)
-                .Take(8)
-                .Join(_context.Products, result => result.ProductId, product => product.Id, (result, product) => new
-                {
-                    Product = product,
-                    TotalQuantitySold = result.TotalQuantitySold
-                })
-                .Join(_context.Discounts, productResult => productResult.Product.DiscountId, discount => discount.Id, (productResult, discount) => new
-                {
-                    Product = productResult.Product,
-                    TotalQuantitySold = productResult.TotalQuantitySold,
-                    Discount = discount
-                })
-                .ToListAsync();
-
-
-            // Truyền cả hai danh sách vào View
-            ViewData["NewestProducts"] = newestProducts;
-            ViewData["BestSellerProducts"] = bestSellerProducts.Select(result => new ProductResult
-            {
-                Product = result.Product,
-                TotalQuantitySold = result.TotalQuantitySold,
-                Discount = result.Discount
-            }).ToList();
-            ViewData["newestAccessories"] = newestProductsAccessories;
-
-
-            var CategoryList = await _context.Categories.ToListAsync();
-            ViewData["CategoryList"] = CategoryList;
+            ViewData["NewestProducts"] = newestProducts.Result;
+            ViewData["BestSellerProducts"] = bestSellerProducts.Result;
+            ViewData["newestAccessories"] = newestProductsAccessories.Result; 
+            ViewData["CategoryList"] = CategoryList.Result;
             return View();
         }
 
@@ -493,6 +444,18 @@ namespace TechWizMain.Controllers
             _context.Reviews.Add(review);
             _context.SaveChanges();
             return Redirect("/");
+        }
+        [HttpPost]
+        [Route("CountCart")]
+        public async Task<IActionResult> CountCart()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Json(new { count = 0 });
+            }
+            int count = await _homeService.CountCart(currentUser);
+            return Json(new { count = count });
         }
     }
 }

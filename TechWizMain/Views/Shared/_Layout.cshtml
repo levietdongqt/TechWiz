@@ -144,9 +144,8 @@
                                             </div>
                                             <div class="header_account-list  mini_cart_wrapper">
                                         <a id="showCartLink" href="javascript:void(0)">
-                                            <i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span class="item_count">2</span></a>
+                                            <i class="fa-solid fa-cart-shopping" style="color: #01060e;"></i><span class="item_count" id="item_count">0</span></a>
                                                 <!--mini cart-->
-                                                
                                                     <div class="mini_cart">
                                                         <form asp-action="Index" asp-controller="Home">
                                                             <div class="cart_gallery">
@@ -533,10 +532,14 @@
         <script src="~/js/plugins.js"  asp-append-version="true"></script>
         <!-- Main JS -->
         <script src="~/js/main.js"  asp-append-version="true"></script>
+
+     <script src="~/js/addCart.js" > </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
         // Use jQuery to handle the form submission via AJAX
 
     <script src="~/js/showCart.js" > </script>
+        
 </body>
 </html>

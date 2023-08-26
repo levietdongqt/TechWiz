@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    countCart();
     $(".addToCartButton").click(function () {
         var productId = $(this).data("product-id");
 <<<<<<< HEAD
@@ -17,6 +18,7 @@
             success: function (response) {
                 // Xử lý khi yêu cầu thành công
                 if (response.success) {
+                    countCart();
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -24,6 +26,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     });
+
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -43,3 +46,14 @@
         });
     });
 });
+
+const countCart = () => {
+    $.ajax({
+        type: "POST",
+        url: "/CountCart", 
+        success: (response) => {
+            var count = response.count;
+            $("#item_count").text(count);
+        }
+    })
+};
