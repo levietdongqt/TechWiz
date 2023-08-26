@@ -10,6 +10,13 @@ namespace TechWizMain.Services.CategoriesService
         {
             _categoryRepository = categoryRepository;
         }
+
+        public async Task<int> CountProductInCate(int cate_id)
+        {
+            var list = await GetProductsByCateID(cate_id);
+            return list.Count();
+        }
+
         public async Task<IEnumerable<Category>> GetAllCate()
         {
             return await _categoryRepository.GetAll();
@@ -19,5 +26,7 @@ namespace TechWizMain.Services.CategoriesService
         {
             return await _categoryRepository.GetByCateID(cate_id);
         }
+
+
     }
 }

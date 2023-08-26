@@ -15,6 +15,8 @@ using TechWizMain.Services;
 using X.PagedList;
 using NuGet.Protocol;
 using System.Collections.Generic;
+using TechWizMain.Services.ReviewService;
+using TechWizMain.Services.CategoriesService;
 
 namespace TechWizMain.Controllers
 {
@@ -27,6 +29,8 @@ namespace TechWizMain.Controllers
         private readonly SignInManager<UserManager> _signInManager;
         private readonly UserManager<UserManager> _userManager;
         private readonly IProductService _productService;
+        private readonly IReviewService _reviewService;
+        private readonly ICategoryService _categoryService;
         private readonly TechWizContext _context;
         private readonly IEmailSender _emailSender;
         private readonly IHomeService _homeService;
@@ -34,7 +38,7 @@ namespace TechWizMain.Controllers
 
         public HomeController(ILogger<HomeController> logger, IFeedbackService feedbackService,
             SignInManager<UserManager> signInManager, UserManager<UserManager> userManager,
-            IProductService productService, TechWizContext context, IEmailSender emailSender, IHomeService homeService)
+            IProductService productService, TechWizContext context, IEmailSender emailSender, IHomeService homeService,IReviewService reviewService,ICategoryService categoryService)
         {
             _homeService = homeService;
             _logger = logger;
@@ -44,6 +48,8 @@ namespace TechWizMain.Controllers
             _productService = productService;
             _context = context;
             _emailSender = emailSender;
+            _reviewService = reviewService;
+            _categoryService = categoryService;
             SubjectEmail = "Thank You for Your Feedback,";
         }
 
@@ -325,7 +331,17 @@ namespace TechWizMain.Controllers
             bill.DeliveryAddress = txtAddress;
             bill.User = await _userManager.FindByIdAsync(Id);
             await _context.Bills.AddAsync(bill);
-            await _emailSender.SendEmailAsync(txtEmail, "Thanks for your Order", mail.BuildMailOrders(txtName, DateTime.Now, 150000, txtAddress));
+            Console.WriteLine("sdfsdfsdfL1");
+            if(txtEmail!= null)
+            {
+                Task.Run(async () =>
+                {
+                    _emailSender.SendEmailAsync(txtEmail, "Thanks for your Order", mail.BuildMailOrders(txtName, DateTime.Now, 150000, txtAddress));
+                });
+               
+
+            }
+            Console.WriteLine("sdsdfdfL2");
             return Redirect("/");
 
         }
@@ -393,12 +409,28 @@ namespace TechWizMain.Controllers
 
             return Json(new { success = true });
         }
-        public async Task<IActionResult> ShopList()
+        public async Task<IActionResult> ShopList(string? search,int? orderby)
         {
-            var Product = await _context.Products.ToListAsync();
-           
-            ViewData["Products"] = Product;
-            return View(Product);
+            List<Product> products = new List<Product>();
+            int firstNumber = 0;
+            int secondNumber = 0;
+            if (search != null)
+            {
+                string[] part = search.Split(new char[] { ' ', '-', '$' }, StringSplitOptions.RemoveEmptyEntries);
+                firstNumber = int.Parse(part[0]);
+                secondNumber = int.Parse(part[1]);
+
+                var list = await _context.Products.ToListAsync();
+                products = list.Where(m => m.Price >= firstNumber && m.Price <= secondNumber && m.status == true).ToList().OrderByDescending(m => m.Price).ToList();
+            }
+            else
+            {
+                products = _context.Products.Include(m => m.Reviews).ToListAsync().Result.Where(m => m.status == true).ToList().OrderByDescending(m => m.CreatedDate).ToList();
+                
+            }
+            ViewBag.Categories = await _categoryService.GetAllCate();
+            ViewData["Products"] = products;
+            return View();
         }
 
         public IActionResult Privacy()

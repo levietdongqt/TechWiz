@@ -23,6 +23,7 @@ using TestEmail.Services;
 using TechWizMain.Services.FeedbackService;
 using TechWizMain.Services.HomeService;
 using TechWizMain.Services.CategoriesService;
+using TechWizMain.Services.ReviewService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +54,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<TechWizContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString),ServiceLifetime.Scoped);
 
 builder.Services.AddDbContext<UserManagerContext>(options =>
     options.UseSqlServer(connectionString));
@@ -91,6 +92,7 @@ builder.Services.AddTransient<IDiscountRepository, DiscountRespository>();
 builder.Services.AddTransient<IFeedbackService, FeedbackService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IHomeService, HomeService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 var app = builder.Build();
 

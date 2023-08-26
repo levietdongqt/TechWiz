@@ -118,12 +118,9 @@
 						    </div>
 					    </a>
     					<div class="dropdown-menu dropdown-menu-end me-lg-3">
-    						<a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i
-    								class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
-    						<a class="dropdown-item d-flex align-items-center" href="email_inbox.html">Inbox <i
-    								class="fa fa-envelope fa-fw ms-auto text-body text-opacity-50"></i></a>
-    						<a class="dropdown-item d-flex align-items-center" href="calendar.html">Calendar <i
-    								class="fa fa-calendar-alt fa-fw ms-auto text-body text-opacity-50"></i></a>
+                        <a class="dropdown-item d-flex align-items-center" href="https://localhost:5000/Home/Account">
+                            Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
+    						
     						<div class="dropdown-divider"></div>
 						    <div class="dropdown-item d-flex align-items-center">
 							    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
