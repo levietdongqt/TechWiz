@@ -56,6 +56,8 @@ namespace TechWizMain.Controllers
         public async Task<IActionResult> Index()
         {
             // Lấy danh sách sản phẩm mới nhất
+            _context.Discounts.ToList();
+            Console.WriteLine("");
             var newestProducts = _homeService.getNewestProducts();
             var newestProductsAccessories = _homeService.getNewestProductsAccessories();
             var bestSellerProducts = _homeService.getBestSellerProducts();

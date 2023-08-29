@@ -91,6 +91,14 @@ Welcome to our Contact Us page. If you have any questions, feedback, or support 
 <script>
     // Use jQuery to handle the form submission via AJAX
     $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/CountCart",
+            success: (response) => {
+                var count = response.count;
+                $("#item_count").text(count);
+            }
+        })
         $('#contact-form').submit(function (e) {
             e.preventDefault();
             $.ajax({

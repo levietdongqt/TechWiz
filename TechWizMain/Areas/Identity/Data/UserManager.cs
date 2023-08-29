@@ -14,6 +14,7 @@ namespace TechWizMain.Areas.Identity.Data;
 public class UserManager : IdentityUser
 {
     public string FullName { get; set; } = string.Empty;
+
     public string? Address { get; set; }
 
     public bool status { get; set; } = true;
