@@ -73,7 +73,8 @@
                     <div class="col-md-8">
                         <div class="mb-3"> 
                             <label class="form-label" for="formFile"></label>
-                            <input type="file" class="form-control" id="formFile" name="formFile">                         
+                            <input type="file" class="form-control" id="formFile" name="formFile">  
+                            <input asp-for="ImageUrl" hidden>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Description" class="form-label"></label>

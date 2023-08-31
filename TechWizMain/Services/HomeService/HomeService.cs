@@ -42,7 +42,7 @@ namespace TechWizMain.Services.HomeService
         {
             using (var context = new TechWizContext())
             {
-                return await context.ProductBills
+                return await context.ProductBills.Include(t => t.Product).Where(t=>t.Product.status==true)
                .GroupBy(pb => pb.ProductId)
                .Select(g => new
                {
@@ -108,7 +108,7 @@ namespace TechWizMain.Services.HomeService
             using (var context = new TechWizContext())
             {
                 return await context.Products
-                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Plant"))
+                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Plant")&& p.status==true)
                 .OrderByDescending(p => p.CreatedDate)
                 .Take(8)
                 .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
@@ -126,7 +126,7 @@ namespace TechWizMain.Services.HomeService
             using (var context = new TechWizContext())
             {
                 return await context.Products
-               .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Accessories"))
+               .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Accessories") && p.status == true)
                .OrderByDescending(p => p.CreatedDate)
                .Take(8)
                .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult

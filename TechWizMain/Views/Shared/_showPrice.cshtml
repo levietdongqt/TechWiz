@@ -1,0 +1,17 @@
+@model Product
+<div class="price_box">
+    
+    @if(Model.Discount.Id != 1)
+    {
+        decimal oldPrice = Model.Price;
+        decimal percent = (decimal) (1 - Model.Discount.Percent);
+        <span class="current_price">$@(oldPrice * percent)</span>
+        <span class="old_price">$@Model.Price</span>
+    }
+    else
+    {
+        <span class="current_price">$@Model.Price</span>
+    }
+    
+</div>
+
