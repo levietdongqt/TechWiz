@@ -1,0 +1,10 @@
+@model Product
+<div class="label_product">
+    
+    @if(Model.Discount.Id != 1)
+    {
+        <span class="label_sale">-@Model.Discount.Name</span>
+    }
+    
+</div>
+

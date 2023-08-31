@@ -94,7 +94,7 @@
                             <figure>
                                 <div class="product_thumb">
                                         <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Id"><img src="@x.ImageUrl" alt="@x.Name" width="250"></a>
-                                   
+                                        @Html.Partial("_labelDiscount",x)
                                     <div class="action_links">
                                         <ul>
                                             <li class="add_to_cart"><a href="#" title="Add to cart"><i class="fa-solid fa-bag-shopping"></i></a></li>
@@ -119,10 +119,7 @@
                                             </ul>
                                         </div>
                                             <h4 class="product_name"><a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">@x.Name</a></h4>
-                                        <div class="price_box">
-                                            <span class="current_price">$@x.Price</span>
-                                            <span class="old_price">$@x.BasePrice</span>
-                                        </div>
+                                            @Html.Partial("_showPrice", x)
                                     </div>
                                 </div>
                                  @{
@@ -141,16 +138,15 @@
                                         <h4 class="product_name">
                                             <a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">@x.Name</a>
                                     </h4>
-                                    <div class="price_box">
-                                        <span class="current_price">$@x.Price</span>
-                                        <span class="old_price">$@x.BasePrice</span>
-                                    </div>
+                                        @Html.Partial("_showPrice", x)
                                     <div class="product_desc">
                                         <p>@x.Description</p>
                                     </div>
                                     <div class="action_links list_action_right">
                                         <ul>
-                                            <li class="add_to_cart"><a href="#" title="Add to cart">Add to
+                                                <li class="add_to_cart addToCartButton" data-product-id="@x.Id" data-product-Price="@x.Price" data-product-Discount="@x.Discount.Percent">
+                                                    <a href="#" title="Add to cart">
+                                                        Add to
                                                 cart</a></li>
                                             <li class="wishlist"><a href="#" title="Add to Wishlist"><i class="fa-solid fa-heart"></i></a></li>
                                             <li class="compare"><a href="#" title="Add to Compare"><i class="fa-solid fa-sliders"></i></a></li>
