@@ -68,11 +68,7 @@
                                 <li class="review"><a href="#"> (customer review ) </a></li>
                             </ul>
                         </div>
-                        <div class="price_box">
-                            <span class="current_price">$@Html.DisplayFor(model => model.Price)</span> @*giá mới *@
-                            <span class="old_price">$@Html.DisplayFor(model => model.BasePrice)</span> @*giá cũ*@
-
-                        </div>
+                        @Html.Partial("_showPrice",Model)
                         <div class="product_desc">
                             <p>
                             @{

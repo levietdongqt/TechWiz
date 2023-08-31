@@ -3,76 +3,76 @@
     ViewData["Title"] = "Details";
     Layout = null;
 }
-    <div class="container">
-        <div class="card bg-transparent border-0 shadow-lg">
-            <div class="card-body p-5">
-                <div class="text-center">
-                    <!-- Thêm cảnh chỉnh giữa -->
-                <h2 class="fw-bold mb-4 text-primary" >Product Details</h2>
-                </div>
-                <hr />
-                <div class="row">
-                    <div class="col-md-6">
-                        <dl class="row">
+<div class="container">
+    <div class="card bg-transparent border-0 shadow-lg">
+        <div class="card-body p-5">
+            <div class="text-center">
+                <!-- Thêm cảnh chỉnh giữa -->
+                <h2 class="fw-bold mb-4 text-primary">Product Details</h2>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
                         <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
-                                Product Name:
-                            </dt>
+                             Name:
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.Name)
-                            </dd>
-                            <dt class="col-sm-4 fs-6 text-muted">
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted">
                             Price:
-                            </dt>
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.Price)
-                            </dd>
-                            <dt class="col-sm-4 fs-6 text-muted">
+                           $@Html.DisplayFor(model => model.Price)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted">
                             BasePrice:
-                            </dt>
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.BasePrice)
-                            </dd>
-                            <dt class="col-sm-4 fs-6 text-muted">
+                            $@Html.DisplayFor(model => model.BasePrice)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted">
                             TypeProduct:
-                            </dt>
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.TypeProduct)
-                            </dd>
-                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">InventoryQuantity:</dt> 
+                            @Html.DisplayFor(model => model.TypeProduct)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">Inventory:</dt>
 
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.InventoryQuantity)
-                            </dd>
-                            <dt class="col-sm-4 fs-6 text-muted">
-                                Status:
-                            </dt>
+                            @Html.DisplayFor(model => model.InventoryQuantity)
+                        </dd>
+                        <dt class="col-sm-4 fs-6 text-muted">
+                            Status:
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.status)
-                            </dd>
+                            @Html.DisplayFor(model => model.status)
+                        </dd>
                         <dt class="col-sm-4 fs-6 text-muted" style="white-space: nowrap;">
-                            DiscountName:
-                            </dt>
+                            Discount:
+                        </dt>
                         <dd class="col-sm-8 fs-5 text-end">
-                                @Html.DisplayFor(model => model.Discount.Name)
-                            </dd>
-                            <!-- Các thông tin khác -->
-                        </dl>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <img src="@Model.ImageUrl" class="img-fluid mb-4 img-thumbnail" alt="Hình Sản Phẩm" />
-                    </div>
+                            @Html.DisplayFor(model => model.Discount.Name)
+                        </dd>
+                        <!-- Các thông tin khác -->
+                    </dl>
                 </div>
-                <div class="mt-4">
+                <div class="col-md-6 text-end">
+                    <img src="@Model.ImageUrl" class="img-fluid mb-4 img-thumbnail" alt="Hình Sản Phẩm" />
+                </div>
+            </div>
+            <div class="mt-4">
                 <h4>Description</h4>
-                    <p class="fs-5">
-                        @Html.DisplayFor(model => model.Description)
-                    </p>
-                </div>
-                <div class="d-flex justify-content-center mt-4">
-                    <a asp-action="Index" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Quay Lại Danh Sách
-                    </a>
-                </div>
+                <p class="fs-5">
+                    @Html.DisplayFor(model => model.Description)
+                </p>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay Lại Danh Sách
+                </a>
             </div>
         </div>
     </div>
+</div>
