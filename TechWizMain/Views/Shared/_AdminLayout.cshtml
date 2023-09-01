@@ -5,12 +5,12 @@
 <head>
     <meta charset="utf-8">
     <title>Plant Nest</title>
-    	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content>
-	<meta name="author" content>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
-	<link href="/assets/css/vendor.min.css" rel="stylesheet">
+    <link href="/assets/css/vendor.min.css" rel="stylesheet">
     <link href="/assets/css/app.min.css" rel="stylesheet">
     <link href="/assets/css/site.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,146 +22,146 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-	
-<div class="app" id="app">
-	<div id="header" class="app-header">
-    			<div class="mobile-toggler">
-    				<button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
-    					<span class="bar"></span>
-    					<span class="bar"></span>
-    				</button>
-    			</div>
-    
-    
-    			<div class="brand">
-    				<div class="desktop-toggler">
-    					<button type="button" class="menu-toggler" data-toggle="sidebar-minify">
-    						<span class="bar"></span>
-    						<span class="bar"></span>
-    					</button>
-    				</div>
-    				<a asp-controller="Admin" asp-action="Index" class="brand-logo">
-    					<img src="/images/logo/Logo.png" class="invert-dark" alt height="20">
-    				</a>
-    			</div>
-    			<div class="menu">
-    				<div class="menu-search" method="" name="header_search_form">
 
-    				</div>
-    				<div class="menu-item dropdown">
-					    <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
-						    <div class="menu-text">
-							    <span class="__cf_email__" >Hello Admin!</span>
-						    </div>
-					    </a>
-    					<div class="dropdown-menu dropdown-menu-end me-lg-3">
-                        <a class="dropdown-item d-flex align-items-center" href="https://localhost:5000/Home/Account">
-                            Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
-    						
-    						<div class="dropdown-divider"></div>
-						    <div class="dropdown-item d-flex align-items-center">
-							    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-								    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-							    </form>
-								     <i class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i>
-						    </div>
-    					</div>
-    				</div>
-    			</div>
-    
-    		</div>
-	<div id="sidebar" class="app-sidebar">
-		<div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
-    
-			<div class="menu">
-				<div class="menu-header">Navigation</div>
-				<div class="menu-item active">
-					<a asp-action="Index" asp-controller="Admin" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa-solid fa-laptop" style="color: #020203;"></i></span>
-						<span class="menu-text">Dashboard</span>
-					</a>
-				</div>
-				<div class="menu-divider"></div>
-				<div class="menu-header">Components</div>
-				<div class="menu-item">
-					<a asp-action="GetUsers" asp-controller="Admin" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-user-circle"></i></span>
-						<span class="menu-text">Users management</span>
-					</a>
-				</div>
-				<div class="menu-item">
-					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
-						<span class="menu-text">Product management</span>
-					</a>
-				</div>
-				<div class="menu-item">
-					<a asp-action="ProcessBill" asp-controller="Admin" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-wallet"></i></span>
-						<span class="menu-text">Process Bill</span>
-					</a>
-				</div>
-				<div class="menu-item">
-					<a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-table"></i></span>
-						<span class="menu-text">revenue management</span>
-					</a>
-				</div>
-				<div class="menu-item">
+    <div class="app" id="app">
+        <div id="header" class="app-header">
+            <div class="mobile-toggler">
+                <button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+
+            <div class="brand">
+                <div class="desktop-toggler">
+                    <button type="button" class="menu-toggler" data-toggle="sidebar-minify">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
+                <a asp-controller="Admin" asp-action="Index" class="brand-logo">
+                    <img src="/images/logo/Logo.png" class="invert-dark" alt height="20">
+                </a>
+            </div>
+            <div class="menu">
+                <div class="menu-search" method="" name="header_search_form">
+                </div>
+                <div class="menu-item dropdown">
+                    <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
+                        <div class="menu-text">
+                            <span class="__cf_email__">Hello Admin!</span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end me-lg-3">
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item d-flex align-items-center">
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit" style="text-align:center" class="nav-link btn btn-link text-dark">
+                                    Logout
+                                    <i class="fa fa-toggle-off fa-fw ms-auto text-body text-opacity-50"></i>
+                                </button>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="sidebar" class="app-sidebar">
+            <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+
+                <div class="menu">
+                    <div class="menu-header">Navigation</div>
+                    <div class="menu-item active">
+                        <a asp-action="Index" asp-controller="Admin" asp-area="" class="menu-link">
+                            <span class="menu-icon"><i class="fa-solid fa-laptop" style="color: #020203;"></i></span>
+                            <span class="menu-text">Dashboard</span>
+                        </a>
+                    </div>
+                    <div class="menu-divider"></div>
+                    <div class="menu-header">Components</div>
+                    <div class="menu-item">
+                        <a asp-action="GetUsers" asp-controller="Admin" asp-area="" class="menu-link">
+                            <span class="menu-icon"><i class="fa fa-user-circle"></i></span>
+                            <span class="menu-text">Users management</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+                            <span class="menu-icon"><i class="fa fa-chart-bar"></i></span>
+                            <span class="menu-text">Product management</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a asp-action="ProcessBill" asp-controller="Admin" asp-area="" class="menu-link">
+                            <span class="menu-icon"><i class="fa fa-wallet"></i></span>
+                            <span class="menu-text">Process Bill</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a asp-action="Index" asp-controller="Products" asp-area="" class="menu-link">
+                            <span class="menu-icon"><i class="fa fa-table"></i></span>
+                            <span class="menu-text">revenue management</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a asp-action="FeedBacks" asp-controller="Admin" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-						<span class="menu-text">Feed Backs</span>
-					</a>
-				</div>
-				<div class="menu-item">
+                            <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+                            <span class="menu-text">Feed Backs</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
                         <a asp-action="Index" asp-controller="Discounts" asp-area="" class="menu-link">
-						<span class="menu-icon"><i class="fa-solid fa-tag"></i></span>
-						<span class="menu-text">Discounts management</span>
-					</a>
-				</div>
-				<div class="p-3 px-4 mt-auto hide-on-minified">
-					<a asp-controller="Home" asp-action="Index" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
-						<i class="fa fa-code-branch me-1 ms-n1 opacity-5"></i> Back To Shop
-					</a>
-				</div>
-			</div>
-    
-		</div>
-    
-    
-		<button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
-    
-	</div>
-	<div id="content" class="app-content">
-    		@RenderBody()
+                            <span class="menu-icon"><i class="fa-solid fa-tag"></i></span>
+                            <span class="menu-text">Discounts management</span>
+                        </a>
+                    </div>
+                    <div class="p-3 px-4 mt-auto hide-on-minified">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
+                            <i class="fa fa-code-branch me-1 ms-n1 opacity-5"></i> Back To Shop
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
+
+        </div>
+        <div id="content" class="app-content">
+            @RenderBody()
+        </div>
     </div>
-</div>
 
-<!-- javascript -->
-<script data-cfasync="false" src="~/assets/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <!-- javascript -->
+    <script data-cfasync="false" src="~/assets/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
-<script src="~/assets/js/vendor.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
-<script src="~/assets/js/app.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
-
-
-<script src="~/assets/plugins/apexcharts/dist/apexcharts.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
-<script src="~/assets/js/demo/dashboard.demo.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+    <script src="~/assets/js/vendor.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+    <script src="~/assets/js/app.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
-<script type="9f2ac5c2af6239ca86fcd313-text/javascript">
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+    <script src="~/assets/plugins/apexcharts/dist/apexcharts.min.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+    <script src="~/assets/js/demo/dashboard.demo.js" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
 
-		gtag('config', 'G-Y3Q0VGQKY3');
-	</script>
-<script src="~/assets/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="9f2ac5c2af6239ca86fcd313-|49" defer></script>
-<script defer
-        src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-        integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-        data-cf-beacon='{"rayId":"7f45cb594eed04b5","version":"2023.7.0","r":1,"b":1,"token":"4db8c6ef997743fda032d4f73cfeff63","si":100}'
-        crossorigin="anonymous"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="9f2ac5c2af6239ca86fcd313-text/javascript"></script>
+    <script type="9f2ac5c2af6239ca86fcd313-text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y3Q0VGQKY3');
+    </script>
+    <script src="~/assets/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="9f2ac5c2af6239ca86fcd313-|49" defer></script>
+    <script defer
+            src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
+            integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
+            data-cf-beacon='{"rayId":"7f45cb594eed04b5","version":"2023.7.0","r":1,"b":1,"token":"4db8c6ef997743fda032d4f73cfeff63","si":100}'
+            crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

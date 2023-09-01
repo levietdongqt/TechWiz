@@ -16,14 +16,7 @@ checkScroll();
 // Check when new item added
 cartContainer.addEventListener('DOMNodeInserted', checkScroll);
 $(document).ready(function () {
-    $.ajax({
-        type: "POST",
-        url: "/CountCart",
-        success: (response) => {
-            var count = response.count;
-            $("#item_count").text(count);
-        }
-    })
+    countCart2();
     $('#showCartLink').click(function (e) {
         e.preventDefault();
         showCartt();
@@ -50,10 +43,13 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 var productBillId = $(this).data("product-id");
-                var url2 = "DeleteFromCart/" + productBillId;
+                var baseUrl = window.location.origin; // Lấy gốc của URL (bao gồm cả port)
+                var relativeUrl = "/DeleteFromCart/" + productBillId; // Phần tương đối của URL
+                var fullUrl = baseUrl + relativeUrl;
+                console.log("delete: " + fullUrl)
                 $.ajax({
                     type: "Get",
-                    url: url2,
+                    url: fullUrl,
                     contentType: false,
                     processData: false,
                     data: $(this).serialize(),
@@ -70,6 +66,8 @@ $(document).ready(function () {
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     showCartt();
+                                    countCart2();
+                                    loadCheckout();
                                 }
                             });
                         } else {
@@ -94,36 +92,49 @@ const showCartt = () => {
         url: "/showCart",
         data: $(this).serialize(),
         success: function (data) {
-            var html = '';
-            var total = 0;
-            var subTotal = 0;
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
-                var price = Number(item.product.price);
-                subTotal += item.product.price * item.quantity;
-                if (item.product.discount.id != 1) {
-                    price = (item.product.price * (1 - item.product.discount.percent));
-                }
-                total += price * item.quantity;
-                html += ' <div class="cart_item">'
-                    + '<div class="cart_img">'
-                    + '<a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id"><img src="' + item.product.imageUrl + '" alt="' + item.product.name + '"></a>'
-                    + '</div>'
-                    + '<div class="cart_info">'
-                    + '<a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">' + item.product.name + '</a>'
-                    + '<input class="itemQuantity" type="number" min=1 max=10 value="' + item.quantity + '" data-product-id = "' + item.id + '"><span> x $' + price.toFixed(2) + '</span>'
-                    + '</div>'
-                    + '<div className="cart_remove">'
-                    + '<a class="deleteFromCart" data-product-id = "' + item.id + '" href="#"><i class="fa-solid fa-xmark" style="color: #000000;"></i></a>'
-                    + '</div>'
-                    + '</div>'
-            }
-            $('#targetElement').empty();
-            //var html = '<div>' + data.Quantity + 'sdfdsf' + '</div>';
-            $('#targetElement').append(html)
-            $('#subTotal').text('$' + subTotal.toFixed(2));
-            $('#total').text('$' + total.toFixed(2));
+            if (data == null || data.length === 0) {
+                $('.cartStatus').empty();
+                $('#targetElement').empty();
+                $('#targetElement').append("<h3 style='text-align: center'>Cart is empty </h3> <p> Buy something and come back here later !! </p>")
+            } else {
+                var html = '';
+                var total = 0;
+                var subTotal = 0;
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i];
+                    var price = Number(item.product.price);
+                    subTotal += item.product.price * item.quantity;
 
+                    html += ' <div class="cart_item">'
+                        + '<div class="cart_img">'
+                        + '<a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id"><img src="' + item.product.imageUrl + '" alt="' + item.product.name + '"></a>'
+                        + '</div>'
+                        + '<div class="cart_info price_box">'
+                        + '<a asp-controller="Home" asp-action="Details" asp-route-id="@x.Id">' + item.product.name + '</a>'
+                        + '<input class="itemQuantity" type="number" min=1 max=10 value="' + item.quantity + '" data-product-id = "' + item.id + '">'
+
+                    if (item.product.discount.id != 1) {
+                        price = (item.product.price * (1 - item.product.discount.percent));
+                        html += '<span > x $' + price.toFixed(2) + '</span>';
+                        html += '<span class = "old_price"> $ ' + item.product.price.toFixed(2) + '</span>';
+                    } else {
+                        html += '<span > x $' + price.toFixed(2) + '</span>';
+                    }
+                    total += price * item.quantity;
+
+                    html += '</div>'
+                        + '<div className="cart_remove">'
+                        + '<a class="deleteFromCart" data-product-id = "' + item.id + '" href="#"><i class="fa-solid fa-xmark" style="color: #000000;"></i></a>'
+                        + '</div>'
+                        + '</div>'
+                }
+                $('#targetElement').empty();
+                //var html = '<div>' + data.Quantity + 'sdfdsf' + '</div>';
+                $('#targetElement').append(html)
+                $('.discount').text('- $' + (-total + subTotal).toFixed(2));
+                $('.subTotal').text('$' + subTotal.toFixed(2));
+                $('.total').text('$' + total.toFixed(2));
+            }
         }
     });
 
@@ -139,14 +150,8 @@ const updateCart = (newVal, id) => {
         url: url2, // Đường dẫn đến action xử lý thêm vào giỏ hàng
         success: function (response) {
             // Xử lý khi yêu cầu thành công
-            $.ajax({
-                type: "POST",
-                url: "/CountCart",
-                success: (response) => {
-                    var count = response.count;
-                    $("#item_count").text(count);
-                }
-            })
+            countCart2();
+            loadCheckout();
             $.ajax({
                 type: "Get",
                 url: "/showCart",
@@ -163,9 +168,9 @@ const updateCart = (newVal, id) => {
                         }
                         total += price * item.quantity;
                     }
-                    console.log(total);
-                    $('#subTotal').text('$' + subTotal.toFixed(2));
-                    $('#total').text('$' + total.toFixed(2));
+                    $('.discount').text('- $' + (-total + subTotal).toFixed(2));
+                    $('.subTotal').text('$' + subTotal.toFixed(2));
+                    $('.total').text('$' + total.toFixed(2));
 
                 }
             });
@@ -178,6 +183,64 @@ const updateCart = (newVal, id) => {
                 title: 'Error',
                 text: 'An error occurred. Please try again later.',
             });
+        }
+    });
+}
+const countCart2 = () => {
+    $.ajax({
+        type: "POST",
+        url: "/CountCart",
+        success: (response) => {
+            var count = response.count;
+            $("#item_count").text(count);
+        }
+    })
+};
+const loadCheckout = () => {
+    $.ajax({
+        type: "GET",
+        url: "/ShowCart",
+        success: function (data) {
+            if (data == null || data.length === 0) {
+                $('#playOrder22').hide();
+            }
+            var html = '';
+            var total = 0;
+            var subTotal = 0;
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                var price = Number(item.product.price);
+                subTotal += price * item.quantity;
+
+                if (item.product.discount.id != 1) {
+                    price = (item.product.price * (1 - item.product.discount.percent));
+                }
+                total += price * item.quantity;
+                html +=
+                    '<tr>'
+                    + '<td>'
+                    + (i + 1)
+                    + '</td>'
+                    + '<td>'
+                    + item.product.name
+                    + '</td>'
+                    + '<td>$'
+                    + price.toFixed(2)
+                    + '</td>'
+                    + '<td>'
+                    + item.quantity
+                    + '</td>'
+                    + '<td>$'
+                    + (price * item.quantity).toFixed(2)
+                    + '</td>'
+                    + '</tr>'
+            }
+            $('#targetElement1').empty();
+            $('#targetElement1').append(html);
+            $('.discount').text('- $' + (-total + subTotal).toFixed(2));
+            $('.subTotal').text('$' + subTotal.toFixed(2));
+            $('.total').text('$' + total.toFixed(2));
+            $("#submitTotal").val(total.toFixed(2));
         }
     });
 }

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using TechWizMain.Areas.Identity.Data;
+@inject SignInManager<UserManager> SignInManager
+@inject UserManager<UserManager> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -163,28 +167,49 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="mini_cart_table">
-                                                    <div class="cart_table_border ">
-                                                        <div class="cart_total price_box">
-                                                            <b>Sub total:</b>  <span class="old_price" id="subTotal"></span>
-                                                        </div>
-                                                        <div class="cart_total mt-10">
-                                                            <b>
-                                                                Total:
-                                                            </b>
-                                                            <span id="total"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mini_cart_footer">
-                                                    <div class="cart_button">
-                                                        <a class="active" asp-controller="Home" asp-action="Checkout">
-                                                            <i class="fa fa-sign-in"></i>
-                                                            Checkout
-                                                        </a>
-                                                    </div>
+                                                @if (SignInManager.IsSignedIn(User))
+                                                {
+                                                    <div class="mini_cart_table cartStatus">
+                                                        <div class="cart_table_border ">
+                                                            <div class="cart_total price_box">
+                                                                <b>Merchandise Subtotal:</b>
+                                                                <span class="old_price subTotal"></span>
+                                                            </div>
+                                                            <div class="cart_total mt-10">
+                                                                <b>Shipping Total:</b>
+                                                                <span>Free</span>
+                                                            </div>
+                                                            <div class="cart_total mt-10">
+                                                                <b>Voucher Discount:</b>
+                                                                <span class="discount"></span>
+                                                            </div>
 
-                                                </div>
+                                                            <div class="cart_total mt-10">
+                                                                <b>
+                                                                    Total Payment:
+                                                                </b>
+                                                                <span class="total"></span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="mini_cart_footer cartStatus">
+                                                        <div class="cart_button">
+                                                            <a class="active" asp-controller="Home" asp-action="Checkout">
+                                                                <i class="fa fa-sign-in"></i>
+                                                                Checkout
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="mini_cart_footer" style="text-align:center">
+                                                        <div class="cart_button">
+                                                            <h3>Login First, please!</h3>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </form>
                                         </div>
                                     </div>

@@ -11,16 +11,16 @@ namespace TechWizMain.Services.ReviewService
         {
             _context = context;
         }
-        public async Task<int> GetReviewCountAsync(int id)
+        public async Task<double> GetReviewCountAsync(int id)
         {
             var list = await _context.Reviews.Include(r => r.Product).Where(m => m.ProductId == id).ToListAsync();
-            int? number = 0;
+            double number = 0;
             int countReviews = list.Count();
             if (list != null)
             {
                 foreach (var e in list)
                 {
-                    number += e.Rating;
+                    number += e.Rating.Value;
                 }
             }
             if(countReviews == 0)
@@ -29,7 +29,8 @@ namespace TechWizMain.Services.ReviewService
             }
             else
             {
-                return (int)(number / countReviews);
+                var rating = number / countReviews;
+                return Math.Round(rating,2);
             }
         }
     }

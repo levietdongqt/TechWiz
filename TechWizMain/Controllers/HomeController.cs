@@ -73,23 +73,24 @@ namespace TechWizMain.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "customer,admin")]
         public async Task<IActionResult> Account()
         {
             if (_signInManager.IsSignedIn(User))
             {
                 var currentUser = await _userManager.GetUserAsync(User);
-                var accountModel = new UserManager()
-                {
-                    UserName = currentUser.UserName,
-                    FullName = currentUser.FullName,
-                    Address = currentUser.Address,
-                    Email = currentUser.Email,
-                    PhoneNumber = currentUser.PhoneNumber,
-                    DateOfBirth = currentUser.DateOfBirth,
-                };
-                // Định dạng ngày tháng theo chuẩn MM/dd/yyyy
 
-                return View("Account", accountModel);
+                // Định dạng ngày tháng theo chuẩn MM/dd/yyyy
+                var bill = await _context.Bills.Where(t => t.UserId.Equals(currentUser.Id) && !t.Status.Equals(ProcessBill.Temporary.ToString())).ToListAsync();
+                if(bill != null)
+                {
+                    ViewBag.billList = bill;
+                }
+                else
+                {
+                    ViewBag.billList = new List<Bill>();
+                }
+                return View("Account", currentUser);
             }
 
 
@@ -207,6 +208,7 @@ namespace TechWizMain.Controllers
         }
 
         [Route("showCart")]
+        [Authorize(Roles = "customer,admin")]
         public async Task<IActionResult> Cart()
         {
             IEnumerable<ProductBill> listCart = null;
@@ -242,12 +244,12 @@ namespace TechWizMain.Controllers
                 .Include(p => p.Discount)
                 .FirstOrDefaultAsync(m => m.Id == id);
             var list = await _context.Reviews.Include(r => r.Product).Where(m => m.ProductId == id).ToListAsync();
-            int? number = 0;
+            double number = 0;
             if (list != null)
             {
                 foreach (var e in list)
                 {
-                    number += e.Rating;
+                    number += e.Rating.Value;
                 }
             }
             if (product == null)
@@ -258,12 +260,12 @@ namespace TechWizMain.Controllers
             ViewBag.CountReviews = list.Count();
             if (list.Count() == 0)
             {
-                ViewBag.Number = 0;
-
+                ViewBag.Number = (float) 0;
             }
             else
             {
-                ViewBag.Number = number / list.Count();
+                var rating = number / list.Count();
+                ViewBag.Number = (float)Math.Round(rating,1);
             }
 
             //Lay danh sach product moi nhat
@@ -271,34 +273,38 @@ namespace TechWizMain.Controllers
             return View(product);
         }
         [HttpGet]
+        [Authorize(Roles = "customer,admin")]
         public IActionResult Checkout()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckoutHandler(string txtName, string txtEmail, string txtAddress, string txtPhone, string Id, string txtNameProduct)
+        [Authorize(Roles = "customer,admin")]
+        public async Task<IActionResult> CheckoutHandler(string txtName, string txtEmail, string txtAddress, string txtPhone, string txtId, string submitTotal)
         {
             MailBuilder mail = new MailBuilder();
-            Bill bill = new Bill();
-            bill.OrderDate = DateTime.Now;
-            bill.Total = 150000;
-            bill.Status = "Pending";
-            bill.DeliveryPhone = txtPhone;
-            bill.DeliveryAddress = txtAddress;
-            bill.User = await _userManager.FindByIdAsync(Id);
-            await _context.Bills.AddAsync(bill);
-            Console.WriteLine("sdfsdfsdfL1");
+            decimal total = decimal.Parse(submitTotal);
+            Bill bill = await _context.Bills.Where(t => t.UserId.Equals(txtId) && t.Status.Equals(ProcessBill.Temporary.ToString())).FirstOrDefaultAsync();
+            if (bill != null)
+            {
+                bill.OrderDate = DateTime.Now;
+                bill.Total = total;
+                bill.Status = "Pending";
+                bill.DeliveryPhone = txtPhone;
+                bill.DeliveryAddress = txtAddress;
+                _context.Bills.Update(bill);
+                await _context.SaveChangesAsync();
+            }
             if (txtEmail != null)
             {
                 Task.Run(async () =>
                 {
-                    _emailSender.SendEmailAsync(txtEmail, "Thanks for your Order", mail.BuildMailOrders(txtName, DateTime.Now, 150000, txtAddress));
+                    _emailSender.SendEmailAsync(txtEmail, "Thanks for your Order", mail.BuildMailOrders(txtName, DateTime.Now, total, txtAddress));
                 });
 
 
             }
-            Console.WriteLine("sdsdfdfL2");
             return Redirect("/");
 
         }
@@ -437,6 +443,7 @@ namespace TechWizMain.Controllers
 
         [HttpPost]
         [Route("InsertReview")]
+        [Authorize(Roles = "customer,admin")]
         public IActionResult InsertReview(List<int>? vehicle1, string? content, int? ProductId, string UserId)
         {
             int rating = vehicle1.Count();
@@ -448,10 +455,11 @@ namespace TechWizMain.Controllers
             review.ReviewDate = DateTime.Now;
             _context.Reviews.Add(review);
             _context.SaveChanges();
-            return Redirect("/");
+            return Redirect("/Home/Details/" + ProductId);
         }
         [HttpPost]
         [Route("CountCart")]
+        [Authorize(Roles = "customer,admin")]
         public async Task<IActionResult> CountCart()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -461,6 +469,17 @@ namespace TechWizMain.Controllers
             }
             int count = await _homeService.CountCart(currentUser);
             return Json(new { count = count });
+        }
+        [HttpPost]
+        [Route("changeBill/{billId}")]
+        [Authorize(Roles = "customer,admin")]
+        public async Task<IActionResult> changeBill(int billId)
+        {
+           var bill = await _context.Bills.Where(t => t.Id  == billId).FirstOrDefaultAsync();
+            bill.Status = ProcessBill.Cancel.ToString();
+            _context.Update(bill);
+            _context.SaveChanges();
+            return Json(new { success = true });
         }
     }
 }

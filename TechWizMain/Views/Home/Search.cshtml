@@ -82,12 +82,10 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html">
-                                            <img src="@item.ImageUrl" alt="">
+                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                            @item.Name
                                         </a>
-                                        <div class="label_product">
-                                            <span class="label_sale">@item.Discount.Name</span>
-                                        </div>
+                                        @Html.Partial("_labelDiscount",item)
                                        @* <div class="action_links">
                                             <ul>
                                                 <li class="add_to_cart">
@@ -126,13 +124,7 @@
                                                     @item.Name
                                                 </a>
                                             </h4>
-                                            <div class="price_box">
-                                                @{
-                                                    var current_price = item.Price * (1 - Convert.ToDecimal(item.Discount.Percent));
-                                                    <span class="current_price">@current_price</span>
-                                                }
-                                                <span class="old_price">@item.Price</span>
-                                            </div>
+                                            @Html.Partial("_showPrice", item)
                                         </div>
                                     </div>
                                     <div class="product_content list_content">
@@ -150,14 +142,7 @@
                                                 @item.Name
                                             </a>
                                         </h4>
-                                        <div class="price_box">
-                                            @{
-                //var current_price = item.Price * (1 - Convert.ToDecimal(item.Discount.Percent));
-                                                <span class="current_price">@current_price</span>
-                                            }
-
-                                            <span class="old_price">@item.Price</span>
-                                        </div>
+                                        @Html.Partial("_showPrice", item)
                                         <div class="product_desc">
                                             <p>
                                                 @item.Description

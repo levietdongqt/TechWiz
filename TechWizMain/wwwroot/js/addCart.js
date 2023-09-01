@@ -27,7 +27,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'Failed to add product to cart. Please try again.',
+                        text: 'Please login and try again!',
                     });
                 }
             },
