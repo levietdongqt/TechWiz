@@ -11,118 +11,181 @@
 @{
     var currentUser = await _userManager.GetUserAsync(User);
 }
-  <!--breadcrumbs area start-->
-    <div class="breadcrumbs_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content">
-                        <h3>Checkout</h3>
-                        <ul>
-                            <li><a href="index.html">home</a></li>
-                            <li>Checkout</li>
-                        </ul>
-                    </div>
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>Checkout</h3>
+                    <ul>
+                        <li><a href="/">home</a></li>
+                        <li>Check Out</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="Checkout_section  mt-100" id="accordion">
-        <div class="container">
-            <div class="checkout_form">
-                <div class="row">         
-                        <form  asp-action="CheckoutHandler" asp-controller="Home">
-                            <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                            <h3>Billing Details</h3>
+</div>
+
+<div class="Checkout_section  mt-100" id="accordion">
+    <div class="container">
+        <div class="checkout_form">
+            <div class="row">
+                <form asp-action="CheckoutHandler" asp-controller="Home" id="orderForm" onsubmit="return validateForm()">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <h3>INVOICE TO</h3>
                             <div class="col-lg-12 mb-20">
                                 <div>
                                     <input type="hidden" name="txtId" value="@currentUser.Id">
                                 </div>
                                 <div class="col-lg-12 mb-20">
                                     <label>Full Name <span>*</span></label>
-                                    <input type="text" name="txtName" value="@currentUser.FullName">
+                                    <input type="text" name="txtName" value="@currentUser.FullName" required>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>Email <span>*</span></label>
-                                    <input type="text" name="txtEmail" value="@currentUser.Email">
+                                    <input type="email" name="txtEmail" value="@currentUser.Email" required>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>Street address <span>*</span></label>
-                                    <input  type="text" name="txtAddress" value="@currentUser.Address" />
+                                    <input type="text" name="txtAddress" value="@currentUser.Address" required />
                                 </div>
                                 <div class="col-lg-12 mb-20">
                                     <label>Phone<span>*</span></label>
-                                    <input type="text" name="txtPhone" value="@currentUser.PhoneNumber">
+                                    <input type="text" name="txtPhone" value="@currentUser.PhoneNumber" required>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>State / County</label>
-                                    <input type="text">
+                                    <input type="text" required>
                                 </div>
-                                
-                            <div class="order_button">
-                                <button type="submit">Proceed to Pay</button>
-                            </div>
+                                <input type="text" id="submitTotal" name="submitTotal" style="display: none;">
+                                <div class="order_button" id="playOrder22">
+                                    <button type="submit" >Play Order</button>
+                                </div>
                             </div>
                         </div>
-                            
-                            <div class="col-lg-6 col-md-6" id="targetElement1">
-                            
+                        <div class="col-lg-6 col-md-6">
+                            <h3 style="text-align:center">Order Summary</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name</th>
+                                        <th>Unit Price</th>
+                                        <th>Amount</th>
+                                        <th>Item Subtotal</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="targetElement1">
+                                </tbody>
+                            </table>
+                            <div class="cart_table_border ">
+                                <div class="cart_total price_box">
+                                    <b>Merchandise Subtotal:</b>
+                                    <span class="old_price subTotal"></span>
+                                </div>
+                                <div class="cart_total mt-10">
+                                    <b>Shipping Total:</b>
+                                    <span>Free</span>
+                                </div>
+                                <div class="cart_total mt-10">
+                                    <b>Voucher Discount:</b>
+                                    <span class="discount"></span>
+                                </div>
+
+                                <div class="cart_total mt-10">
+                                    <b>
+                                        Total Payment:
+                                    </b>
+                                    <span class="total"></span>
+                                </div>
                             </div>
-                    
+                        </div>
                     </div>
-                        </form>
-                    </div>                   
-                    </div>
-                </div>
+                </form>
             </div>
-@section scripts{
+        </div>
+    </div>
+</div>
     <script>
-        
+        function validateForm() {
+            var form = document.getElementById("orderForm");
+            if ($('.total').text.trim() === ""){
+                console.log("sdfsdf" + $('.total').text.trim())
+                return false;
+            }
+            // Kiểm tra xem form có hợp lệ không
+            else if (form.checkValidity()) {
+                // Nếu form hợp lệ, hiển thị hộp thoại xác nhận
+                return confirm("Are you sure to Order");
+            } else {
+                // Nếu form không hợp lệ, thông báo lỗi
+                alert("Please fill in all required fields.");
+                return false;
+            }
+        }
+
         $(document).ready(function () {
-            
+
             // Gọi hàm để tải dữ liệu ngay từ đầu
             loadCartData();
-                    
+
             function loadCartData() {
-                
+
                 $.ajax({
                     type: "GET",
                     url: "/ShowCart",
                     success: function (data) {
+                    if (data == null || data.length === 0) {
+                        console.log("Vooooo")
+                        $('#playOrder22').hide();
+                    }
                         var html = '';
+                        var total = 0;
+                        var subTotal = 0;
                         for (var i = 0; i < data.length; i++) {
                             var item = data[i];
-                            html += '<table>'
-                                + '</tr>'
-                                + '<th>Name</th>'
-                                + '<th>Quantity</th>'
-                                + '<th>Sale</th>'
-                                + '</tr>'
-                                + '<tr>'
-                                + '<td>'
-                                + '<input type="text" name = "txtNameProduct" value ="' + item.product.name + '">'
-                                + '</td>'
-                                + '<td>'
-                                + '<input type="number" name = "QuatityProduct" value ="' + item.quantity + '">'
-                                + '</td>'
-                                + '<td>'
-                                + '<input type="number" name = "SaleProduct" value ="' + (item.salePrice * item.quantity) + '" readonly>'
-                                + '</td>'
-                                + '</tr>'
-                                + '</table>'
+                            var price = Number(item.product.price);
+                            subTotal += price * item.quantity;
 
+                            if (item.product.discount.id != 1) {
+                                price = (item.product.price * (1 - item.product.discount.percent));
+                            }
+                            total += price * item.quantity;
+                            html +=
+                                '<tr>'
+                                + '<td>'
+                                + (i+1)
+                                + '</td>'
+                                + '<td>'
+                                + item.product.name
+                                + '</td>'
+                                + '<td>$'
+                                + price.toFixed(2)
+                                + '</td>'
+                                + '<td>'
+                                + item.quantity
+                                + '</td>'
+                                + '<td>$'
+                                + (price * item.quantity).toFixed(2)
+                                + '</td>'
+                                + '</tr>'
                         }
                         $('#targetElement1').append(html);
+                        $('.discount').text('- $' + (-total + subTotal).toFixed(2));
+                        $('.subTotal').text('$' + subTotal.toFixed(2));
+                        $('.total').text('$' + total.toFixed(2));
+                        $("#submitTotal").val(total.toFixed(2));
                     }
                 });
             }
-            
+
         });
     </script>
-}
 
 
 
-    <!--Checkout page section end-->
+<!--Checkout page section end-->

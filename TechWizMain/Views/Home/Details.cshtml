@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="breadcrumb_content">
                     <ul>
-                        <li><a href="index.html">home</a></li>
+                        <li><a href="/">home</a></li>
                         <li>product detaiils</li>
                     </ul>
                 </div>
@@ -31,27 +31,12 @@
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="product-details-tab">
-                    <div id="img-1" class="zoomWrapper single-zoom">
-                        <a href="#">
-                            <img id="zoom1" src="@Model.ImageUrl"
-                                 data-zoom-image=" src="@Model.ImageUrl" alt="big-1">
-                        </a>
-                    </div>
-                    <div class="single-zoom-thumb">
-                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update=""
-                                   data-image="@Model.ImageUrl"
-                                   data-zoom-image="@Model.ImageUrl">
-                                    <img src="@Model.ImageUrl" alt="zo-th-1" />
-                                </a>
-                            </li>
-                        </ul>
+                    <div id="img-1" class="zoomWrapper single-zoom" >
+                            <img id="zoom1" src="@Model.ImageUrl" alt="big-1"  />
                     </div>
 
                 </div>
             </div>
-
 
             <div class="col-lg-6 col-md-6">
                 <div class="product_d_right">
@@ -61,40 +46,46 @@
 
                         <div class="product_ratting">
                             <ul>
-                            @for (int i = 0; i < ViewBag.Number; i++)
-                            {
-                                    <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                            }
-                                <li class="review"><a href="#"> (customer review ) </a></li>
+                                @if (@ViewBag.Number>0)
+                                {
+                                    @ViewBag.Number
+                                    for (int i = 0; i < (((ViewBag.Number % 1) < 0.5) ? Math.Floor(ViewBag.Number) : Math.Ceiling(ViewBag.Number)); i++)
+                                    {
+                                        <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                                    }
+                                }else{
+                                    <span> 0 Review</span>
+                                }
+                                
                             </ul>
                         </div>
                         @Html.Partial("_showPrice",Model)
                         <div class="product_desc">
                             <p>
-                            @{
-                                var description = Model.Description.ToString(); // Chuyển đối tượng StringHtmlContent thành chuỗi
-                                var shortDescription = description.Length > 50 ? description.Substring(0, 50) + "..." : description;
-                            }
+                                @{
+                                    var description = Model.Description.ToString(); // Chuyển đối tượng StringHtmlContent thành chuỗi
+                                    var shortDescription = description.Length > 50 ? description.Substring(0, 50) + "..." : description;
+                                }
 
                                 <div id="descriptionContainer">
-                            @if (description.Length > 50)
-                            {
+                                    @if (description.Length > 50)
+                                    {
                                         <span id="shortDescription">@Html.Raw(shortDescription)</span>
                                         <span id="fullDescription" style="display: none;">@Html.Raw(description)</span>
-                                        <a href="#" id="showFullDescription">See more</a>
-                            }
-                            else
-                            {
-                                @Html.Raw(description)
-                            }
+                                        <a href="#" id="showFullDescription"><b>See more</b></a>
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(description)
+                                    }
 
-                                    <a href="#" id="hideFullDescription" style="display: none;">Collapse</a>
+                                    <a href="#" id="hideFullDescription" style="display: none;"><b>Collapse</b></a>
                             </p>
                         </div>
 
                         <div class="product_variant quantity">
                             <label>quantity</label>
-                            <input id="quantityInput" min="1" max="100" value="1" type="number">
+                            <input id="quantityInput" min="1" max="10" value="1" type="number">
                             <button class="button" type="submit" id="addToCartButton">add to cart</button>
                         </div>
 
@@ -106,7 +97,7 @@
 </div>
 <!--product details end-->
 <!--product info start-->
-                            @*REVIEW*@
+@*REVIEW*@
 <div class="product_d_info mb-90">
     <div class="container">
         <div class="row">
@@ -130,21 +121,21 @@
                                         <img src="assets/img/blog/comment2.jpg" alt="">
                                     </div>
                                     <div class="comment_text">
-                        @foreach (var x in ViewBag.Reviews)
-                        {
+                                        @foreach (var x in ViewBag.Reviews)
+                                        {
                                             <div class="reviews_meta">
                                                 <div class="star_rating">
                                                     <ul>
 
-                                        @for (int i = 0; i < x.Rating; i++)
-                                        {
+                                                        @for (int i = 0; i < x.Rating; i++)
+                                                        {
                                                             <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
-                                        }
+                                                        }
                                                     </ul>
                                                 </div>
-                                @{
-                                    var user = await _userManager.FindByIdAsync(x.UserId);
-                                }
+                                                @{
+                                                    var user = await _userManager.FindByIdAsync(x.UserId);
+                                                }
 
                                                 <p>
                                                     <strong>@user.UserName </strong>
@@ -152,17 +143,16 @@
                                                 </p>
                                                 <span>@x.Content</span>
                                             </div>
-                        }
+                                        }
 
                                     </div>
                                 </div>
                                 <div class="comment_title text-center">
-                                    <h2>Add a review</h2>
                                 </div>
                                 <div>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        var currentUser = _userManager.GetUserAsync(User).Result;
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        var currentUser = _userManager.GetUserAsync(User).Result;
 
                                         <div class="product_ratting mb-10">
                                             <h3>Your rating</h3>
@@ -208,11 +198,11 @@
                                                 <button type="submit">Submit</button>
                                             </form>
                                         </div>
-                    }
-                    else
-                    {
+                                    }
+                                    else
+                                    {
                                         <h2 class="text-center"><a href="/Identity/Account/Login">Please Login to Review</a></h2>
-                    }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -223,7 +213,7 @@
     </div>
 
 
-@*ajax add card*@
+    @*ajax add card*@
     <script>
         $(document).ready(function () {
             $("#addToCartButton").click(function () {
@@ -277,7 +267,7 @@
         };
     </script>
 
-@*
+    @*
     ẩn mo ta*@
     <script>
         $(document).ready(function () {

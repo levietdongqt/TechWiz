@@ -5,6 +5,6 @@ namespace TechWizMain.Services.ReviewService
     public interface IReviewService
     {
 
-        public Task<int> GetReviewCountAsync(int id);
+        public Task<double> GetReviewCountAsync(int id);
     }
 }

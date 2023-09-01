@@ -1,5 +1,4 @@
-﻿
-@model TechWizMain.Areas.Identity.Data.UserManager
+﻿@model TechWizMain.Areas.Identity.Data.UserManager
 
 @{
     ViewBag.Title = "title";
@@ -8,210 +7,280 @@
 }
 
 <!-- my account start  -->
-    <section class="main_content_area">
-        <div class="container">
-            <div class="account_dashboard">
-                <div class="row">
-                    <div class="col-sm-12 col-md-3 col-lg-3">
-                        <!-- Nav tabs -->
-                        <div class="dashboard_tab_button">
-                            <ul role="tablist" class="nav flex-column dashboard-list">
-                                <li><a href="#account-details" data-bs-toggle="tab" class="nav-link " active>Account details</a></li>
-                                <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
-                                <li><a class="nav-link text-decoration-none" ><form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                                                </form></a></li>
-                            </ul>
-                        </div>
+<section class="main_content_area">
+    <div class="container">
+        <div class="account_dashboard">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <div class="dashboard_tab_button">
+                        <ul role="tablist" class="nav flex-column dashboard-list">
+                            <li><a href="#account-details" data-bs-toggle="tab" class="nav-link " active>Account details</a></li>
+                            <li> <a href="#orders" data-bs-toggle="tab" class="nav-link">Orders</a></li>
+                            <li>
+                                <a class="nav-link text-decoration-none">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                    </form>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-sm-12 col-md-9 col-lg-9">
-                        <!-- Tab panes -->
-                        <div class="tab-content dashboard_content">
-                            <div class="tab-pane fade active ms-10px" id="account-details">
-                                <div class="emp-profile">
-                                            <form method="post">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="profile-img">
-                                                            <img src="/images/UserLogo.png" alt="@Model.FullName"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="profile-head">
-                                                                    <h3>
-                                                                        @Model.FullName
-                                                                    </h3>
-                                                                    <p class="proile-rating">RANKINGS : <strong class="fs-3">VIP</strong></p>
-                                                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button class="btn btn-primary profile-edit-btn"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="py-2 px-1 fs-6" style="">Edit</a></button>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="tab-content profile-tab" id="myTabContent">
-                                                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>UserName</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>@Model.UserName</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Full Name</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>@Model.FullName</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Email</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>@Model.Email</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Phone</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>@Model.PhoneNumber</p>
-                                                                            </div>
-                                                                        </div>
-                                                            </div>
-                                                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Experience</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>Expert</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Hourly Rate</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>10$/hr</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Total Projects</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>230</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>English Level</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>Expert</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <label>Availability</label>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <p>6 months</p>
-                                                                            </div>
-                                                                        </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <label>Your Bio</label><br/>
-                                                                        <p>Your detail description</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>           
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard_content">
+                        <div class="tab-pane fade active ms-10px" id="account-details">
+                            <div class="emp-profile">
+                                <form method="post">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="profile-img">
+                                                <img src="/images/UserLogo.png" alt="@Model.FullName" />
+                                            </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="profile-head">
+                                                <h3>
+                                                    @Model.FullName
+                                                </h3>
+                                                <p class="proile-rating">RANKINGS : <strong class="fs-3">VIP</strong></p>
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary profile-edit-btn"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="py-2 px-1 fs-6" style="">Edit</a></button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="tab-content profile-tab" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>UserName</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>@Model.UserName</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Full Name</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>@Model.FullName</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Email</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>@Model.Email</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Phone</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>@Model.PhoneNumber</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Experience</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>Expert</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Hourly Rate</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>10$/hr</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Total Projects</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>230</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>English Level</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>Expert</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label>Availability</label>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>6 months</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label>Your Bio</label><br />
+                                                            <p>Your detail description</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            
-                            <div class="tab-pane fade" id="orders">
-                                <h3>Orders</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
+                        </div>
+
+                        <div class="tab-pane fade" id="orders">
+                            <h3>Orders</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Date</th>
+                                            <th>Total</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var count =1;
+                                        }
+                                        @foreach (Bill item in ViewBag.billList)
+                                        {
                                             <tr>
-                                                <th>Order</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Actions</th>
+                                                <td>@(count++)</td>
+                                                <td>@item.OrderDate</td>
+                                                <td>@item.Total</td>
+                                                <td><b>@item.Status </b></td>
+                                                @if (item.Status.Equals(ProcessBill.Pending.ToString()))
+                                                {
+                                                    <td>
+                                                        <button class="btn btn-danger" type="button" id="cancelBill" data-bill-id="@item.Id">
+                                                            Cancel
+                                                        </button>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>May 10, 2018</td>
-                                                <td><span class="success">Completed</span></td>
-                                                <td>$25.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>May 10, 2018</td>
-                                                <td>Processing</td>
-                                                <td>$17.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="tab-pane fade" id="downloads">
-                                <h3>Downloads</h3>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Downloads</th>
-                                                <th>Expires</th>
-                                                <th>Download</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Shopnovilla - Free Real Estate PSD Template</td>
-                                                <td>May 10, 2018</td>
-                                                <td><span class="danger">Expired</span></td>
-                                                <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Organic - ecommerce html template</td>
-                                                <td>Sep 11, 2018</td>
-                                                <td>Never</td>
-                                                <td><a href="#" class="view">Click Here To Download Your File</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        </div>
+                        <div class="tab-pane fade" id="downloads">
+                            <h3>Downloads</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Downloads</th>
+                                            <th>Expires</th>
+                                            <th>Download</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Shopnovilla - Free Real Estate PSD Template</td>
+                                            <td>May 10, 2018</td>
+                                            <td><span class="danger">Expired</span></td>
+                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Organic - ecommerce html template</td>
+                                            <td>Sep 11, 2018</td>
+                                            <td>Never</td>
+                                            <td><a href="#" class="view">Click Here To Download Your File</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- my account end   -->
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $(document).on("click", "#cancelBill", function (e) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'question',
+                title: 'Confirmation',
+                text: 'This Order will be cancel, are you sure about that?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var BillId = $(this).data("bill-id");
+                    var Url = "/changeBill/" + BillId; // Phần tương đối của URL
+                    console.log("Vo delete Bill");
+                    $.ajax({
+                        type: "Post",
+                        url: Url,
+                        contentType: false,
+                        processData: false,
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            if (data.success) {
+                                // Display SweetAlert2 success message with confirmation
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Cancel successfully!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'OK',
+                                    allowOutsideClick: false // Prevent closing on backdrop click
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/home/account';
+                                    }
+                                });
+                            } else {
+                                // Display SweetAlert2 error message
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Delete failed. Please try again later.'
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+
+    })
+</script>
+<!-- my account end   -->

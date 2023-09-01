@@ -23,10 +23,12 @@ namespace TechWizMain.Services
 		{
 			string mail = headerMailOrder
 			+ "<p>Dear " + UserName + ",</p> "
-			+ "<p> We would like to express our sincere gratitude for choosing to use our services / products and for successfully completing the payment for your order. Below are the details of your payment:</p>"
-			+ "<ul> "
-			+ "<li><strong>Total Amount:</strong>" + Total + "</li>"    
-			+"<li><strong>Payment Date:</strong>" + OrderDate.ToString() + "</li>"    
+			+ "<p> We would like to express our sincere gratitude for choosing to use our services. </br>" +
+            "	We will contact you as soon as possible for your order. </br>" +
+			" Below are the details of your payment:</p>"
+            + "<ul> "
+			+ "<li><strong>Total Amount:</strong> $ " + Total + "</li>"    
+			+"<li><strong>Order Date:</strong>" + OrderDate.ToString() + "</li>"    
 			+"<li><strong>Delivery Address:</strong>" + DeliveryAddress + "</li>"
 			+ "</ul>"
 			+ footerMail;
