@@ -54,7 +54,7 @@ namespace TechWizMain.Services.HomeService
                    TotalQuantitySold = g.Sum(pb => pb.Quantity)
                })
                .OrderByDescending(result => result.TotalQuantitySold)
-               .Take(8)
+               .Take(5)
                .Join(context.Products, result => result.ProductId, product => product.Id, (result, product) => new
                {
                    Product = product,
@@ -132,7 +132,7 @@ namespace TechWizMain.Services.HomeService
                 return await context.Products
                .Where(p => p.TypeProduct.StartsWith("Accessories") && p.status == true)
                .OrderByDescending(p => p.CreatedDate)
-               .Take(8)
+               .Take(4)
                .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
                {
                    Product = product,
