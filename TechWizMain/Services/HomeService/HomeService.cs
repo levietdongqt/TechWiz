@@ -112,9 +112,9 @@ namespace TechWizMain.Services.HomeService
             using (var context = new TechWizContext())
             {
                 return await context.Products
-                .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Plant") && p.status == true)
+                .Where( p => p.TypeProduct.StartsWith("Plant") && p.status == true)
                 .OrderByDescending(p => p.CreatedDate)
-                .Take(8)
+                .Take(4)
                 .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
                 {
                     Product = product,
@@ -130,7 +130,7 @@ namespace TechWizMain.Services.HomeService
             using (var context = new TechWizContext())
             {
                 return await context.Products
-               .Where(p => p.CreatedDate >= DateTime.Now.AddDays(-100) && p.TypeProduct.StartsWith("Accessories") && p.status == true)
+               .Where(p => p.TypeProduct.StartsWith("Accessories") && p.status == true)
                .OrderByDescending(p => p.CreatedDate)
                .Take(8)
                .Join(context.Discounts, product => product.DiscountId, discount => discount.Id, (product, discount) => new ProductResult
