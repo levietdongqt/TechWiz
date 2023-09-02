@@ -55,9 +55,7 @@ namespace TechWizMain.Controllers.AdminModule
             ViewBag.currentPage = currentPage;
             ViewBag.countPages = countPages;
 
-            var productActive = await _productService.GetProductListByStatus(true);
-            
-
+            var productActive = await _productService.GetProductListByStatus(true);            
             var productDeleted = await _productService.GetProductListByStatus(false);
             var listActive = productActive.Skip((currentPage - 1) * 5).Take(ITEM_PER_PAGE).ToList();
             ViewBag.Active = listActive;

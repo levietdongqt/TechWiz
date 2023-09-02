@@ -64,10 +64,9 @@ namespace TechWizMain.Repository.ProductRepository
 
         public async Task<IEnumerable<Product>> GetProductListByStatus(bool status)
         {
-            var productList = await _context.Products.Include(p => p.Discount).Where(t => t.status == status).ToListAsync();
+            var productList = await _context.Products.Include(p => p.Discount).Where(t => t.status == status).OrderByDescending(t=>t.CreatedDate).ToListAsync();
             return productList; 
         }
-
         public bool changeStatus(int? id, bool status)
         {
             var product = _context.Products.First(p => p.Id == id);
