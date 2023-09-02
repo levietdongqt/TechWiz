@@ -452,7 +452,6 @@ GO
 
 
 SET IDENTITY_INSERT [dbo].[CategoryProduct] ON 
-INSERT INTO [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (2, 1, 6)
 INSERT INTO [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (3, 2, 14)
 INSERT INTO [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (4, 3, 10)
 INSERT INTO [dbo].[CategoryProduct] ([Id], [CategoryId], [ProductId]) VALUES (5, 4, 17)

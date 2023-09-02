@@ -29,7 +29,7 @@ namespace TechWizMain.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=MSI;Database=TechWiz;User ID=sa;Password=123;Trusted_Connection=true;MultipleActiveResultSets=true;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server = tcp:techwizserver.database.windows.net, 1433; Initial Catalog = TechWizDB; Persist Security Info = False; User ID = admin123; Password =Aa123456!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
             }
         }
 
