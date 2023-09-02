@@ -1,4 +1,6 @@
-﻿@model IEnumerable<TechWizMain.Models.Product>
+﻿@using TechWizMain.Services.ReviewService;
+@model IEnumerable<TechWizMain.Models.Product>
+@inject IReviewService _reviewService
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -193,12 +195,19 @@
                                                 </div>
                                                 <figcaption class="product_content">
                                                     <div class="product_rating">
+                                                        @{
+                                                            var rating = await _reviewService.GetReviewCountAsync(x.Product.Id);
+                                                        }
                                                         <ul>
-                                                            <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                            <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                            <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                            <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                            <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                            @if (rating > 0)
+                                                            {
+                                                                @rating
+                                                                for (int i = 0; i < ((rating % 1 < 0.5) ? Math.Floor(rating) : Math.Ceiling(rating)); i++)
+                                                                {
+                                                                    <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                                                                }
+                                                            }
+
                                                         </ul>
                                                     </div>
                                                     <h4 class="product_name">
@@ -249,12 +258,19 @@
                                             </div>
                                             <figcaption class="product_content">
                                                 <div class="product_rating">
+                                                    @{
+                                                        var rating2 = await _reviewService.GetReviewCountAsync(x.Product.Id);
+                                                    }
                                                     <ul>
-                                                        <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                        <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                        <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                        <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                        <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                        @if (rating2 > 0)
+                                                        {
+                                                            @rating2
+                                                            for (int i = 0; i < ((rating2 % 1 < 0.5) ? Math.Floor(rating2) : Math.Ceiling(rating2)); i++)
+                                                            {
+                                                                <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                                                            }
+                                                        }
+
                                                     </ul>
                                                 </div>
                                                 <h4 class="product_name">
@@ -266,47 +282,6 @@
                                     </article>
                                 </div>
                             </div>
-                            <article class="single_product">
-                                <figure>
-                                    <div class="product_thumb">
-                                        <a class="primary_img" asp-controller="Home" asp-action="Details" asp-route-id="@x.Product.Id">
-                                            @if (!string.IsNullOrEmpty(@x.Product.ImageUrl))
-                                            {
-                                                <img src="@x.Product.ImageUrl" alt="@x.Product.Name" style="width:250px; height:250px !important">
-                                            }
-                                        </a>
-                                        @Html.Partial("_labelDiscount",x.Product)
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="add_to_cart">
-                                                    <a class="addToCartButton" data-product-id="@x.Product.Id" data-product-Price="@x.Product.Price" href="#" title="Add to cart"><i class="fa-solid fa-cart-plus" style="color: #0d0f12;"></i></a>
-                                                </li>
-                                               @* <li class="wishlist">
-                                                    <a href="#" title="Add to Wishlist"><i class="fa-regular fa-heart" style="color: #0a0c10;"></i></a>
-                                                </li>
-                                                <li class="quick_button">
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view"> <i class="fa-regular fa-eye" style="color: #060b13;"></i></a>
-                                                </li>*@
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <figcaption class="product_content">
-                                        <div class="product_rating">
-                                            <ul>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <h4 class="product_name">
-                                            <a>@x.Product.Name</a>
-                                        </h4>
-                                        @Html.Partial("_showPrice", x.Product)
-                                    </figcaption>
-                                </figure>
-                            </article>
                         }
                         }
                     </div>
@@ -345,12 +320,19 @@
                                     </div>
                                     <figcaption class="product_content">
                                         <div class="product_rating">
+                                            @{
+                                                var rating3 = await _reviewService.GetReviewCountAsync(x.Product.Id);
+                                            }
                                             <ul>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
-                                                <li><a href="#"><i class="fa-solid fa-star" style="color: #dfe208;"></i></a></li>
+                                                @if (rating3 > 0)
+                                                {
+                                                    @rating3
+                                                    for (int i = 0; i < ((rating3 % 1 < 0.5) ? Math.Floor(rating3) : Math.Ceiling(rating3)); i++)
+                                                    {
+                                                        <li><a href="#"><i class="fas fa-star text-warning"></i></a></li>
+                                                    }
+                                                }
+
                                             </ul>
                                         </div>
                                         <h4 class="product_name">
