@@ -113,14 +113,14 @@
     <script>
         function validateForm() {
             var form = document.getElementById("orderForm");
-            if ($('.total').text.trim() === ""){
-                console.log("sdfsdf" + $('.total').text.trim())
+            if ($('.total').text().trim() === ""){
+                console.log("sdfsdf" + $('.total').text().trim())
                 return false;
             }
             // Kiểm tra xem form có hợp lệ không
             else if (form.checkValidity()) {
                 // Nếu form hợp lệ, hiển thị hộp thoại xác nhận
-                return confirm("Are you sure to Order");
+            return confirm("Are you sure to Order? Please check your email after confirmation!!");
             } else {
                 // Nếu form không hợp lệ, thông báo lỗi
                 alert("Please fill in all required fields.");
